@@ -4,5 +4,54 @@
   "reviews": {},
   "customers": [],
   "users": [],
-  "settings": {}
+  "settings": {},
+  "header": null,
+  "footer": {
+    "columns": [
+      {
+        "title": "Connect With Us",
+        "links": [
+          {
+            "text": "Facebook",
+            "url": "#",
+            "icon": "fab fa-facebook"
+          },
+          {
+            "text": "Instagram",
+            "url": "#",
+            "icon": "fab fa-instagram"
+          },
+          {
+            "text": "Pinterest",
+            "url": "#",
+            "icon": "fab fa-pinterest"
+          }
+        ]
+      }
+    ],
+    "paymentMethods": [
+      {
+        "name": "Visa",
+        "icon": "fab fa-cc-visa"
+      },
+      {
+        "name": "Mastercard",
+        "icon": "fab fa-cc-mastercard"
+      },
+      {
+        "name": "Amex",
+        "icon": "fab fa-cc-amex"
+      }
+    ],
+    "business": {
+      "name": "ShopNext Store",
+      "description": "Your one-stop shop for everything",
+      "address": "123 Main Street, Toronto, ON M5V 2T6",
+      "phone": "1-800-SHOP-NEXT",
+      "email": "support@shopnext.com",
+      "hours": "Mon-Fri: 9AM-9PM EST"
+    },
+    "copyright": "© 2026 ShopNext. All rights reserved."
+  },
+  "promotions": null
 }
