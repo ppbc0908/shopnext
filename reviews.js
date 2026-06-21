@@ -1,5 +1,21 @@
 const STORAGE_KEY = 'shopnext_reviews';
 
+function syncReviewsToGitHub(message) {
+    if (typeof GitHubSync === 'undefined' || !GitHubSync.isConfigured()) return;
+    const allData = {
+        products: JSON.parse(localStorage.getItem('shopnext_products') || '[]'),
+        orders: JSON.parse(localStorage.getItem('shopnext_orders') || '[]'),
+        reviews: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'),
+        customers: JSON.parse(localStorage.getItem('shopnext_customers') || '[]'),
+        users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+        settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+        header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+        footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+        promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+    };
+    GitHubSync.deployData(allData, message || 'Update reviews').catch(e => console.warn('GitHub sync failed:', e));
+}
+
 function getProductId() {
     const params = new URLSearchParams(window.location.search);
     return params.get('productId') || '';
@@ -51,6 +67,7 @@ function addReview(productId, data) {
     };
     all[key].push(review);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    syncReviewsToGitHub('Add review');
 }
 
 function toggleHelpful(productId, reviewId) {
@@ -61,6 +78,7 @@ function toggleHelpful(productId, reviewId) {
     if (review) {
         review.helpful = (review.helpful || 0) + 1;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+        syncReviewsToGitHub('Update review helpful count');
     }
 }
 
