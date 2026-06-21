@@ -84,7 +84,7 @@ const GitHubSync = {
                 clearTimeout(timer);
                 if (res.ok) {
                     const data = await res.json();
-                    if (data && data.products && data.products.length > 0) return data;
+                    if (data && typeof data.products !== 'undefined') return data;
                 }
             } catch (e) {}
         }
