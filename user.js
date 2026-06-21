@@ -7,6 +7,22 @@ const UserSystem = {
     AFFILIATE_KEY: 'shopnext_affiliate',
     ORDERS_KEY: 'shopnext_orders',
 
+    syncToGitHub(message) {
+        if (typeof GitHubSync === 'undefined' || !GitHubSync.isConfigured()) return;
+        const allData = {
+            products: JSON.parse(localStorage.getItem('shopnext_products') || '[]'),
+            orders: JSON.parse(localStorage.getItem(this.ORDERS_KEY) || '[]'),
+            reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+            customers: JSON.parse(localStorage.getItem('shopnext_customers') || '[]'),
+            users: JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]'),
+            settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+            header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+            footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+            promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+        };
+        GitHubSync.deployData(allData, message || 'Update data').catch(e => console.warn('GitHub sync failed:', e));
+    },
+
     init() {
         this.renderUserMenu();
         this.renderLoginModal();
@@ -29,6 +45,7 @@ const UserSystem = {
                 FirebaseService.saveUser(latest).catch(() => {});
             }
         }
+        this.syncToGitHub('Update users');
     },
 
     getCurrentUser() {
@@ -242,6 +259,7 @@ const UserSystem = {
         const orders = this.getOrders();
         orders.push(order);
         localStorage.setItem(this.ORDERS_KEY, JSON.stringify(orders));
+        this.syncToGitHub('New user order');
     },
 
     generateAffiliateCode() {
@@ -530,8 +548,10 @@ const UserSystem = {
     },
 
     switchSizeTab(tab) {
-        document.querySelectorAll('.size-tab').forEach(t => t.classList.remove('active'));
-        event.target.classList.add('active');
+        document.querySelectorAll('.size-tab').forEach(t => {
+            t.classList.remove('active');
+            if (t.textContent.trim().toLowerCase() === tab) t.classList.add('active');
+        });
         const content = document.getElementById('size-guide-content');
         if (!content) return;
         const sizes = {
