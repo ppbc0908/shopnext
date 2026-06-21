@@ -1,773 +1,146 @@
 {
   "products": [
     {
-      "badge": "New",
-      "id": "1781940361057",
+      "id": 1,
+      "name": "Premium Wireless Noise-Cancelling Headphones",
+      "category": "Electronics",
+      "price": 299.99,
+      "originalPrice": 399.99,
+      "images": ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop"],
+      "rating": 4.8,
+      "reviews": 256,
+      "badge": "Best Seller",
+      "description": "Experience crystal-clear audio with active noise cancellation and 30-hour battery life.",
       "status": "active",
-      "options": [],
-      "brand": "Yes4All",
-      "productVideos": [
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/66b117b2-979b-4a36-8c7e-8518a31ca939.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0c02050a-47cd-4d0e-87f2-b24b68c33b11.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/fdb19eb2-67b7-4854-893d-4b8f70f59e1c.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5355389b-d3cc-4e71-ace5-07e59e1cd677.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6ec32d27-3bd2-47c6-b36f-f87de8ac8f34.mp4/productVideoOptimized.mp4"
-      ],
-      "about": [
-        "CAST IRON HAND WEIGHTS NEOPRENE DUMBBELLS: Yes4All Neoprene Dumbbell will not break or bend after repeated use. Neoprene is also more durable & less prone to splitting than vinyl, making it a more desirable choice for long term use",
-        "NON SLIP WEIGHTS NEOPRENE: Thick durable neoprene coating provides a comfy grip on hands and doesn’t require gloves. The neoprene coating forms a protective barrier that prevents the dumbbells from chipping and protects the floor from damage",
-        "COLOR CODED NEOPRENE DUMBBELL WITH ANTI ROLLING HEAD: Color coded weights neoprene dumbbell with printed weight number on the end caps for easy identification. Hexagonal head prevents rolling away from the storage place or during your workout",
-        "GREAT FOR TOTAL BODY WORKOUT: Yes4All Neoprene Dumbbells are suitable for sculpting your arms, shoulders & back, build stamina; Suitable for overall health, balance, weight management, aerobics, cardio, yoga, and strength building",
-        "VERSATILE & MULTIPURPOSE: Easy to store and suitable for travel; Use for your indoor or outdoor workout regimes; Great for arm rows, squats, chest presses, bicep curls, walking, jogging, & yoga"
-      ],
-      "rating": 0,
-      "brandStory": "",
-      "originalPrice": 31.84,
-      "mediaFeatures": [],
+      "stock": 45,
+      "seller": "AudioTech Official",
+      "brand": "AudioTech",
+      "about": ["Active Noise Cancellation", "30-hour battery life", "Premium 40mm drivers"],
+      "specs": {"Brand": "AudioTech", "Connectivity": "Bluetooth 5.0", "Battery Life": "30 hours"}
+    },
+    {
+      "id": 2,
+      "name": "4K Ultra HD Smart TV 55 inch",
+      "category": "Electronics",
+      "price": 499.99,
+      "originalPrice": 699.99,
+      "images": ["https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop"],
+      "rating": 4.6,
+      "reviews": 189,
+      "badge": "Sale",
+      "description": "Stunning 4K picture quality with smart TV features and voice control.",
+      "status": "active",
+      "stock": 12,
+      "seller": "VisionPlus Store",
+      "about": ["True 4K UHD resolution", "HDR10+ support", "Built-in voice assistant"],
+      "specs": {"Brand": "VisionPlus", "Resolution": "3840 x 2160", "Screen Size": "55 inches"}
+    },
+    {
+      "id": 3,
+      "name": "Building Blocks Creative Set 1000 Pieces",
+      "category": "Toys & Hobbies",
+      "price": 49.99,
+      "originalPrice": 69.99,
+      "images": ["https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"],
+      "rating": 4.9,
+      "reviews": 412,
+      "badge": "Top Rated",
+      "description": "Unleash creativity with 1000 colorful building blocks for endless fun.",
+      "status": "active",
+      "stock": 128,
+      "seller": "PlayTime Toys",
+      "about": ["1000 pieces in 20+ colors", "Compatible with all major brands", "BPA-free ABS plastic"],
+      "specs": {"Brand": "BlockMaster", "Piece Count": "1000", "Material": "ABS Plastic"}
+    },
+    {
+      "id": 4,
+      "name": "Remote Control Racing Car",
+      "category": "Toys & Hobbies",
+      "price": 79.99,
+      "originalPrice": 99.99,
+      "images": ["https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=600&h=600&fit=crop"],
+      "rating": 4.5,
+      "reviews": 156,
+      "badge": "New",
+      "description": "High-speed RC car with realistic controls and durable design.",
+      "status": "active",
+      "stock": 34,
+      "seller": "SpeedZone RC",
+      "about": ["Speeds up to 30 mph", "2.4GHz frequency", "All-terrain tires"],
+      "specs": {"Brand": "SpeedZone", "Scale": "1:16", "Speed": "30 mph"}
+    },
+    {
+      "id": 5,
+      "name": "Professional Yoga Mat with Carrying Strap",
       "category": "Health & Fitness",
-      "description": "Yes4All Dumbbell Neoprene, poids et haltere, Weight Set, Hand Weights for Women, Dumbbells Pair, Free Weights (Orange - 8lbs) in Dumbbells.",
-      "certifications": [],
-      "detailedDescription": "",
-      "price": 27.08,
-      "name": "Add to your order",
-      "seller": "",
-      "reviews": 0,
-      "images": [
-        "https://m.media-amazon.com/images/I/51y-CZ2QMyL._AC_SL1500_.jpg"
-      ],
-      "stock": 50,
-      "specs": {
-        "Colour": "Orange - 8lbs - Pair",
-        "Warranty Description": "60-DAY RETURN and FULL 5-YEAR LIMITED WARRANTY",
-        "Price": "$20.44$20.44",
-        "Special feature": "Non-Slip",
-        "Color": "Multi colors",
-        "Manufacturer Contact Information": "BREA, CA, 92821 US",
-        "Manufacturer": "Yes4All",
-        "Handle material": "Neoprene",
-        "Item Dimensions L x W": "21.6L x 10.2W Centimetres",
-        "Number of Items": "1",
-        "Material": "Cast Iron, Neoprene",
-        "Special Feature": "Non-slip & Color-coded",
-        "ASIN": "B00A6MKU98",
-        "Model Number": "DSAX",
-        "Customer Reviews": ".aplus-v2 .aplus-review-right-padding {        padding-right: 0.1rem;    }                             4.6 out of 5 stars     18,539",
-        "Included Components": "dumbbells",
-        "Style Name": "8 pound Dumbbell Pair",
-        "Material Type": "Cast Iron / Neoprene Coated",
-        "Fitness Levels": "Beginner & Intermediate",
-        "Style": "8 pound Dumbbell Pair",
-        "Product Dimensions": "21.6L x 10.2W Centimetres",
-        "Item Type Name": "Dumbbell Neoprene - 8lbs - Orange - Pair",
-        "Number of Pieces": "2",
-        "Country of Origin": "China",
-        "Best Sellers Rank": "#20 in Sports & Outdoors (See Top 100 in Sports & Outdoors)  #2 in Exercise & Fitness Dumbbells",
-        "Set Name": "Yes4All Neoprene Dumbbell Set (8 lbs Pair)",
-        "Item Weight": "7.26 kg",
-        "Handle Diameter": "1.4",
-        "Weight option": "2-20 LB",
-        "Other Special Features of the Product": "Non-Slip",
-        "UPC": "817802023003 766897515392",
-        "Part Number": "DSAX",
-        "Handle diameter": "1.4",
-        "Brand Name": "Yes4All",
-        "Grip Size": "Medium",
-        "Handle Material": "Neoprene",
-        "Number of pieces": "2",
-        "Target Use Body Part": "Back",
-        "Item weight": "7.26 kg",
-        "Brand": "Yes4All"
-      }
+      "price": 39.99,
+      "originalPrice": 59.99,
+      "images": ["https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop"],
+      "rating": 4.7,
+      "reviews": 328,
+      "badge": "Best Value",
+      "description": "Non-slip, eco-friendly yoga mat perfect for all types of exercises.",
+      "status": "active",
+      "stock": 89,
+      "seller": "YogaLife Store",
+      "about": ["6mm thick cushioning", "Non-slip surface", "Eco-friendly TPE material"],
+      "specs": {"Brand": "YogaLife", "Material": "TPE", "Thickness": "6mm"}
     },
     {
-      "about": [
-        "Adjustable Weight Set: Customize your training sessions with weight options ranging from 1.65 lbs to 30 lbs/52 lbs/85 lbs. Perfect for progressive overload and tailored strength workouts.",
-        "5-in-1 Versatility: Includes dumbbells, kettlebells, barbells, push-up stands, and weight plates, allowing you to perform endless exercises like bicep curls, shoulder presses, squats, lunges, and more.",
-        "Anti-Impact Design: Built with premium materials to withstand intense workouts and last for years. The eco-friendly PVC protector and durable metal shell help protect both your floor and your equipment during use.",
-        "Space-Saving & Portable: Replace multiple pieces of equipment with this single, multifunctional set. Its sleek design is ideal for home gyms, apartments, or outdoor workouts.",
-        "Versatile Kettlebells: Swing into strength with three types of versatile kettlebells, perfect for various exercises.",
-        "Push-Up Stand: The push-up stand is a non-slip kettle handle, providing a secure grip for safe workouts.",
-        "Premium Weight Clamps: The included weight clamps provide extra safety and security during your lifts, preventing weights from slipping and ensuring a smooth, worry-free workout."
-      ],
-      "description": "IMFIT AIO Adjustable Dumbbells Set (1.65 lb to 85lbs) 5 in 1 Free Weight Set Used as Barbell, Kettlebells, Push up Stand, Weights for Home Gym Suitable Men/Women | Full-Body Workouts in Dumbbells.",
-      "originalPrice": 159.99,
+      "id": 6,
+      "name": "Adjustable Dumbbell Set 50 lbs",
       "category": "Health & Fitness",
-      "mediaFeatures": [],
-      "brandStory": "",
-      "rating": 0,
-      "options": [],
-      "id": "1781944627418",
+      "price": 199.99,
+      "originalPrice": 299.99,
+      "images": ["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"],
+      "rating": 4.8,
+      "reviews": 203,
+      "badge": "Popular",
+      "description": "Space-saving adjustable dumbbells for your home gym workouts.",
       "status": "active",
-      "badge": "New",
-      "productVideos": [
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a8526fbd-7669-4606-a650-e39eb1d5b377.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9b7d55c3-2f11-435d-a197-6427a9bf096b.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9f5ec749-2d62-4968-8be0-7de9d8e8c9b2.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e6f50465-e16d-407b-8e49-1489c66644bb.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/dbbb5276-0aa3-4dcc-9aff-15591f6789fc.mp4/productVideoOptimized.mp4"
-      ],
-      "brand": "IMGadgets",
-      "specs": {
-        "Manufacturer": "IMGadgets",
-        "Handle material": "Premium Iron",
-        "Unit Count": "1 Set",
-        "Item Dimensions L x W": "81L x 25W Centimetres",
-        "Manufacturer Contact Information": "IMGadgets: +1 647-797-3804 customercare@imgadgets.com",
-        "Price": "$229.95$229.95",
-        "Special feature": "Adjustable Weight, Non-Slip, Sweat Resistant",
-        "Colour": "Grey",
-        "Product Dimensions": "81L x 25W Centimetres",
-        "Style Name": "Adjustable",
-        "Material Type": "Iron",
-        "Non Slip Grip": "✔",
-        "Style": "Adjustable",
-        "Requires Rack": "✘",
-        "ASIN": "B0F2GKXLQC",
-        "Customer Reviews": ".aplus-v2 .aplus-review-right-padding {        padding-right: 0.1rem;    }                             4.1 out of 5 stars     826",
-        "Number of Items": "5",
-        "Material": "Premium Metal with PVC Shield",
-        "Part Number": "DMBL2",
-        "Other Special Features of the Product": "Adjustable Weight, Non-Slip, Sweat Resistant",
-        "UPC": "736542160017",
-        "Set Name": "IMFIT AIO",
-        "Item Weight": "85 Pounds",
-        "Space Efficient": "✔",
-        "Number of Pieces": "5",
-        "Best Sellers Rank": "#329 in Sports & Outdoors (See Top 100 in Sports & Outdoors)  #7 in Exercise & Fitness Dumbbells",
-        "Country of Origin": "China",
-        "Item weight": "85 Pounds",
-        "Brand": "IMGadgets",
-        "Handle Material": "Premium Iron",
-        "Number of pieces": "5",
-        "Weight Range": "1.65 - 85 Lbs",
-        "Brand Name": "IMGadgets"
-      },
-      "stock": 50,
-      "images": [
-        "https://m.media-amazon.com/images/I/711Py5-HtnL._AC_SL1200_.jpg"
-      ],
-      "price": 229.95,
-      "certifications": [],
-      "detailedDescription": "",
-      "reviews": 0,
-      "seller": "Gyrocopters",
-      "name": "Add to your order"
+      "stock": 23,
+      "seller": "FitGear Pro",
+      "about": ["Adjustable 5-50 lbs", "Quick-change weight", "Replaces 15 sets"],
+      "specs": {"Brand": "FitGear", "Weight Range": "5-50 lbs", "Material": "Steel plates"}
     },
     {
-      "images": [
-        "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg"
-      ],
-      "stock": 50,
-      "specs": {
-        "Battery Cell Type": "Lithium Polymer",
-        "Battery capacity": "10000 Milliamp Hours",
-        "Item Dimensions L x W x Thickness": "14.5L x 6.9W x 1.9Th Centimetres",
-        "Charging Simultaneously": "5 Devices",
-        "Voltage": "5 Volts",
-        "Input / Output": "5 Outputs & 2 Inputs",
-        "Number of Ports": "6",
-        "Number of Items": "1",
-        "Model Number": "CW1",
-        "Customer Reviews": ".aplus-v2 .aplus-review-right-padding {        padding-right: 0.1rem;    }                             4.5 out of 5 stars     976",
-        "Connector Type": "Micro USB/USB A, USB Type C",
-        "ASIN": "B0DZ1PKCWT",
-        "Battery Capacity": "10000 Milliamp Hours",
-        "Number of Batteries": "2 A batteries required. (included)",
-        "Unit Count": "1 Count",
-        "Manufacturer": "Shenzhen weipai Technology Co., Ltd.",
-        "Warranty Description": "24 Month replacement service",
-        "Colour": "Black",
-        "Battery Weight": "74 Grams",
-        "Antenna Location": "Phone",
-        "Main Feature": "Built-in 4 cables",
-        "Special feature": "Built In Cable, LED Diplay, Lanyard Design, Pocket Size, Slim",
-        "Connector type": "Micro USB/USB A, USB Type C",
-        "Price": "$24.99$24.99",
-        "Brand": "Coowisty",
-        "Power Source": "Corded Electric",
-        "Capacity": "10000mAh",
-        "Model": "CW1 Black",
-        "Compatible Devices": "Smartphone",
-        "Model Name": "CW1",
-        "Item Dimensions": "14.5 x 6.5 x 1.8 Centimetres",
-        "Mfr Part Number": "CW1",
-        "Other Special Features of the Product": "Built In Cable, LED Diplay, Lanyard Design, Pocket Size, Slim",
-        "Portable": "Yes",
-        "Quantity": "1 pcs",
-        "Best Sellers Rank": "#32 in Cell Phone Portable Power Banks",
-        "Country of Origin": "China"
-      },
-      "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-      "reviews": 0,
-      "seller": "weipai-ca",
-      "certifications": [
-        "Climate Pledge Friendly"
-      ],
-      "detailedDescription": "Coowisty 10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black) : Amazon.ca: Electronics",
-      "price": 24.99,
-      "rating": 0,
-      "brandStory": ".aplus-v2 .aplus-content-wrapper {\n        position: relative;\n        overflow: hidden;\n    }\n\n    .aplus-v2 .container-with-background-image {\n        width: 100%;\n        height: 100%;\n        background-repeat: no-repeat;\n        background-size: cover;\n    }\n\n  \n    function logShoppableMetrics(moduleName, showsAddToCart) {\n        if (window.ue && window.ue.count) {\n            window.ue.count(\"aplus:shoppable:\" + moduleName + \":addToCart\", showsAddToCart ? 1 : 0);\n        }\n    }\n\n\n                                                 From the brand   \n    \n            \n    /*\n     * Used when device = desktop\n     * Configured in: configuration/brazil-config/global/brand-story.cfg\n     */\n\n    /* Because the carousel is implemented as an ol list,\n       any lists in the card text will h",
-      "mediaFeatures": [],
-      "category": "Electronics",
-      "originalPrice": 33.99,
-      "description": "",
-      "about": [
-        "[Slim & Lightweight Portable Charger] This slim power bank measures just 14.5 × 6.9 × 1.9 cm and weighs only 260g. Slip it easily into your pocket, backpack, or handbag without adding extra bulk.",
-        "[Power Bank with Built-in Cables] Featuring 4 built-in charging options—USB-A, USB-C, Cable for iPhone, and Micro-USB—this portable charger eliminates the need for carrying extra cables. Charge anywhere without tangled cords.",
-        "[Convenient Lanyard Design] Designed with a practical built-in lanyard, this power bank can be attached to your bag or worn around your finger for quick and easy access.",
-        "[5 Outputs & 2 Inputs] Equipped with 5 outputs (USB-A port, USB-C cable, Built-in iPhone cable, Micro-USB cable, and USB-C port) and 2 input methods (USB cable and USB-C port), this charger supports charging up to 5 devices simultaneously.",
-        "[LED Digital Display] The bright LED display clearly shows the remaining battery level at a glance, keeping you informed of your power status anytime.",
-        "[Wide Compatibility] Compatible with most smartphones, tablets, and electronic devices, this portable charger provides reliable charging wherever you go.",
-        "[Reliable Quality & 2-Year Support] Enjoy peace of mind with our 2-year support. If any quality issues arise, we’ll provide a hassle-free replacement.",
-        "[What’s Included] 1 × Portable Charger, 1 × User Manual, plus 24/7 friendly customer support."
-      ],
-      "brand": "Coowisty",
-      "productVideos": [],
-      "badge": "New",
-      "id": "1781944736521",
+      "id": 7,
+      "name": "Indoor Herb Garden Kit with LED Grow Lights",
+      "category": "Home & Garden",
+      "price": 59.99,
+      "originalPrice": 79.99,
+      "images": ["https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop"],
+      "rating": 4.6,
+      "reviews": 167,
+      "badge": "Trending",
+      "description": "Grow fresh herbs year-round with this complete indoor garden system.",
       "status": "active",
-      "options": []
+      "stock": 56,
+      "seller": "GreenThumb Co.",
+      "about": ["Complete kit included", "Full-spectrum LED lights", "Self-watering system"],
+      "specs": {"Brand": "GreenThumb", "Pod Capacity": "6 pods", "Light Type": "LED"}
     },
     {
-      "images": [
-        "https://m.media-amazon.com/images/I/610zwuiLDnL._AC_SL1500_.jpg"
-      ],
-      "stock": 50,
-      "specs": {
-        "Battery capacity": "10000 Milliamp Hours",
-        "Battery Cell Type": "Lithium Polymer",
-        "Brand": "podoru",
-        "Power Source": "Battery",
-        "Model Name": "KT-D013",
-        "Voltage": "3 Volts (AC)",
-        "Item Dimensions L x W x Thickness": "10.4L x 6.8W x 1.7Th Centimetres",
-        "Item Dimensions": "10.4 x 6.8 x 1.7 Centimetres",
-        "Number of Batteries": "1 Lithium Polymer batteries required.",
-        "Model Number": "KT-D013",
-        "Battery Capacity": "10000 Milliamp Hours",
-        "ASIN": "B0G6NM8BVR",
-        "Connector Type": "USB Type C",
-        "Manufacturer Contact Information": "Shenzhen Zhilianxintong Electronics Co., Ltd",
-        "Other Special Features of the Product": "Digital Display, Fast Charging, Foldable Stand, Pocket Size, Wireless Charging",
-        "Compatible Phone Models": "iPhone 15 All Series, iPhone 16 All Series, iPhone 17 All Series",
-        "Manufacturer": "Shenzhen Zhilianxintong Electronics Co., Ltd",
-        "Colour": "Black",
-        "Battery Weight": "50 Grams",
-        "Best Sellers Rank": "#50 in Cell Phone Portable Power Banks",
-        "Connector type": "USB Type C",
-        "Item Weight": "0.24 Kilograms",
-        "Antenna Location": "Indoor/Outdoor",
-        "Special feature": "Digital Display, Fast Charging, Foldable Stand, Pocket Size, Wireless Charging"
-      },
-      "certifications": [
-        "Climate Pledge Friendly"
-      ],
-      "detailedDescription": "podoru for Magsafe Power Bank, Foldable 10000mAh Magnetic Battery Pack with USB-C Cable LED Display 22.5W PD Fast Charging Wireless Portable Charger for iPhone 17/16/15/14/13/12 Series-Black : Amazon.ca: Electronics",
-      "price": 37.99,
-      "name": "podoru for Magsafe Power Bank, Foldable 10000mAh Magnetic Battery Pack with USB-C Cable LED Display 22.5W PD Fast Charging Wireless Portable Charger for iPhone 17/16/15/14/13/12 Series-Black",
-      "reviews": 0,
-      "seller": "TQTPower",
-      "about": [
-        "Great Compatibility & Strong Magnetic: Magnetic power bank for iPhone with the newest magnetic technology (stronger magnetic and nano adsorption), is designed for iPhone 17/16/15/14/13/12 Series (Note: Need to be aligned with the magnetic suction, without cases or with magnetic cases). And the magnet of the power bank for iPhone is strong, it securely stays in place, the portable charger for Magnetic offers a convenient and efficient charging",
-        "Multifunctional Built-in Foldable Stand: The magnetic power bank features a foldable stand to hold your iPhone (horizontally or vertically); The built in stand of the magnetic portable charger for iphone is sturdy enough to hold your phone, you can free your hands to watch videos or make video calls with friends, design allows you to put the magnetic wireless power bank in your pocket or backpack easily",
-        "3 Devices Fast Wireless and Wired Charging: Our wireless portable charger support 5W, 7.5W, 10W and 15W Max wireless charging, 22.5W max USB-A PD output and max 20W USB-C output; support max 18W Lighting input and max 18w USB-C input. Portable charger iPhone Support 3 devices charging at the same time, charging together, no waiting. And the power bank case is made of silicone to avoid damaging your phone",
-        "10000mAh Large Capacity & Smart LED Display: 10000mAh Large capacity and high density battery design can provide all-day power, providing enough power for your device when you are camping, hiking, outdoor adventure and other trips, without worrying about insufficient power; on the LED screen of the wireless power bank, you can clearly see the exact remaining power, wireless charging symbol and the green PD fast charging symbol, without guessing the remaining power level",
-        "Superior Safety: With 8 built-in low-temperature ice cores, this latest Podoru magnetic wireless charger has comprehensive multi protect safety system specifically includes temperature control, overcharge protection, short circuit protection and more to safe your phone. Can prevent overheating and high temperature effects, proactively avoid a series of potential dangers. Once you have this wireless charger, you can use it with confidence"
-      ],
-      "rating": 0,
-      "brandStory": ".aplus-v2 .aplus-content-wrapper {\n        position: relative;\n        overflow: hidden;\n    }\n\n    .aplus-v2 .container-with-background-image {\n        width: 100%;\n        height: 100%;\n        background-repeat: no-repeat;\n        background-size: cover;\n    }\n\n  \n    function logShoppableMetrics(moduleName, showsAddToCart) {\n        if (window.ue && window.ue.count) {\n            window.ue.count(\"aplus:shoppable:\" + moduleName + \":addToCart\", showsAddToCart ? 1 : 0);\n        }\n    }\n\n\n                                                 From the brand   \n    \n            \n    /*\n     * Used when device = desktop\n     * Configured in: configuration/brazil-config/global/brand-story.cfg\n     */\n\n    /* Because the carousel is implemented as an ol list,\n       any lists in the card text will h",
-      "mediaFeatures": [],
-      "category": "Electronics",
-      "originalPrice": 29.99,
-      "description": "",
-      "badge": "New",
-      "status": "active",
-      "id": "1781944902071",
-      "brand": "podoru",
-      "productVideos": [
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5f194d82-5236-494b-af78-06640d41cc88.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/d9baa0e0-ebea-41ac-9053-bd1890144cf9.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2d96d528-1951-4067-beff-a918cf9c9c9d.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/d268515a-77f9-43ef-ba4f-d0d1fd73af81.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c349f04d-b8e7-42b8-8538-e90d05329706.mp4/productVideoOptimized.mp4"
-      ]
-    },
-    {
-      "about": [
-        "BLUETOOTH WIRELESS - Popular classic bookshelf speakers now can be enjoyed without the hassle of wires. Simply connection to an iPhone, Android, Tablet, PC or Mac.",
-        "STUDIO SOUND QUALITY - Naturally fine tuned sound reproduction from 4 inch bass and 13mm silk dome tweeter.",
-        "OPTICAL AND COAXIAL INPUTS - Digital inputs to enable lossless connection to most TV and computers.",
-        "REMOTE CONTROL - Adjust the volume and toggle inputs at your fingertips. Bass and treble control located on the side of main speaker.",
-        "COMPACT DESIGN - Space-saving and stylish, perfect for any tabletop or desk setup."
-      ],
-      "category": "Electronics",
-      "originalPrice": 199.99,
-      "mediaFeatures": [],
-      "description": "Edifier R1280DB Powered Bluetooth Bookshelf Speakers - Optical Input - Wireless Studio Monitors - 4 Inch Near Field Speaker - 42w RMS (White) : Amazon.ca: Electronics",
-      "rating": 0,
-      "brandStory": "",
-      "id": 1782012092356,
-      "status": "active",
-      "badge": "New",
-      "productVideos": [
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/115ed110-198c-42e0-b1ed-c3e8a880a987.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/55bec9e0-4041-4580-a52c-c1f935d1eba8.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1731f6e4-c9ee-42cb-a9c6-8bb9c5473189.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/d772f75c-e4fc-49be-892f-c6f3e9e210f8.mp4/productVideoOptimized.mp4",
-        "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e1dd9772-263e-4483-9e20-a63278d27a2f.mp4/productVideoOptimized.mp4"
-      ],
-      "brand": "Edifier",
-      "specs": {
-        "Number of Items": "1",
-        "Additional Features": "Bluetooth, Wireless",
-        "Connectivity technology": "Bluetooth, Optical, Coaxial, and Dual RCA",
-        "Customer Reviews": ".aplus-v2 .aplus-review-right-padding {        padding-right: 0.1rem;    }                             4.6 out of 5 stars     2,044",
-        "BASS DRIVER:": "4 inch (116mm)",
-        "Tweeter Diameter": "13 Millimeters",
-        "Bluetooth Range": "10 Meters",
-        "Audio Latency": "200 Milliseconds",
-        "Item Type Name": "Speaker",
-        "Subwoofer Diameter": "4 Inches",
-        "Item Dimensions D x W x H": "43.1D x 18.3W x 32H Centimetres",
-        "Mounting type": "Shelf Mount",
-        "Packer Contact Information": "D.V.Technologies , Unit no 105 , Sethia Industrial Park , Vasai East Mumbai 401208",
-        "TOTAL POWER OUTPUT:": "R/L: 21W+21W RMS",
-        "Woofer Diameter": "4 Inches",
-        "Mounting Type": "Shelf Mount",
-        "Enclosure Material": "Wood",
-        "Connectivity Technology": "Bluetooth, Optical, Coaxial, and Dual RCA",
-        "Power Source": "Corded Electric",
-        "Model Name": "R1280DB",
-        "Speaker Type": "Bookshelf",
-        "Compatible Devices": "Smartphone",
-        "SIGNAL TO NOISE RATIO:": "≥85dBA",
-        "Audio Driver Size": "13 Millimeters",
-        "Connectivity Protocol": "Coaxial",
-        "DIMENSONS [PER SPEAKER]:": "5.7 x 7.7 x 9.2 in",
-        "Audio Output Mode": "Stereo",
-        "Audio output mode": "Stereo",
-        "Importer Contact Information": "D.V.Technologies , Unit no 105 , Sethia Industrial Park , Vasai East Mumbai 401208",
-        "Speaker Size": "4 Inches",
-        "Customer Package Type": "FFP",
-        "Specific Uses For Product": "Record player audio playback",
-        "ASIN": "B0CDPN5663",
-        "Model Number": "edifier-r1280db-white",
-        "Wireless Technology": "Bluetooth",
-        "Number of Audio Channels": "2.0",
-        "Controller Type": "Android, Remote Control",
-        "Colour": "White",
-        "Warranty Description": "2 Years Manufacturer",
-        "FREQUENCY RESPONSE:": "55Hz-20KHz",
-        "Price": "$169.99$169.99",
-        "MP3 player": "No",
-        "Antenna Location": "For Computers",
-        "Manufacturer Contact Information": "edifier",
-        "TREBLE DRIVER:": "Φ13 mm silk dome",
-        "Manufacturer": "Edifier",
-        "Water Resistance Level": "Not Water Resistant",
-        "Unit Count": "1 Count",
-        "Number Of Circuits": "1",
-        "Age Range Description": "Adult",
-        "INPUT TYPE:": "RCA x2",
-        "Control Method": "Remote",
-        "Audio Driver Type": "Dynamic Driver",
-        "INPUT SENSITIVITY:": "LINE IN1: 450±50mV LINE IN2: 550±50mV OPT/COA: 500±50mFFS Bluetooth: 700±50mFFS",
-        "Brand": "Edifier",
-        "Speaker maximum output power": "42 Watts",
-        "Built-In Media": "remote control",
-        "Speaker Maximum Output Power": "42 Watts",
-        "Best Sellers Rank": "#1,493 in Electronics (See Top 100 in Electronics)  #9 in Bookshelf Speakers",
-        "Processor Count": "1",
-        "Item Weight": "4899 Grams",
-        "Is Waterproof": "False",
-        "ACTIVE/PASSIVE:": "Active",
-        "UPC": "875674007620",
-        "REMOTE CONTROL:": "✓",
-        "Subwoofer Connectivity Technology": "Wireless"
-      },
-      "stock": 50,
-      "images": [
-        "https://m.media-amazon.com/images/I/91ryW851ikL._AC_SL1500_.jpg"
-      ],
+      "id": 8,
+      "name": "Smart Home Security Camera System",
+      "category": "Home & Garden",
       "price": 149.99,
-      "detailedDescription": "",
-      "certifications": [],
-      "seller": "Edifier Online Store",
-      "reviews": 0,
-      "name": "2"
+      "originalPrice": 199.99,
+      "images": ["https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop"],
+      "rating": 4.7,
+      "reviews": 289,
+      "badge": "Editor's Choice",
+      "description": "Keep your home safe with 24/7 monitoring and mobile alerts.",
+      "status": "active",
+      "stock": 67,
+      "seller": "SecureHome Tech",
+      "about": ["1080p Full HD video", "Motion detection alerts", "Two-way audio"],
+      "specs": {"Brand": "SecureHome", "Resolution": "1080p", "Connectivity": "Wi-Fi"}
     }
   ],
-  "orders": [
-    {
-      "promoCode": "SHOP3MDKW9",
-      "items": [
-        {
-          "price": 24.99,
-          "quantity": 1,
-          "image": "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg",
-          "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-          "id": 1781944736521
-        }
-      ],
-      "date": "2026-06-21T00:25:51.730Z",
-      "status": "processing",
-      "payment": {
-        "method": "visa",
-        "last4": " 111"
-      },
-      "subtotal": 24.99,
-      "total": 22.491,
-      "orderNumber": "SN01551730",
-      "shipping": {
-        "postalCode": "N6H0B3",
-        "lastName": "li",
-        "email": "1844736829@qq.com",
-        "phone": "112345678",
-        "firstName": "TIANYU JING",
-        "address": "sdfg",
-        "country": "CA",
-        "city": "London",
-        "province": "ON"
-      },
-      "discount": 2.499,
-      "id": "SN01551730"
-    },
-    {
-      "subtotal": 229.95,
-      "payment": {
-        "last4": " 111",
-        "method": "visa"
-      },
-      "status": "pending",
-      "date": "2026-06-21T00:49:40.649Z",
-      "items": [
-        {
-          "quantity": 1,
-          "price": 229.95,
-          "image": "https://m.media-amazon.com/images/I/711Py5-HtnL._AC_SL1200_.jpg",
-          "id": 1781944627418,
-          "name": "Add to your order"
-        }
-      ],
-      "promoCode": null,
-      "id": "SN02980649",
-      "discount": 0,
-      "shipping": {
-        "firstName": "TIANYU JING",
-        "address": "wesdfgh",
-        "country": "CA",
-        "city": "ewrtgh",
-        "province": "ON",
-        "postalCode": "wertgh",
-        "lastName": "li",
-        "email": "1844736829@qq.com",
-        "phone": "12345678"
-      },
-      "orderNumber": "SN02980649",
-      "total": 229.95
-    },
-    {
-      "orderNumber": "SN03037938",
-      "total": 24.99,
-      "shipping": {
-        "country": "CA",
-        "city": "sdfghj",
-        "firstName": "TIANYU JING",
-        "address": "sdfghj",
-        "province": "ON",
-        "postalCode": "sdfghj",
-        "email": "ab1597532580@gmail.com",
-        "lastName": "Rodriguez",
-        "phone": "1345467"
-      },
-      "id": "SN03037938",
-      "discount": 0,
-      "items": [
-        {
-          "image": "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg",
-          "id": 1781944736521,
-          "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-          "quantity": 1,
-          "price": 24.99
-        }
-      ],
-      "promoCode": null,
-      "date": "2026-06-21T00:50:37.938Z",
-      "status": "pending",
-      "payment": {
-        "last4": "1111",
-        "method": "visa"
-      },
-      "subtotal": 24.99
-    },
-    {
-      "discount": 0,
-      "id": "SN03224804",
-      "shipping": {
-        "province": "ON",
-        "country": "CA",
-        "city": "London",
-        "firstName": "TIANYU JING",
-        "address": "132rdsfdfd",
-        "phone": "132435467",
-        "postalCode": "93442",
-        "email": "m1597532580m@gmail.com",
-        "lastName": "li"
-      },
-      "total": 37.99,
-      "orderNumber": "SN03224804",
-      "payment": {
-        "method": "visa",
-        "last4": " 111"
-      },
-      "subtotal": 37.99,
-      "date": "2026-06-21T00:53:44.804Z",
-      "status": "pending",
-      "promoCode": null,
-      "items": [
-        {
-          "quantity": 1,
-          "price": 37.99,
-          "image": "https://m.media-amazon.com/images/I/610zwuiLDnL._AC_SL1500_.jpg",
-          "id": 1781944902071,
-          "name": "podoru for Magsafe Power Bank, Foldable 10000mAh Magnetic Battery Pack with USB-C Cable LED Display 22.5W PD Fast Charging Wireless Portable Charger for iPhone 17/16/15/14/13/12 Series-Black"
-        }
-      ]
-    },
-    {
-      "items": [
-        {
-          "id": 1781944736521,
-          "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-          "image": "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg",
-          "quantity": 1,
-          "price": 24.99
-        }
-      ],
-      "promoCode": null,
-      "payment": {
-        "last4": "11 1",
-        "method": "visa"
-      },
-      "subtotal": 24.99,
-      "date": "2026-06-21T00:56:02.690Z",
-      "status": "pending",
-      "shipping": {
-        "province": "BC",
-        "firstName": "TIANYU JING",
-        "address": "dfghj",
-        "country": "CA",
-        "city": "erdfghj",
-        "phone": "23456789",
-        "postalCode": "dsfghjk",
-        "email": "m1597532580m@gmail.com",
-        "lastName": "Rodriguez"
-      },
-      "orderNumber": "SN03362689",
-      "total": 24.99,
-      "id": "SN03362689",
-      "discount": 0
-    },
-    {
-      "subtotal": 24.99,
-      "payment": {
-        "last4": "11 1",
-        "method": "visa"
-      },
-      "status": "pending",
-      "date": "2026-06-21T00:57:32.195Z",
-      "promoCode": null,
-      "items": [
-        {
-          "quantity": 1,
-          "price": 24.99,
-          "id": 1781944736521,
-          "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-          "image": "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg"
-        }
-      ],
-      "discount": 0,
-      "id": "SN03452195",
-      "shipping": {
-        "phone": "234567",
-        "postalCode": "wqerthy",
-        "lastName": "Rodriguez",
-        "email": "1844736829@qq.com",
-        "province": "AB",
-        "firstName": "Robert",
-        "address": "wertyujk",
-        "country": "CA",
-        "city": "wqertyu"
-      },
-      "total": 24.99,
-      "orderNumber": "SN03452195"
-    },
-    {
-      "payment": {
-        "method": "visa",
-        "last4": " 111"
-      },
-      "subtotal": 24.99,
-      "date": "2026-06-21T01:00:37.303Z",
-      "status": "pending",
-      "items": [
-        {
-          "name": "10000mAh Portable Charger with Built in Cables, USB C Battery Pack, Light Power Bank 5 Outputs 2 Inputs LED Display External Battery Bank Compatible with iPhone/Android/Tablets (1 Pack Black)",
-          "id": 1781944736521,
-          "image": "https://m.media-amazon.com/images/I/71uzVBwpQ7L._AC_SL1500_.jpg",
-          "price": 24.99,
-          "quantity": 1
-        }
-      ],
-      "promoCode": null,
-      "id": "SN03637303",
-      "discount": 0,
-      "shipping": {
-        "province": "AB",
-        "firstName": "Robert",
-        "address": "wertyuik",
-        "country": "CA",
-        "city": "wedrfghj",
-        "phone": "sdfghj",
-        "postalCode": "ertyhj",
-        "email": "1844736829@qq.com",
-        "lastName": "Rodriguez"
-      },
-      "orderNumber": "SN03637303",
-      "total": 24.99
-    },
-    {
-      "shipping": {
-        "city": "sedfgh",
-        "country": "CA",
-        "address": "sadfghj",
-        "firstName": "Robert",
-        "province": "AB",
-        "lastName": "Rodriguez",
-        "email": "1844736829@qq.com",
-        "postalCode": "sfghgj",
-        "phone": "34567890"
-      },
-      "total": 27.08,
-      "orderNumber": "SN03745212",
-      "discount": 0,
-      "id": "SN03745212",
-      "promoCode": null,
-      "items": [
-        {
-          "price": 27.08,
-          "quantity": 1,
-          "name": "Add to your order",
-          "id": 1781940361057,
-          "image": "https://m.media-amazon.com/images/I/51y-CZ2QMyL._AC_SL1500_.jpg"
-        }
-      ],
-      "subtotal": 27.08,
-      "payment": {
-        "last4": "11 1",
-        "method": "visa"
-      },
-      "status": "pending",
-      "date": "2026-06-21T01:02:25.212Z"
-    },
-    {
-      "orderNumber": "SN03963668",
-      "total": 27.08,
-      "shipping": {
-        "province": "BC",
-        "firstName": "asdfghjkl",
-        "address": "wertyuikol;p",
-        "country": "CA",
-        "city": "London",
-        "phone": "2134567890",
-        "postalCode": "M6H 1P3",
-        "email": "1844736829@qq.com",
-        "lastName": "sdfghjkl"
-      },
-      "id": "SN03963668",
-      "discount": 0,
-      "items": [
-        {
-          "price": 27.08,
-          "quantity": 1,
-          "name": "Add to your order",
-          "id": 1781940361057,
-          "image": "https://m.media-amazon.com/images/I/51y-CZ2QMyL._AC_SL1500_.jpg"
-        }
-      ],
-      "promoCode": null,
-      "date": "2026-06-21T01:06:03.668Z",
-      "status": "pending",
-      "subtotal": 27.08,
-      "payment": {
-        "last4": "1111",
-        "method": "visa"
-      }
-    },
-    {
-      "id": "undefined",
-      "date": "2026-06-20T21:47:38.918Z",
-      "payment": {
-        "last4": "1111",
-        "method": "visa"
-      },
-      "orderNumber": "SN92058917",
-      "total": 54.16,
-      "items": [
-        {
-          "id": 1781940361057,
-          "name": "Add to your order",
-          "image": "https://m.media-amazon.com/images/I/51y-CZ2QMyL._AC_SL1500_.jpg",
-          "quantity": 2,
-          "price": 27.08
-        }
-      ],
-      "shipping": {
-        "city": "London",
-        "country": "CA",
-        "address": "ew322454",
-        "firstName": "TIANYU JING",
-        "province": "PE",
-        "lastName": "li",
-        "email": "m1597532580m@gmail.com",
-        "postalCode": "N6H0B3",
-        "phone": "64645356565"
-      }
-    }
-  ],
+  "orders": [],
   "reviews": {},
-  "customers": [
-    {
-      "email": "m1597532580m@gmail.com",
-      "joinDate": "2026-06-20T21:47:38.918Z",
-      "address": "ew322454, London, PE",
-      "totalSpent": 117.14,
-      "id": "1781992058918",
-      "phone": "64645356565",
-      "name": "TIANYU JING li",
-      "orders": 3
-    },
-    {
-      "email": "1844736829@qq.com",
-      "joinDate": "2026-06-21T00:25:51.730Z",
-      "address": "sdfg, London, ON",
-      "id": "1782001551730",
-      "totalSpent": 356.58099999999996,
-      "phone": "112345678",
-      "name": "TIANYU JING li",
-      "orders": 6
-    },
-    {
-      "phone": "1345467",
-      "orders": 1,
-      "name": "TIANYU JING Rodriguez",
-      "address": "sdfghj, sdfghj, ON",
-      "joinDate": "2026-06-21T00:50:37.938Z",
-      "email": "ab1597532580@gmail.com",
-      "id": "1782003037938",
-      "totalSpent": 24.99
-    }
-  ],
+  "customers": [],
   "users": [],
   "settings": {}
 }
