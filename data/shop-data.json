@@ -28,33 +28,6 @@
       }
     },
     {
-      "id": 3,
-      "name": "Building Blocks Creative Set 1000 Pieces",
-      "category": "Toys & Hobbies",
-      "price": 49.99,
-      "originalPrice": 69.99,
-      "images": [
-        "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"
-      ],
-      "rating": 4.9,
-      "reviews": 412,
-      "badge": "Top Rated",
-      "description": "Unleash creativity with 1000 colorful building blocks for endless fun.",
-      "status": "active",
-      "stock": 128,
-      "seller": "PlayTime Toys",
-      "about": [
-        "1000 pieces in 20+ colors",
-        "Compatible with all major brands",
-        "BPA-free ABS plastic"
-      ],
-      "specs": {
-        "Brand": "BlockMaster",
-        "Piece Count": "1000",
-        "Material": "ABS Plastic"
-      }
-    },
-    {
       "id": 4,
       "name": "Remote Control Racing Car",
       "category": "Toys & Hobbies",
