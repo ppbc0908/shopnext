@@ -205,16 +205,18 @@ function initAdminData() {
     updateDashboard();
     if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
         GitHubSync.fetchData().then(data => {
-            if (data && data.products) {
-                products = data.products;
-                localStorage.setItem('shopnext_products', JSON.stringify(products));
+            if (data) {
+                if (data.header) localStorage.setItem('shopnext_header_v1', JSON.stringify(data.header));
+                if (data.footer) localStorage.setItem('shopnext_footer_v2', JSON.stringify(data.footer));
+                if (data.promotions) localStorage.setItem('shopnext_promotions', JSON.stringify(data.promotions));
+                if (data.orders) { orders = data.orders; localStorage.setItem('shopnext_orders', JSON.stringify(orders)); }
+                if (data.reviews) { localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews)); }
+                if (data.customers) { customers = data.customers; localStorage.setItem('shopnext_customers', JSON.stringify(customers)); }
+                if (products.length === 0 && data.products && data.products.length > 0) {
+                    products = data.products;
+                    localStorage.setItem('shopnext_products', JSON.stringify(products));
+                }
             }
-            if (data && data.orders) { orders = data.orders; localStorage.setItem('shopnext_orders', JSON.stringify(orders)); }
-            if (data && data.reviews) { localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews)); }
-            if (data && data.customers) { customers = data.customers; localStorage.setItem('shopnext_customers', JSON.stringify(customers)); }
-            if (data && data.header) { localStorage.setItem('shopnext_header_v1', JSON.stringify(data.header)); }
-            if (data && data.footer) { localStorage.setItem('shopnext_footer_v2', JSON.stringify(data.footer)); }
-            if (data && data.promotions) { localStorage.setItem('shopnext_promotions', JSON.stringify(data.promotions)); }
             _syncReady = true;
             renderProductsTable();
             updateDashboard();
