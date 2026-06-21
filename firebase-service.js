@@ -1,9 +1,19 @@
 const FirebaseService = {
     PROJECT_ID: 'shopnext-9b984',
     API_KEY: 'AIzaSyC8L0J5iJLllbGUE8edZwJ9SpktSeZ3m18',
-    BASE_URL: 'https://firestore.googleapis.com/v1/projects/shopnext-9b984/databases/(default)/documents',
+    DIRECT_URL: 'https://firestore.googleapis.com/v1/projects/shopnext-9b984/databases/(default)/documents',
+    PROXY_URL: '',
+    BASE_URL: '',
 
-    init() { return true; },
+    init() {
+        if (this.PROXY_URL) {
+            const base = this.PROXY_URL.replace(/\/+$/, '');
+            this.BASE_URL = base.endsWith('/proxy') ? base : base + '/proxy';
+        } else {
+            this.BASE_URL = this.DIRECT_URL;
+        }
+        return true;
+    },
     isReady() { return true; },
 
     _parseFirestoreValue(field) {
@@ -27,8 +37,10 @@ const FirebaseService = {
         if (!doc || !doc.fields) return null;
         const data = {};
         for (const [k, v] of Object.entries(doc.fields)) data[k] = this._parseFirestoreValue(v);
-        const nameParts = (doc.name || '').split('/');
-        data.id = nameParts[nameParts.length - 1];
+        if (data.id === undefined || data.id === null) {
+            const nameParts = (doc.name || '').split('/');
+            data.id = nameParts[nameParts.length - 1];
+        }
         return data;
     },
 
@@ -60,7 +72,10 @@ const FirebaseService = {
 
     async getCollection(name) {
         try {
-            const url = `${this.BASE_URL}/${name}?key=${this.API_KEY}`;
+            const isProxy = !!this.PROXY_URL;
+            const url = isProxy
+                ? `${this.BASE_URL}/${name}`
+                : `${this.BASE_URL}/${name}?key=${this.API_KEY}`;
             const res = await this._fetchWithRetry(url, {});
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -77,7 +92,10 @@ const FirebaseService = {
             for (const [k, v] of Object.entries(data)) {
                 if (v !== undefined) fields[k] = this._toFirestoreValue(v);
             }
-            const url = `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
+            const isProxy = !!this.PROXY_URL;
+            const url = isProxy
+                ? `${this.BASE_URL}/${collection}/${id}`
+                : `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
             const res = await this._fetchWithRetry(url, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
@@ -92,7 +110,10 @@ const FirebaseService = {
 
     async deleteDoc(collection, id) {
         try {
-            const url = `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
+            const isProxy = !!this.PROXY_URL;
+            const url = isProxy
+                ? `${this.BASE_URL}/${collection}/${id}`
+                : `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
             const res = await this._fetchWithRetry(url, { method: 'DELETE' });
             return res.ok;
         } catch (e) {
