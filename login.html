@@ -208,6 +208,19 @@
             };
             users.push(user);
             localStorage.setItem('shopnext_users', JSON.stringify(users));
+            if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
+                GitHubSync.deployData({
+                    products: JSON.parse(localStorage.getItem('shopnext_products') || '[]'),
+                    orders: JSON.parse(localStorage.getItem('shopnext_orders') || '[]'),
+                    reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+                    customers: JSON.parse(localStorage.getItem('shopnext_customers') || '[]'),
+                    users: users,
+                    settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+                    header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+                    footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+                    promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+                }, 'New user registered').catch(() => {});
+            }
             const session = { ...user, password: undefined };
             localStorage.setItem('shopnext_current_user', JSON.stringify(session));
             if (typeof EmailService !== 'undefined') {
