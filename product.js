@@ -326,14 +326,20 @@ function loadProducts() {
 function syncFromGitHubData() {
     if (typeof GitHubSync === 'undefined') return Promise.resolve(null);
     return GitHubSync.fetchData().then(data => {
-        if (data && data.products) {
-            products = data.products;
-            localStorage.setItem('shopnext_products', JSON.stringify(products));
-            const pid = new URLSearchParams(window.location.search).get('id');
-            if (pid) {
-                currentProduct = products.find(p => String(p.id) === String(pid));
-                if (currentProduct) renderProductDetail(currentProduct);
+        if (data) {
+            if (data.products) {
+                products = data.products;
+                localStorage.setItem('shopnext_products', JSON.stringify(products));
+                const pid = new URLSearchParams(window.location.search).get('id');
+                if (pid) {
+                    currentProduct = products.find(p => String(p.id) === String(pid));
+                    if (currentProduct) renderProductDetail(currentProduct);
+                }
             }
+            if (data.reviews) localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews));
+            if (data.header) localStorage.setItem('shopnext_header_v1', JSON.stringify(data.header));
+            if (data.footer) localStorage.setItem('shopnext_footer_v2', JSON.stringify(data.footer));
+            if (data.promotions) localStorage.setItem('shopnext_promotions', JSON.stringify(data.promotions));
             return data;
         }
         return null;
