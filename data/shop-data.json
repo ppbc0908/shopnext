@@ -41,13 +41,17 @@
       {
         "name": "Amex",
         "icon": "fab fa-cc-amex"
+      },
+      {
+        "name": "PayPal",
+        "icon": "fas fa-credit-card"
       }
     ],
     "business": {
       "name": "ShopNext Store",
       "description": "Your one-stop shop for everything",
       "address": "123 Main Street, Toronto, ON M5V 2T6",
-      "phone": "800-400-4161",
+      "phone": "1-800-SHOP-NEXT",
       "email": "support@shopnext.com",
       "hours": "Mon-Fri: 9AM-9PM EST"
     },
