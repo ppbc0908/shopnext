@@ -212,9 +212,13 @@ function initAdminData() {
             if (data && data.orders) { orders = data.orders; localStorage.setItem('shopnext_orders', JSON.stringify(orders)); }
             if (data && data.reviews) { localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews)); }
             if (data && data.customers) { customers = data.customers; localStorage.setItem('shopnext_customers', JSON.stringify(customers)); }
+            if (data && data.header) { localStorage.setItem('shopnext_header_v1', JSON.stringify(data.header)); }
+            if (data && data.footer) { localStorage.setItem('shopnext_footer_v2', JSON.stringify(data.footer)); }
+            if (data && data.promotions) { localStorage.setItem('shopnext_promotions', JSON.stringify(data.promotions)); }
             _syncReady = true;
             renderProductsTable();
             updateDashboard();
+            loadPromotion();
         }).catch(e => { console.warn('GitHub sync failed:', e); _syncReady = true; });
     } else {
         _syncReady = true;
@@ -223,19 +227,25 @@ function initAdminData() {
 
 function saveProducts() {
     localStorage.setItem('shopnext_products', JSON.stringify(products));
-    if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
-        const allData = {
-            products: products,
-            orders: orders,
-            reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
-            customers: customers,
-            users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
-            settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}')
-        };
-        GitHubSync.deployData(allData, 'Update shop data from admin').then(url => {
-            if (url) console.log('GitHub deploy OK');
-        }).catch(e => console.warn('GitHub deploy failed:', e));
-    }
+    syncToGitHub('Update products');
+}
+
+function syncToGitHub(message) {
+    if (typeof GitHubSync === 'undefined' || !GitHubSync.isConfigured()) return;
+    const allData = {
+        products: products,
+        orders: orders,
+        reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+        customers: customers,
+        users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+        settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+        header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+        footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+        promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+    };
+    GitHubSync.deployData(allData, message || 'Update shop data').then(url => {
+        if (url) console.log('GitHub deploy OK');
+    }).catch(e => console.warn('GitHub deploy failed:', e));
 }
 
 function syncCustomersFromFirebase() {
@@ -1838,6 +1848,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadCustomers();
                 updateDashboard();
                 renderProductsTable();
+                syncToGitHub('Reset all data');
                 showNotification('所有数据已重置！');
             }
         };
@@ -1864,6 +1875,7 @@ function savePromotion() {
     if (!title) { alert('Title is required'); return; }
     const promo = { tag: tag || 'Limited Time', title, description, link };
     localStorage.setItem('shopnext_promotions', JSON.stringify(promo));
+    syncToGitHub('Update promotions');
     const status = document.getElementById('promo-status');
     status.textContent = 'Saved!';
     setTimeout(() => { status.textContent = ''; }, 2000);
@@ -1875,6 +1887,7 @@ function clearPromotion() {
     document.getElementById('promo-title').value = '';
     document.getElementById('promo-desc').value = '';
     document.getElementById('promo-link').value = '';
+    syncToGitHub('Clear promotions');
     const status = document.getElementById('promo-status');
     status.textContent = 'Cleared!';
     status.style.color = '#ef4444';
@@ -1918,7 +1931,10 @@ function testGitHubDeploy() {
         reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
         customers: customers,
         users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
-        settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}')
+        settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+        header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+        footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+        promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
     }, 'Test deploy from admin panel').then(url => {
         st.textContent = '✓ 部署成功！';
         st.style.color = '#16a34a';
