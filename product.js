@@ -323,24 +323,9 @@ function loadProducts() {
     }
 }
 
-function syncProductsFromFirebase() {
-    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
-    FirebaseService.getProducts().then(fbProducts => {
-        if (fbProducts && fbProducts.length > 0) {
-            products = fbProducts;
-            localStorage.setItem('shopnext_products', JSON.stringify(products));
-            const pid = new URLSearchParams(window.location.search).get('id');
-            if (pid) {
-                currentProduct = products.find(p => String(p.id) === String(pid));
-                if (currentProduct) renderProductDetail(currentProduct);
-            }
-        }
-    }).catch(e => console.warn('Firebase sync failed:', e));
-}
-
 function syncFromGitHubData() {
-    if (typeof GitHubSync === 'undefined') return;
-    GitHubSync.fetchData().then(data => {
+    if (typeof GitHubSync === 'undefined') return Promise.resolve(null);
+    return GitHubSync.fetchData().then(data => {
         if (data && data.products && data.products.length > 0) {
             products = data.products;
             localStorage.setItem('shopnext_products', JSON.stringify(products));
@@ -349,8 +334,10 @@ function syncFromGitHubData() {
                 currentProduct = products.find(p => String(p.id) === String(pid));
                 if (currentProduct) renderProductDetail(currentProduct);
             }
+            return data;
         }
-    }).catch(e => console.warn('GitHub sync failed:', e));
+        return null;
+    }).catch(e => { console.warn('GitHub sync failed:', e); return null; });
 }
 
 function saveCart() {
@@ -882,7 +869,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     syncFromGitHubData();
-    syncProductsFromFirebase();
 
     const style = document.createElement('style');
     style.textContent = `
