@@ -41,6 +41,10 @@
       {
         "name": "Amex",
         "icon": "fab fa-cc-amex"
+      },
+      {
+        "name": "PayPal",
+        "icon": "fas fa-credit-card"
       }
     ],
     "business": {
