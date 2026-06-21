@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - ShopNext</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="user.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <main class="user-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <aside class="dashboard-sidebar">
+                    <div class="user-profile-card" id="user-profile-card"></div>
+                    <nav class="dashboard-nav">
+                        <a href="#profile" class="dash-nav active" onclick="showDashSection('profile')"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#orders" class="dash-nav" onclick="showDashSection('orders')"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="#wishlist" class="dash-nav" onclick="showDashSection('wishlist')"><i class="fas fa-heart"></i> Wishlist</a>
+                        <a href="#addresses" class="dash-nav" onclick="showDashSection('addresses')"><i class="fas fa-map-marker-alt"></i> Addresses</a>
+                        <a href="#recently-viewed" class="dash-nav" onclick="showDashSection('recently-viewed')"><i class="fas fa-history"></i> Recently Viewed</a>
+                        <a href="#compare" class="dash-nav" onclick="showDashSection('compare')"><i class="fas fa-columns"></i> Compare</a>
+                        <a href="#affiliate" class="dash-nav" onclick="showDashSection('affiliate')"><i class="fas fa-link"></i> Affiliate</a>
+                        <a href="#settings" class="dash-nav" onclick="showDashSection('settings')"><i class="fas fa-cog"></i> Settings</a>
+                    </nav>
+                </aside>
+                <div class="dashboard-content">
+                    <div id="profile-section" class="dash-section active"></div>
+                    <div id="orders-section" class="dash-section"></div>
+                    <div id="wishlist-section" class="dash-section"></div>
+                    <div id="addresses-section" class="dash-section"></div>
+                    <div id="recently-viewed-section" class="dash-section"></div>
+                    <div id="compare-section" class="dash-section"></div>
+                    <div id="affiliate-section" class="dash-section"></div>
+                    <div id="settings-section" class="dash-section"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footer-container"></div>
+    <script src="header-loader.js?v=2"></script>
+    <script src="footer-loader.js"></script>
+    <script src="user.js?v=2"></script>
+    <script>
+        const allProducts = JSON.parse(localStorage.getItem('shopnext_products') || '[]');
+
+        function requireLogin() {
+            const user = UserSystem.getCurrentUser();
+            if (!user) { window.location.href = 'login.html'; return null; }
+            return user;
+        }
+
+        function initDashboard() {
+            const user = requireLogin();
+            if (!user) return;
+            renderProfileCard(user);
+            showDashSection(new URLSearchParams(window.location.search).get('section') || 'profile');
+        }
+
+        function renderProfileCard(user) {
+            document.getElementById('user-profile-card').innerHTML = `
+                <div class="profile-avatar">${user.firstName[0]}${user.lastName[0]}</div>
+                <h3>${user.firstName} ${user.lastName}</h3>
+                <p>${user.email}</p>
+                <span class="member-since">Member since ${new Date(user.createdAt).toLocaleDateString('en-US', {month:'long',year:'numeric'})}</span>
+            `;
+        }
+
+        function showDashSection(section) {
+            document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dash-nav').forEach(n => n.classList.remove('active'));
+            const sec = document.getElementById(section + '-section');
+            if (sec) sec.classList.add('active');
+            const nav = document.querySelector(`.dash-nav[href="#${section}"]`);
+            if (nav) nav.classList.add('active');
+            const user = UserSystem.getCurrentUser();
+            if (!user) return;
+            switch(section) {
+                case 'profile': renderProfileSection(user); break;
+                case 'orders': renderOrdersSection(); break;
+                case 'wishlist': renderWishlistSection(); break;
+                case 'addresses': renderAddressesSection(); break;
+                case 'recently-viewed': renderRecentlyViewedSection(); break;
+                case 'compare': renderCompareSection(); break;
+                case 'affiliate': renderAffiliateSection(user); break;
+                case 'settings': renderSettingsSection(user); break;
+            }
+        }
+
+        function renderProfileSection(user) {
+            const promo = UserSystem.getUserPromoCode();
+            const promoHtml = promo ? `
+                <div class="dash-card" style="margin-top:20px;background:linear-gradient(135deg,#f8f9ff 0%,#eef2ff 100%);border:1px solid #d4d8ff;">
+                    <h2><i class="fas fa-tag" style="color:#667eea;margin-right:8px;"></i>Your Promo Code</h2>
+                    ${promo.used ? 
+                        '<p style="color:#888;"><i class="fas fa-info-circle"></i> Your welcome promo code has been used.</p>' :
+                        `<div style="text-align:center;padding:20px;">
+                            <div style="font-size:13px;color:#666;margin-bottom:10px;">Use this code at checkout for <strong>10% off</strong> your order:</div>
+                            <div style="font-size:28px;font-weight:800;color:#667eea;letter-spacing:4px;padding:15px 30px;background:#fff;border:2px dashed #667eea;border-radius:12px;display:inline-block;margin:10px 0;">${promo.code}</div>
+                            <div style="margin-top:15px;">
+                                <button onclick="navigator.clipboard.writeText('${promo.code}');UserSystem.showNotification('Promo code copied!');" style="padding:10px 24px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">
+                                    <i class="fas fa-copy"></i> Copy Code
+                                </button>
+                            </div>
+                            <div style="font-size:12px;color:#999;margin-top:12px;">* Valid for one-time use only</div>
+                        </div>`
+                    }
+                </div>
+            ` : '';
+            
+            document.getElementById('profile-section').innerHTML = `
+                <div class="dash-card">
+                    <h2>Personal Information</h2>
+                    <form onsubmit="updateProfile(event)" class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group"><label>First Name</label><input type="text" id="prof-first" value="${user.firstName}" required></div>
+                            <div class="form-group"><label>Last Name</label><input type="text" id="prof-last" value="${user.lastName}" required></div>
+                        </div>
+                        <div class="form-group"><label>Email</label><input type="email" id="prof-email" value="${user.email}" required></div>
+                        <div class="form-group"><label>Phone</label><input type="tel" id="prof-phone" value="${user.phone || ''}"></div>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                    </form>
+                </div>
+                ${promoHtml}
+            `;
+        }
+
+        function updateProfile(e) {
+            e.preventDefault();
+            UserSystem.updateProfile({
+                firstName: document.getElementById('prof-first').value,
+                lastName: document.getElementById('prof-last').value,
+                email: document.getElementById('prof-email').value,
+                phone: document.getElementById('prof-phone').value
+            });
+            UserSystem.showNotification('Profile updated!');
+            renderProfileCard(UserSystem.getCurrentUser());
+        }
+
+        function renderOrdersSection() {
+            const orders = JSON.parse(localStorage.getItem('shopnext_orders') || '[]');
+            const html = orders.length === 0 ? '<div class="empty-state"><i class="fas fa-box-open"></i><h3>No orders yet</h3><p>Start shopping to see your orders here</p><a href="index.html" class="btn-primary">Browse Products</a></div>' :
+                `<div class="dash-card"><h2>Order History</h2><div class="orders-list">${orders.map(o => `
+                    <div class="order-card">
+                        <div class="order-header"><span class="order-id">#${o.orderId}</span><span class="order-date">${new Date(o.date).toLocaleDateString()}</span></div>
+                        <div class="order-items">${o.items.map(i => `<div class="order-item"><img src="${i.image}" alt="${i.name}"><div class="order-item-info"><h4>${i.name}</h4><p>Qty: ${i.quantity} 脳 $${i.price.toFixed(2)}</p></div></div>`).join('')}</div>
+                        <div class="order-footer"><span class="order-status ${o.status || 'processing'}">${(o.status || 'processing').charAt(0).toUpperCase() + (o.status || 'processing').slice(1)}</span><span class="order-total">Total: $${o.total.toFixed(2)}</span></div>
+                    </div>`).join('')}</div></div>`;
+            document.getElementById('orders-section').innerHTML = html;
+        }
+
+        function renderWishlistSection() {
+            const wishlistIds = UserSystem.getWishlist();
+            const products = allProducts.filter(p => wishlistIds.includes(p.id));
+            const html = products.length === 0 ? '<div class="empty-state"><i class="fas fa-heart"></i><h3>Wishlist is empty</h3><p>Save items you love for later</p><a href="index.html" class="btn-primary">Discover Products</a></div>' :
+                `<div class="dash-card"><h2>My Wishlist (${products.length})</h2><div class="wishlist-grid">${products.map(p => `
+                    <div class="wishlist-item">
+                        <a href="product.html?id=${p.id}"><img src="${p.images ? p.images[0] : p.image}" alt="${p.name}"></a>
+                        <div class="wishlist-item-info"><h4><a href="product.html?id=${p.id}">${p.name}</a></h4><span class="price">$${p.price.toFixed(2)}</span></div>
+                        <button class="btn-remove" onclick="removeFromWishlist(${p.id})"><i class="fas fa-trash"></i></button>
+                    </div>`).join('')}</div></div>`;
+            document.getElementById('wishlist-section').innerHTML = html;
+        }
+
+        function removeFromWishlist(id) {
+            UserSystem.toggleWishlist(id);
+            renderWishlistSection();
+            UserSystem.showNotification('Removed from wishlist');
+        }
+
+        function renderAddressesSection() {
+            const addresses = UserSystem.getAddresses();
+            const html = `
+                <div class="dash-card">
+                    <div class="section-header-flex"><h2>My Addresses</h2><button class="btn-primary" onclick="UserSystem.openAddressModal()"><i class="fas fa-plus"></i> Add Address</button></div>
+                    ${addresses.length === 0 ? '<div class="empty-state"><i class="fas fa-map-marker-alt"></i><h3>No addresses saved</h3><p>Add a shipping address for faster checkout</p></div>' :
+                    `<div class="addresses-grid">${addresses.map(a => `
+                        <div class="address-card ${a.isDefault ? 'default' : ''}">
+                            ${a.isDefault ? '<span class="default-badge">Default</span>' : ''}
+                            <h4>${a.fullName}</h4>
+                            <p>${a.line1}${a.line2 ? ', ' + a.line2 : ''}</p>
+                            <p>${a.city}, ${a.province} ${a.postalCode}</p>
+                            <p>${a.country}</p>
+                            <p><i class="fas fa-phone"></i> ${a.phone}</p>
+                            ${a.deliveryInstructions ? `<p class="delivery-note"><i class="fas fa-truck"></i> ${a.deliveryInstructions}</p>` : ''}
+                            <div class="address-actions">
+                                <button onclick="editAddress(${a.id})"><i class="fas fa-edit"></i> Edit</button>
+                                <button onclick="deleteAddress(${a.id})" class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                ${!a.isDefault ? `<button onclick="setDefault(${a.id})"><i class="fas fa-check-circle"></i> Set Default</button>` : ''}
+                            </div>
+                        </div>`).join('')}</div>`}
+                </div>`;
+            document.getElementById('addresses-section').innerHTML = html;
+        }
+
+        function renderAddressesList() { renderAddressesSection(); }
+
+        function editAddress(id) {
+            const addr = UserSystem.getAddresses().find(a => a.id === id);
+            if (addr) UserSystem.openAddressModal(addr);
+        }
+
+        function deleteAddress(id) {
+            if (confirm('Delete this address?')) {
+                UserSystem.deleteAddress(id);
+                renderAddressesSection();
+                UserSystem.showNotification('Address deleted');
+            }
+        }
+
+        function setDefault(id) {
+            UserSystem.updateAddress(id, { isDefault: true });
+            renderAddressesSection();
+            UserSystem.showNotification('Default address updated');
+        }
+
+        function renderRecentlyViewedSection() {
+            const historyIds = UserSystem.getRecentlyViewed();
+            const products = historyIds.map(id => allProducts.find(p => p.id === id)).filter(Boolean).slice(0, 20);
+            const html = products.length === 0 ? '<div class="empty-state"><i class="fas fa-history"></i><h3>No browsing history</h3><p>Products you view will appear here</p></div>' :
+                `<div class="dash-card"><h2>Recently Viewed (${products.length})</h2><div class="recently-grid">${products.map(p => `
+                    <a href="product.html?id=${p.id}" class="recently-item">
+                        <img src="${p.images ? p.images[0] : p.image}" alt="${p.name}">
+                        <div class="recently-info"><h4>${p.name}</h4><span class="price">$${p.price.toFixed(2)}</span></div>
+                    </a>`).join('')}</div></div>`;
+            document.getElementById('recently-viewed-section').innerHTML = html;
+        }
+
+        function renderCompareSection() {
+            const compareIds = JSON.parse(localStorage.getItem('shopnext_compare_list') || '[]');
+            const products = compareIds.map(id => allProducts.find(p => p.id === id)).filter(Boolean);
+            if (products.length === 0) {
+                document.getElementById('compare-section').innerHTML = '<div class="empty-state"><i class="fas fa-columns"></i><h3>No products to compare</h3><p>Add products from product pages to compare them</p></div>';
+                return;
+            }
+            const allSpecs = [...new Set(products.flatMap(p => Object.keys(p.specs || {})))];
+            document.getElementById('compare-section').innerHTML = `
+                <div class="dash-card"><h2>Product Comparison (${products.length})</h2>
+                <div class="compare-table-wrap"><table class="compare-table">
+                    <thead><tr><th></th>${products.map(p => `<th><img src="${p.images ? p.images[0] : p.image}" alt="${p.name}"><h4>${p.name}</h4><span class="price">$${p.price.toFixed(2)}</span><button class="btn-remove-sm" onclick="removeFromCompare(${p.id})"><i class="fas fa-times"></i></button></th>`).join('')}</tr></thead>
+                    <tbody>
+                        <tr><td>Category</td>${products.map(p => `<td>${p.category || '-'}</td>`).join('')}</tr>
+                        <tr><td>Rating</td>${products.map(p => `<td>${'★'.repeat(Math.round(p.rating || 0))}${'★'.repeat(5-Math.round(p.rating||0))} (${p.reviews || 0})</td>`).join('')}</tr>
+                        <tr><td>Stock</td>${products.map(p => `<td>${p.stock !== undefined ? (p.stock > 0 ? 'In Stock ('+p.stock+')' : 'Out of Stock') : '-'}</td>`).join('')}</tr>
+                        ${allSpecs.map(s => `<tr><td>${s}</td>${products.map(p => `<td>${(p.specs||{})[s] || '-'}</td>`).join('')}</tr>`).join('')}
+                    </tbody>
+                </table></div></div>`;
+        }
+
+        function removeFromCompare(id) {
+            let list = JSON.parse(localStorage.getItem('shopnext_compare_list') || '[]');
+            list = list.filter(i => i !== id);
+            localStorage.setItem('shopnext_compare_list', JSON.stringify(list));
+            renderCompareSection();
+        }
+
+        function renderAffiliateSection(user) {
+            let stats = UserSystem.getAffiliateStats();
+            if (!stats) UserSystem.generateAffiliateCode();
+            stats = UserSystem.getAffiliateStats();
+            const affiliateUrl = window.location.origin + '/shopnext/index.html?ref=' + (stats ? stats.code : '');
+            document.getElementById('affiliate-section').innerHTML = `
+                <div class="dash-card"><h2><i class="fas fa-link"></i> Affiliate Program</h2>
+                <p style="color:#666;margin-bottom:20px;">Share your referral link and earn 5% commission on every sale!</p>
+                <div class="affiliate-link-box">
+                    <input type="text" value="${affiliateUrl}" readonly id="affiliate-link-input">
+                    <button onclick="copyAffiliateLink()" class="btn-primary"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+                <div class="affiliate-stats-grid">
+                    <div class="stat-card"><div class="stat-icon" style="background:#eef2ff;color:#667eea;"><i class="fas fa-mouse-pointer"></i></div><div class="stat-info"><span class="stat-value">${stats ? stats.clicks : 0}</span><span class="stat-label">Total Clicks</span></div></div>
+                    <div class="stat-card"><div class="stat-icon" style="background:#ecfdf5;color:#10b981;"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><span class="stat-value">${stats ? stats.conversions : 0}</span><span class="stat-label">Conversions</span></div></div>
+                    <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-dollar-sign"></i></div><div class="stat-info"><span class="stat-value">$${stats ? stats.earnings.toFixed(2) : '0.00'}</span><span class="stat-label">Earnings</span></div></div>
+                </div>
+                <h3 style="margin-top:30px;">How it works</h3>
+                <ol style="color:#666;line-height:2;padding-left:20px;margin-top:10px;">
+                    <li>Share your unique referral link with friends and family</li>
+                    <li>When someone clicks your link and makes a purchase, you earn 5% commission</li>
+                    <li>Track your clicks, conversions, and earnings in real-time</li>
+                    <li>Withdraw your earnings once you reach $50 minimum</li>
+                </ol></div>`;
+        }
+
+        function copyAffiliateLink() {
+            const input = document.getElementById('affiliate-link-input');
+            input.select();
+            document.execCommand('copy');
+            UserSystem.showNotification('Link copied to clipboard!');
+        }
+
+        function renderSettingsSection(user) {
+            document.getElementById('settings-section').innerHTML = `
+                <div class="dash-card"><h2>Account Settings</h2>
+                <h3 style="margin:20px 0 10px;">Change Password</h3>
+                <form onsubmit="changePassword(event)" class="profile-form">
+                    <div class="form-group"><label>Current Password</label><input type="password" id="set-old-pass" required></div>
+                    <div class="form-group"><label>New Password</label><input type="password" id="set-new-pass" required minlength="6"></div>
+                    <div class="form-group"><label>Confirm New Password</label><input type="password" id="set-confirm-pass" required></div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-lock"></i> Update Password</button>
+                </form>
+                <hr style="margin:30px 0;border:none;border-top:1px solid #eee;">
+                <h3 style="color:#e74c3c;">Danger Zone</h3>
+                <button class="btn-danger" onclick="deleteAccount()" style="margin-top:10px;"><i class="fas fa-trash"></i> Delete Account</button></div>`;
+        }
+
+        function changePassword(e) {
+            e.preventDefault();
+            const oldPass = document.getElementById('set-old-pass').value;
+            const newPass = document.getElementById('set-new-pass').value;
+            const confirm = document.getElementById('set-confirm-pass').value;
+            if (newPass !== confirm) { UserSystem.showNotification('Passwords do not match', 'error'); return; }
+            const result = UserSystem.changePassword(oldPass, newPass);
+            if (result.success) {
+                UserSystem.showNotification('Password updated!');
+                e.target.reset();
+            } else {
+                UserSystem.showNotification(result.message, 'error');
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
+                const user = UserSystem.getCurrentUser();
+                let users = UserSystem.getUsers();
+                users = users.filter(u => u.id !== user.id);
+                UserSystem.saveUsers(users);
+                UserSystem.logout();
+                window.location.href = 'index.html';
+            }
+        }
+
+        window.addEventListener('hashchange', () => {
+            const section = window.location.hash.replace('#', '') || 'profile';
+            showDashSection(section);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+            const hash = window.location.hash.replace('#', '');
+            if (hash) showDashSection(hash);
+        });
+    </script>
+</body>
+</html>

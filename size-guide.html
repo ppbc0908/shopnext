@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Size Guide - ShopNext</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="user.css">
+    <style>
+        .size-guide-page { padding: 40px 0; max-width: 900px; margin: 0 auto; }
+        .size-guide-page h1 { text-align: center; margin-bottom: 10px; }
+        .size-guide-page .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+        .sg-tabs { display: flex; gap: 0; background: #f0f0f0; border-radius: 12px; padding: 4px; margin-bottom: 30px; }
+        .sg-tab { flex: 1; padding: 12px; text-align: center; border: none; background: transparent; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 15px; transition: all 0.3s; }
+        .sg-tab.active { background: #fff; color: #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .sg-content { display: none; }
+        .sg-content.active { display: block; }
+        .sg-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .sg-table th { background: #667eea; color: #fff; padding: 14px 16px; text-align: left; font-size: 14px; }
+        .sg-table td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        .sg-table tr:last-child td { border-bottom: none; }
+        .sg-table tr:hover td { background: #f8f9ff; }
+        .sg-note { background: #fff9e6; border: 1px solid #ffd700; border-radius: 10px; padding: 16px; margin-top: 20px; font-size: 14px; color: #666; }
+        .sg-note i { color: #f5a623; margin-right: 8px; }
+        .sg-measure { background: #f0f4ff; border-radius: 12px; padding: 20px; margin-top: 20px; }
+        .sg-measure h3 { margin-bottom: 12px; color: #333; }
+        .sg-measure-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .sg-step { display: flex; gap: 12px; align-items: flex-start; }
+        .sg-step-num { width: 28px; height: 28px; background: #667eea; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        .sg-step p { font-size: 14px; color: #555; line-height: 1.5; }
+        @media (max-width: 600px) {
+            .sg-measure-steps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    <main class="size-guide-page">
+        <h1>Size & Measurement Guide</h1>
+        <p class="subtitle">Find the perfect fit for your purchase</p>
+        <div class="sg-tabs">
+            <button class="sg-tab active" onclick="switchSgTab('clothing')">Clothing</button>
+            <button class="sg-tab" onclick="switchSgTab('shoes')">Shoes</button>
+            <button class="sg-tab" onclick="switchSgTab('electronics')">Electronics</button>
+            <button class="sg-tab" onclick="switchSgTab('home')">Home & Garden</button>
+        </div>
+        <div id="clothing-tab" class="sg-content active">
+            <table class="sg-table">
+                <thead><tr><th>Size</th><th>Chest (cm)</th><th>Waist (cm)</th><th>Hips (cm)</th><th>US</th><th>EU</th><th>UK</th></tr></thead>
+                <tbody>
+                    <tr><td>XS</td><td>82-86</td><td>62-66</td><td>86-90</td><td>0-2</td><td>32-34</td><td>4-6</td></tr>
+                    <tr><td>S</td><td>86-92</td><td>66-72</td><td>90-96</td><td>4-6</td><td>36-38</td><td>8-10</td></tr>
+                    <tr><td>M</td><td>92-98</td><td>72-78</td><td>96-102</td><td>8-10</td><td>40-42</td><td>12-14</td></tr>
+                    <tr><td>L</td><td>98-106</td><td>78-86</td><td>102-110</td><td>12-14</td><td>44-46</td><td>16-18</td></tr>
+                    <tr><td>XL</td><td>106-114</td><td>86-94</td><td>110-118</td><td>16-18</td><td>48-50</td><td>20-22</td></tr>
+                    <tr><td>XXL</td><td>114-122</td><td>94-104</td><td>118-126</td><td>20-22</td><td>52-54</td><td>24-26</td></tr>
+                    <tr><td>3XL</td><td>122-130</td><td>104-114</td><td>126-134</td><td>24-26</td><td>56-58</td><td>28-30</td></tr>
+                </tbody>
+            </table>
+            <div class="sg-measure">
+                <h3><i class="fas fa-ruler"></i> How to Measure</h3>
+                <div class="sg-measure-steps">
+                    <div class="sg-step"><div class="sg-step-num">1</div><div><strong>Chest:</strong> Measure around the fullest part of your chest, keeping the tape horizontal.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">2</div><div><strong>Waist:</strong> Measure around your natural waistline, the narrowest part of your torso.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">3</div><div><strong>Hips:</strong> Measure around the fullest part of your hips and buttocks.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">4</div><div><strong>Tip:</strong> Use a soft tape measure and keep one finger between the tape and body.</div></div>
+                </div>
+            </div>
+        </div>
+        <div id="shoes-tab" class="sg-content">
+            <table class="sg-table">
+                <thead><tr><th>US</th><th>EU</th><th>UK</th><th>CM</th><th>Inches</th><th>Gender</th></tr></thead>
+                <tbody>
+                    <tr><td>5</td><td>36</td><td>3</td><td>22.5</td><td>8.9"</td><td>Women</td></tr>
+                    <tr><td>6</td><td>37.5</td><td>4</td><td>23.5</td><td>9.3"</td><td>Women</td></tr>
+                    <tr><td>7</td><td>38.5</td><td>5</td><td>24.5</td><td>9.6"</td><td>Women</td></tr>
+                    <tr><td>8</td><td>40</td><td>6</td><td>25.5</td><td>10"</td><td>Women</td></tr>
+                    <tr><td>9</td><td>41</td><td>7</td><td>26.5</td><td>10.4"</td><td>Women</td></tr>
+                    <tr><td>10</td><td>42.5</td><td>8</td><td>27.5</td><td>10.8"</td><td>Women</td></tr>
+                    <tr><td>6</td><td>38.5</td><td>5.5</td><td>24</td><td>9.4"</td><td>Men</td></tr>
+                    <tr><td>7</td><td>40</td><td>6.5</td><td>25</td><td>9.8"</td><td>Men</td></tr>
+                    <tr><td>8</td><td>41</td><td>7.5</td><td>26</td><td>10.2"</td><td>Men</td></tr>
+                    <tr><td>9</td><td>42.5</td><td>8.5</td><td>27</td><td>10.6"</td><td>Men</td></tr>
+                    <tr><td>10</td><td>44</td><td>9.5</td><td>28</td><td>11"</td><td>Men</td></tr>
+                    <tr><td>11</td><td>45</td><td>10.5</td><td>29</td><td>11.4"</td><td>Men</td></tr>
+                    <tr><td>12</td><td>46</td><td>11.5</td><td>30</td><td>11.8"</td><td>Men</td></tr>
+                </tbody>
+            </table>
+            <div class="sg-measure">
+                <h3><i class="fas fa-shoe-prints"></i> How to Measure Your Foot</h3>
+                <div class="sg-measure-steps">
+                    <div class="sg-step"><div class="sg-step-num">1</div><div>Place a piece of paper on a flat surface against a wall.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">2</div><div>Stand on the paper with your heel against the wall.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">3</div><div>Mark the longest toe and measure from the wall to the mark.</div></div>
+                    <div class="sg-step"><div class="sg-step-num">4</div><div>Measure both feet; use the larger measurement for sizing.</div></div>
+                </div>
+            </div>
+        </div>
+        <div id="electronics-tab" class="sg-content">
+            <table class="sg-table">
+                <thead><tr><th>Device Type</th><th>Screen Size</th><th>Typical Weight</th><th>Dimensions</th><th>Best For</th></tr></thead>
+                <tbody>
+                    <tr><td>Smartphone (Compact)</td><td>5.4-6.1"</td><td>150-180g</td><td>~146×71mm</td><td>One-hand use, pocket-friendly</td></tr>
+                    <tr><td>Smartphone (Standard)</td><td>6.1-6.5"</td><td>170-200g</td><td>~152×72mm</td><td>Daily use, balanced size</td></tr>
+                    <tr><td>Smartphone (Large)</td><td>6.5-6.9"</td><td>200-240g</td><td>~165×77mm</td><td>Media, gaming, productivity</td></tr>
+                    <tr><td>Tablet (Mini)</td><td>7.9-8.3"</td><td>300-370g</td><td>~200×135mm</td><td>Reading, travel</td></tr>
+                    <tr><td>Tablet (Standard)</td><td>10-11"</td><td>450-550g</td><td>~250×175mm</td><td>Work, entertainment</td></tr>
+                    <tr><td>Tablet (Pro)</td><td>12.9-13"</td><td>600-750g</td><td>~280×215mm</td><td>Creative work, laptop replacement</td></tr>
+                    <tr><td>Laptop (13")</td><td>13.3"</td><td>1.2-1.6kg</td><td>~304×212mm</td><td>Ultrabook, portability</td></tr>
+                    <tr><td>Laptop (15")</td><td>15.6"</td><td>1.6-2.2kg</td><td>~360×250mm</td><td>General purpose</td></tr>
+                    <tr><td>Laptop (17")</td><td>17.3"</td><td>2.2-3.0kg</td><td>~400×280mm</td><td>Gaming, workstation</td></tr>
+                    <tr><td>Monitor (24")</td><td>24"</td><td>3-5kg</td><td>~540×320mm</td><td>Office, compact desk</td></tr>
+                    <tr><td>Monitor (27")</td><td>27"</td><td>5-7kg</td><td>~610×360mm</td><td>General use, light gaming</td></tr>
+                    <tr><td>Monitor (32"+)</td><td>32-34"</td><td>7-10kg</td><td>~700×400mm</td><td>Gaming, creative, multitasking</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="home-tab" class="sg-content">
+            <table class="sg-table">
+                <thead><tr><th>Product</th><th>Size</th><th>Dimensions</th><th>Best For</th></tr></thead>
+                <tbody>
+                    <tr><td>Desk</td><td>Small</td><td>90×60cm</td><td>Small room, laptop work</td></tr>
+                    <tr><td>Desk</td><td>Medium</td><td>120×60cm</td><td>Standard office, dual monitor</td></tr>
+                    <tr><td>Desk</td><td>Large</td><td>150×75cm</td><td>Executive, creative work</td></tr>
+                    <tr><td>Ceiling Fan</td><td>Small</td><td>76cm (30")</td><td>Rooms up to 10m²</td></tr>
+                    <tr><td>Ceiling Fan</td><td>Medium</td><td>107cm (42")</td><td>Rooms 10-20m²</td></tr>
+                    <tr><td>Ceiling Fan</td><td>Large</td><td>132cm (52")</td><td>Rooms 20-40m²</td></tr>
+                    <tr><td>Area Rug</td><td>Small</td><td>120×180cm</td><td>Under coffee table</td></tr>
+                    <tr><td>Area Rug</td><td>Medium</td><td>160×230cm</td><td>Living room seating area</td></tr>
+                    <tr><td>Area Rug</td><td>Large</td><td>200×300cm</td><td>Full living/dining area</td></tr>
+                    <tr><td>Curtain Panel</td><td>Standard</td><td>137×228cm</td><td>Standard window</td></tr>
+                    <tr><td>Curtain Panel</td><td>Extra Long</td><td>137×274cm</td><td>Floor-to-ceiling windows</td></tr>
+                    <tr><td>Plant Pot</td><td>Small</td><td>10-15cm dia</td><td>Succulents, herbs</td></tr>
+                    <tr><td>Plant Pot</td><td>Medium</td><td>20-30cm dia</td><td>Medium houseplants</td></tr>
+                    <tr><td>Plant Pot</td><td>Large</td><td>35-50cm dia</td><td>Floor plants, trees</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="sg-note">
+            <i class="fas fa-info-circle"></i> <strong>Note:</strong> Sizes may vary slightly between brands. When in doubt, measure yourself and compare with the size chart above. If you're between sizes, we recommend sizing up for a more comfortable fit.
+        </div>
+    </main>
+    <div id="footer-container"></div>
+    <script src="header-loader.js?v=2"></script>
+    <script src="footer-loader.js"></script>
+    <script>
+        function switchSgTab(tab) {
+            document.querySelectorAll('.sg-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sg-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+    </script>
+</body>
+</html>

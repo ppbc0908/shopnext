@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Editor - ShopNext Admin</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .admin-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .admin-logo-text span {
+            color: #e74c3c;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .admin-nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            color: #fff;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .editor-panel {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .editor-panel h2 {
+            font-size: 20px;
+            color: #1a1a2e;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .column-editor {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .column-header h3 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .remove-column {
+            background: #ffeaea;
+            color: #e74c3c;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-column:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .links-editor {
+            margin-top: 15px;
+        }
+
+        .link-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .link-item input {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .link-item input:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .remove-link {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            color: #999;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-link:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .add-link {
+            background: #fff;
+            border: 2px dashed #ddd;
+            color: #666;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .add-link:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .add-column {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .add-column:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(26, 26, 46, 0.3);
+        }
+
+        .payment-editor {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-editor h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .payment-methods-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .payment-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-item select,
+        .payment-item input {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .payment-item select {
+            width: 150px;
+        }
+
+        .payment-item input {
+            flex: 1;
+        }
+
+        .remove-payment {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            color: #999;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-payment:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .business-editor {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .business-editor h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .copyright-editor {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .copyright-editor h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            position: sticky;
+            top: 40px;
+        }
+
+        .preview-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .preview-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .preview-content {
+            padding: 0;
+        }
+
+        .footer-preview {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 30px 25px;
+        }
+
+        .footer-preview-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-preview-business h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .footer-preview-business > p {
+            color: #999;
+            font-size: 10px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .footer-preview-business .business-details p {
+            color: #999;
+            font-size: 9px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-preview-business .business-details i {
+            color: #fff;
+            width: 10px;
+            font-size: 9px;
+        }
+
+        .footer-preview-column h4 {
+            font-size: 11px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-preview-column ul {
+            list-style: none;
+        }
+
+        .footer-preview-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-preview-column ul li a {
+            color: #999;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        .footer-preview-bottom {
+            background: #16213e;
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-preview-payment {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-preview-payment span {
+            color: #999;
+            font-size: 10px;
+        }
+
+        .footer-preview-payment i {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .footer-preview-copyright {
+            color: #999;
+            font-size: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            border-color: #e74c3c;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: #fff;
+            border-color: #e74c3c;
+        }
+
+        .section-editor {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .section-editor h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-preview {
+            background: #1a1a2e;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .header-top-preview a {
+            color: #ccc;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .header-right-preview a {
+            color: #ccc;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+        .header-category-preview {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+            border-top: 1px solid #eee;
+        }
+
+        .header-category-preview a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3);
+            z-index: 10000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 1200px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .admin-container {
+                padding: 20px;
+            }
+
+            .footer-preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-logo">
+            <div class="admin-logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="admin-logo-text">Shop<span>Next</span> Admin</span>
+        </div>
+        <nav class="admin-nav">
+            <a href="admin/index.html">Dashboard</a>
+            <a href="admin/index.html">Products</a>
+            <a href="footer-admin.html" class="active">Header & Footer Editor</a>
+            <a href="index.html" target="_blank">View Store</a>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <div class="page-header">
+            <h1><i class="fas fa-edit"></i> Header & Footer Editor</h1>
+            <p>Customize your website header and footer content. Changes will be reflected on all pages.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('header')">
+                <i class="fas fa-header"></i> Header Editor
+            </button>
+            <button class="tab-btn" onclick="showTab('footer')">
+                <i class="fas fa-footer"></i> Footer Editor
+            </button>
+        </div>
+
+        <div class="editor-container" id="header-editor-section">
+            <div class="editor-panel">
+                <h2><i class="fas fa-bars"></i> Top Navigation Bar</h2>
+
+                <div class="section-editor">
+                    <h3><i class="fas fa-link"></i> Top Bar Links</h3>
+                    <p style="font-size:13px;color:#888;margin-bottom:12px;">These 3 links are displayed in the top bar of all pages.</p>
+                    <div id="top-right-editor"></div>
+                    <button class="add-link" onclick="addTopRightLink()">
+                        <i class="fas fa-plus"></i> Add Link
+                    </button>
+                </div>
+
+                <div class="section-editor">
+                    <h3><i class="fas fa-th-list"></i> Category Menu</h3>
+                    <div id="categories-editor"></div>
+                    <button class="add-link" onclick="addCategory()">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </div>
+
+                <div class="section-editor">
+                    <h3><i class="fas fa-search"></i> Search Settings</h3>
+                    <div class="form-group">
+                        <label>Search Placeholder Text</label>
+                        <input type="text" id="search-placeholder" placeholder="Search for products...">
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveHeaderData()">
+                    <i class="fas fa-save"></i> Save Header Changes
+                </button>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <i class="fas fa-eye"></i> Header Preview
+                    </div>
+                    <div class="preview-content">
+                        <div class="header-preview">
+                            <div class="header-right-preview" id="preview-top-right"></div>
+                        </div>
+                        <div class="header-category-preview" id="preview-categories"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-container" id="footer-editor-section" style="display: none;">
+            <div class="editor-panel">
+                <h2><i class="fas fa-columns"></i> Footer Columns</h2>
+                <div id="columns-editor"></div>
+                <button class="add-column" onclick="addColumn()">
+                    <i class="fas fa-plus"></i> Add New Column
+                </button>
+
+                <div class="payment-editor">
+                    <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+                    <div id="payment-editor"></div>
+                    <button class="add-link" onclick="addPaymentMethod()" style="margin-top: 10px;">
+                        <i class="fas fa-plus"></i> Add Payment Method
+                    </button>
+                </div>
+
+                <div class="business-editor">
+                    <h3><i class="fas fa-store"></i> Business Information</h3>
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" id="business-name" placeholder="ShopNext Store">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Description</label>
+                        <input type="text" id="business-description" placeholder="Your one-stop shop for everything">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="business-address" placeholder="123 Main Street, Toronto, ON">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="business-phone" placeholder="1-800-SHOP-NEXT">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" id="business-email" placeholder="support@shopnext.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Hours</label>
+                        <input type="text" id="business-hours" placeholder="Mon-Fri: 9AM-9PM EST">
+                    </div>
+                </div>
+
+                <div class="copyright-editor">
+                    <h3><i class="fas fa-copyright"></i> Copyright Text</h3>
+                    <div class="form-group">
+                        <input type="text" id="copyright-input" placeholder="© 2026 ShopNext. All rights reserved.">
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveFooterData()">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button class="save-btn" onclick="testSave()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 10px;">
+                    <i class="fas fa-flask"></i> Test Save & Verify
+                </button>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <i class="fas fa-eye"></i> Live Preview
+                    </div>
+                    <div class="preview-content">
+                        <div class="footer-preview">
+                            <div class="footer-preview-grid" id="preview-grid"></div>
+                            <div class="footer-preview-bottom">
+                                <div class="footer-preview-payment" id="preview-payment"></div>
+                                <div class="footer-preview-copyright" id="preview-copyright"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Changes saved successfully!</span>
+    </div>
+
+    <script>
+        let headerData = {
+            topRight: [],
+            categories: [],
+            searchPlaceholder: ''
+        };
+
+        const defaultHeaderData = {
+            topRight: [
+                { text: "Store Finder", url: "#", icon: "fas fa-map-marker-alt" },
+                { text: "1-800-SHOP-NEXT", url: "#", icon: "fas fa-phone" },
+                { text: "Help", url: "#", icon: "fas fa-question-circle" }
+            ],
+            categories: [
+                { text: "Home", url: "index.html" },
+                { text: "Electronics", url: "#" },
+                { text: "Toys & Hobbies", url: "#" },
+                { text: "Health & Fitness", url: "#" },
+                { text: "Home & Garden", url: "#" },
+                { text: "Sports", url: "#" }
+            ],
+            searchPlaceholder: "Search for electronics, toys, fitness equipment..."
+        };
+
+        let footerData = {
+            columns: [],
+            paymentMethods: [],
+            business: {
+                name: '',
+                description: '',
+                address: '',
+                phone: '',
+                email: '',
+                hours: ''
+            },
+            copyright: ''
+        };
+
+        const defaultFooterData = {
+            columns: [
+                {
+                    title: "Customer Service",
+                    links: [
+                        { text: "Help Center", url: "#" },
+                        { text: "Track Order", url: "#" },
+                        { text: "Returns & Exchanges", url: "#" },
+                        { text: "Shipping Info", url: "#" },
+                        { text: "Contact Us", url: "#" }
+                    ]
+                },
+                {
+                    title: "About Us",
+                    links: [
+                        { text: "About ShopNext", url: "#" },
+                        { text: "Careers", url: "#" },
+                        { text: "Press", url: "#" },
+                        { text: "Affiliates", url: "#" },
+                        { text: "Sustainability", url: "#" }
+                    ]
+                },
+                {
+                    title: "Connect With Us",
+                    links: [
+                        { text: "Facebook", url: "#", icon: "fab fa-facebook" },
+                        { text: "Twitter", url: "#", icon: "fab fa-twitter" },
+                        { text: "Instagram", url: "#", icon: "fab fa-instagram" },
+                        { text: "YouTube", url: "#", icon: "fab fa-youtube" },
+                        { text: "Pinterest", url: "#", icon: "fab fa-pinterest" }
+                    ]
+                }
+            ],
+            paymentMethods: [
+                { name: "Visa", icon: "fab fa-cc-visa" },
+                { name: "Mastercard", icon: "fab fa-cc-mastercard" },
+                { name: "Amex", icon: "fab fa-cc-amex" }
+            ],
+            business: {
+                name: "ShopNext Store",
+                description: "Your one-stop shop for everything",
+                address: "123 Main Street, Toronto, ON M5V 2T6",
+                phone: "1-800-SHOP-NEXT",
+                email: "support@shopnext.com",
+                hours: "Mon-Fri: 9AM-9PM EST"
+            },
+            copyright: "© 2026 ShopNext. All rights reserved."
+        };
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            if (tab === 'header') {
+                document.getElementById('header-editor-section').style.display = 'grid';
+                document.getElementById('footer-editor-section').style.display = 'none';
+            } else {
+                document.getElementById('header-editor-section').style.display = 'none';
+                document.getElementById('footer-editor-section').style.display = 'grid';
+            }
+        }
+
+        function loadHeaderData() {
+            const savedData = localStorage.getItem('shopnext_header_v1');
+            headerData = savedData ? JSON.parse(savedData) : defaultHeaderData;
+            renderHeaderEditor();
+            updateHeaderPreview();
+        }
+
+        function renderHeaderEditor() {
+            const topRightEditor = document.getElementById('top-right-editor');
+            if (headerData.topRight && headerData.topRight.length > 0) {
+                topRightEditor.innerHTML = headerData.topRight.map((link, index) => `
+                    <div class="link-item">
+                        <input type="text" value="${link.text}" placeholder="Link text"
+                            onchange="updateTopRight(${index}, 'text', this.value)">
+                        <input type="text" value="${link.url}" placeholder="URL"
+                            onchange="updateTopRight(${index}, 'url', this.value)">
+                        <input type="text" value="${link.icon}" placeholder="Icon class" style="width: 120px;"
+                            onchange="updateTopRight(${index}, 'icon', this.value)">
+                        <button class="remove-link" onclick="removeTopRight(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                topRightEditor.innerHTML = '<p style="color: #888;">No links added.</p>';
+            }
+
+            const categoriesEditor = document.getElementById('categories-editor');
+            if (headerData.categories && headerData.categories.length > 0) {
+                categoriesEditor.innerHTML = headerData.categories.map((cat, index) => `
+                    <div class="link-item">
+                        <input type="text" value="${cat.text}" placeholder="Category name"
+                            onchange="updateCategory(${index}, 'text', this.value)">
+                        <input type="text" value="${cat.url}" placeholder="URL"
+                            onchange="updateCategory(${index}, 'url', this.value)">
+                        <button class="remove-link" onclick="removeCategory(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                categoriesEditor.innerHTML = '<p style="color: #888;">No categories added.</p>';
+            }
+
+            document.getElementById('search-placeholder').value = headerData.searchPlaceholder || '';
+        }
+
+        function updateTopRight(index, field, value) {
+            headerData.topRight[index][field] = value;
+            updateHeaderPreview();
+        }
+
+        function addTopRightLink() {
+            headerData.topRight.push({ text: "New Link", url: "#", icon: "fas fa-link" });
+            renderHeaderEditor();
+            updateHeaderPreview();
+        }
+
+        function removeTopRight(index) {
+            headerData.topRight.splice(index, 1);
+            renderHeaderEditor();
+            updateHeaderPreview();
+        }
+
+        function updateCategory(index, field, value) {
+            headerData.categories[index][field] = value;
+            updateHeaderPreview();
+        }
+
+        function addCategory() {
+            headerData.categories.push({ text: "New Category", url: "#" });
+            renderHeaderEditor();
+            updateHeaderPreview();
+        }
+
+        function removeCategory(index) {
+            headerData.categories.splice(index, 1);
+            renderHeaderEditor();
+            updateHeaderPreview();
+        }
+
+        function updateHeaderPreview() {
+            const previewTopRight = document.getElementById('preview-top-right');
+            if (previewTopRight && headerData.topRight) {
+                previewTopRight.innerHTML = headerData.topRight.map(link => 
+                    `<a href="${link.url}"><i class="${link.icon}"></i> ${link.text}</a>`
+                ).join('');
+            }
+
+            const previewCategories = document.getElementById('preview-categories');
+            if (previewCategories && headerData.categories) {
+                previewCategories.innerHTML = headerData.categories.map(cat => 
+                    `<a href="${cat.url}">${cat.text}</a>`
+                ).join('');
+            }
+        }
+
+        function saveHeaderData() {
+            headerData.searchPlaceholder = document.getElementById('search-placeholder').value;
+            localStorage.setItem('shopnext_header_v1', JSON.stringify(headerData));
+            showNotification('Header changes saved successfully!');
+        }
+
+        function loadFooterData() {
+            const savedData = localStorage.getItem('shopnext_footer_v2');
+            footerData = savedData ? JSON.parse(savedData) : defaultFooterData;
+            renderEditor();
+            updatePreview();
+        }
+
+        function renderEditor() {
+            const columnsEditor = document.getElementById('columns-editor');
+            if (footerData.columns && footerData.columns.length > 0) {
+                columnsEditor.innerHTML = footerData.columns.map((column, colIndex) => `
+                    <div class="column-editor">
+                        <div class="column-header">
+                            <h3>Column ${colIndex + 1}</h3>
+                            <button class="remove-column" onclick="removeColumn(${colIndex})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label>Column Title</label>
+                            <input type="text" value="${column.title}" 
+                                onchange="updateColumnTitle(${colIndex}, this.value)">
+                        </div>
+                        <div class="links-editor">
+                            <label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 10px;">Links</label>
+                            ${column.links.map((link, linkIndex) => `
+                                <div class="link-item">
+                                    <input type="text" value="${link.text}" placeholder="Link text"
+                                        onchange="updateLink(${colIndex}, ${linkIndex}, 'text', this.value)">
+                                    <input type="text" value="${link.url}" placeholder="URL"
+                                        onchange="updateLink(${colIndex}, ${linkIndex}, 'url', this.value)">
+                                    <button class="remove-link" onclick="removeLink(${colIndex}, ${linkIndex})">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('')}
+                            <button class="add-link" onclick="addLink(${colIndex})">
+                                <i class="fas fa-plus"></i> Add Link
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                columnsEditor.innerHTML = '<p style="color: #888; text-align: center;">No columns added yet. Click "Add New Column" to start.</p>';
+            }
+
+            const paymentEditor = document.getElementById('payment-editor');
+            if (footerData.paymentMethods && footerData.paymentMethods.length > 0) {
+                paymentEditor.innerHTML = footerData.paymentMethods.map((method, index) => `
+                    <div class="payment-item">
+                        <select onchange="updatePaymentMethod(${index}, 'name', this.value)">
+                            <option value="Visa" ${method.name === 'Visa' ? 'selected' : ''}>Visa</option>
+                            <option value="Mastercard" ${method.name === 'Mastercard' ? 'selected' : ''}>Mastercard</option>
+                            <option value="Amex" ${method.name === 'Amex' ? 'selected' : ''}>Amex</option>
+                            <option value="Discover" ${method.name === 'Discover' ? 'selected' : ''}>Discover</option>
+                            <option value="PayPal" ${method.name === 'PayPal' ? 'selected' : ''}>PayPal</option>
+                        </select>
+                        <input type="text" value="${method.icon}" placeholder="Icon class"
+                            onchange="updatePaymentMethod(${index}, 'icon', this.value)">
+                        <button class="remove-payment" onclick="removePaymentMethod(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                paymentEditor.innerHTML = '<p style="color: #888;">No payment methods added.</p>';
+            }
+
+            if (footerData.business) {
+                document.getElementById('business-name').value = footerData.business.name || '';
+                document.getElementById('business-description').value = footerData.business.description || '';
+                document.getElementById('business-address').value = footerData.business.address || '';
+                document.getElementById('business-phone').value = footerData.business.phone || '';
+                document.getElementById('business-email').value = footerData.business.email || '';
+                document.getElementById('business-hours').value = footerData.business.hours || '';
+            }
+
+            document.getElementById('copyright-input').value = footerData.copyright;
+        }
+
+        function updateColumnTitle(colIndex, value) {
+            footerData.columns[colIndex].title = value;
+            updatePreview();
+        }
+
+        function updateLink(colIndex, linkIndex, field, value) {
+            footerData.columns[colIndex].links[linkIndex][field] = value;
+            updatePreview();
+        }
+
+        function addLink(colIndex) {
+            footerData.columns[colIndex].links.push({ text: "New Link", url: "#" });
+            renderEditor();
+            updatePreview();
+        }
+
+        function removeLink(colIndex, linkIndex) {
+            footerData.columns[colIndex].links.splice(linkIndex, 1);
+            renderEditor();
+            updatePreview();
+        }
+
+        function addColumn() {
+            footerData.columns.push({
+                title: "New Column",
+                links: [{ text: "New Link", url: "#" }]
+            });
+            renderEditor();
+            updatePreview();
+        }
+
+        function removeColumn(colIndex) {
+            footerData.columns.splice(colIndex, 1);
+            renderEditor();
+            updatePreview();
+        }
+
+        function updatePaymentMethod(index, field, value) {
+            footerData.paymentMethods[index][field] = value;
+            updatePreview();
+        }
+
+        function addPaymentMethod() {
+            footerData.paymentMethods.push({ name: "New", icon: "fas fa-credit-card" });
+            renderEditor();
+            updatePreview();
+        }
+
+        function removePaymentMethod(index) {
+            footerData.paymentMethods.splice(index, 1);
+            renderEditor();
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const previewGrid = document.getElementById('preview-grid');
+            
+            const business = {
+                name: document.getElementById('business-name').value || 'ShopNext Store',
+                description: document.getElementById('business-description').value || '',
+                address: document.getElementById('business-address').value || '',
+                phone: document.getElementById('business-phone').value || '',
+                email: document.getElementById('business-email').value || '',
+                hours: document.getElementById('business-hours').value || ''
+            };
+            
+            let businessHtml = `
+                <div class="footer-preview-business">
+                    <h4>${business.name}</h4>
+                    <p>${business.description}</p>
+                    <div class="business-details">
+                        ${business.address ? `<p><i class="fas fa-map-marker-alt"></i> ${business.address}</p>` : ''}
+                        ${business.phone ? `<p><i class="fas fa-phone"></i> ${business.phone}</p>` : ''}
+                        ${business.email ? `<p><i class="fas fa-envelope"></i> ${business.email}</p>` : ''}
+                        ${business.hours ? `<p><i class="fas fa-clock"></i> ${business.hours}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            let columnsHtml = '';
+            if (footerData.columns && footerData.columns.length > 0) {
+                columnsHtml = footerData.columns.map(column => `
+                    <div class="footer-preview-column">
+                        <h4>${column.title}</h4>
+                        <ul>
+                            ${column.links.map(link => `
+                                <li><a href="${link.url}">${link.icon ? `<i class="${link.icon}"></i> ` : ''}${link.text}</a></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+            }
+            
+            previewGrid.innerHTML = businessHtml + columnsHtml;
+
+            const previewPayment = document.getElementById('preview-payment');
+            if (footerData.paymentMethods && footerData.paymentMethods.length > 0) {
+                previewPayment.innerHTML = `
+                    <span>We Accept:</span>
+                    ${footerData.paymentMethods.map(method => `
+                        <i class="${method.icon}" title="${method.name}"></i>
+                    `).join('')}
+                `;
+            } else {
+                previewPayment.innerHTML = '';
+            }
+
+            document.getElementById('preview-copyright').textContent = 
+                document.getElementById('copyright-input').value || footerData.copyright || '';
+        }
+
+        function saveFooterData() {
+            footerData.business = {
+                name: document.getElementById('business-name').value,
+                description: document.getElementById('business-description').value,
+                address: document.getElementById('business-address').value,
+                phone: document.getElementById('business-phone').value,
+                email: document.getElementById('business-email').value,
+                hours: document.getElementById('business-hours').value
+            };
+            footerData.copyright = document.getElementById('copyright-input').value;
+            
+            localStorage.setItem('shopnext_footer_v2', JSON.stringify(footerData));
+            showNotification('Changes saved successfully! Refresh other pages to see updates.');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notification-text').textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        function testSave() {
+            saveFooterData();
+            const savedData = localStorage.getItem('shopnext_footer_v2');
+            if (savedData) {
+                const parsed = JSON.parse(savedData);
+                console.log('Saved data:', parsed);
+                alert('Data saved successfully!\n\nBusiness Name: ' + (parsed.business ? parsed.business.name : 'N/A') + '\nColumns: ' + (parsed.columns ? parsed.columns.length : 0) + '\nPayment Methods: ' + (parsed.paymentMethods ? parsed.paymentMethods.length : 0));
+            } else {
+                alert('Error: Data was not saved!');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeaderData();
+            loadFooterData();
+        });
+
+        document.getElementById('copyright-input').addEventListener('input', updatePreview);
+        document.getElementById('business-name').addEventListener('input', updatePreview);
+        document.getElementById('business-description').addEventListener('input', updatePreview);
+        document.getElementById('business-address').addEventListener('input', updatePreview);
+        document.getElementById('business-phone').addEventListener('input', updatePreview);
+        document.getElementById('business-email').addEventListener('input', updatePreview);
+        document.getElementById('business-hours').addEventListener('input', updatePreview);
+        document.getElementById('search-placeholder').addEventListener('input', updateHeaderPreview);
+    </script>
+</body>
+</html>

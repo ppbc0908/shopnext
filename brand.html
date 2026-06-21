@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand - ShopNext</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="user.css?v=6">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .top-bar { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 10px 0; font-size: 13px; }
+        .top-bar-content { display: flex; justify-content: space-between; align-items: center; }
+        .top-links { display: flex; gap: 25px; }
+        .top-links a { color: #ccc; }
+        .top-links a:hover { color: #fff; }
+        .header { background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .navbar { padding: 15px 0; }
+        .nav-content { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        .logo a { display: flex; align-items: center; gap: 8px; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; }
+        .logo-text { font-size: 26px; font-weight: 700; color: #1a1a2e; }
+        .logo-text span { color: #e74c3c; }
+        .search-bar { flex: 1; max-width: 550px; display: flex; border: 2px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+        .search-bar input { flex: 1; padding: 14px 20px; border: none; font-size: 15px; outline: none; }
+        .search-btn { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: #fff; border: none; padding: 0 25px; cursor: pointer; font-size: 18px; }
+        .nav-actions { display: flex; gap: 25px; }
+        .nav-action-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #333; }
+        .nav-action-item:hover { color: #e74c3c; }
+        .nav-action-item i { font-size: 22px; }
+        .nav-action-item span { font-size: 12px; }
+        .category-nav { background: #f8f9fa; border-top: 1px solid #eee; }
+        .category-menu { display: flex; justify-content: center; list-style: none; }
+        .category-menu li a { display: block; padding: 14px 28px; font-weight: 600; font-size: 14px; color: #444; }
+        .category-menu li a:hover { color: #e74c3c; }
+        .brand-hero { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); color: #fff; padding: 60px 0; text-align: center; }
+        .brand-hero h1 { font-size: 42px; margin-bottom: 10px; }
+        .brand-hero p { font-size: 16px; opacity: 0.9; }
+        .products-section { padding: 40px 0; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 15px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+        .product-image { height: 220px; overflow: hidden; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .product-title { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+        .product-price { font-size: 22px; font-weight: 700; color: #e74c3c; }
+        .no-products { text-align: center; padding: 80px 20px; }
+        .no-products i { font-size: 60px; color: #ddd; margin-bottom: 20px; }
+        .footer { background: #1a1a2e; color: #fff; margin-top: 60px; }
+        .footer-main { padding: 50px 0 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 35px; }
+        .footer-column h4 { font-size: 15px; margin-bottom: 18px; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column ul li a { color: #999; font-size: 13px; }
+        .footer-column ul li a:hover { color: #fff; }
+        .footer-bottom { background: #16213e; padding: 15px 0; }
+        .footer-bottom-content { display: flex; justify-content: space-between; align-items: center; }
+        .copyright p { font-size: 12px; color: #999; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="top-right">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Store Finder</a>
+                        <a href="#"><i class="fas fa-phone"></i> 1-800-SHOP-NEXT</a>
+                        <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                            <span class="logo-text">Shop<span>Next</span></span>
+                        </a>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search products...">
+                        <button class="search-btn" onclick="performSearch()"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="user-menu-container"></div>
+                        <a href="#" class="nav-action-item"><i class="fas fa-heart"></i><span>Wishlist</span></a>
+                        <a href="cart.html" class="nav-action-item"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="brand-hero">
+        <div class="container">
+            <h1 id="brand-title">Brand</h1>
+            <p id="brand-description">All products from this brand</p>
+            <p id="brand-count" style="margin-top:10px;opacity:0.8;"></p>
+        </div>
+    </section>
+
+    <main class="products-section">
+        <div class="container">
+            <div class="products-grid" id="products-grid"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid" id="footer-grid"></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="copyright" id="copyright"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="footer-loader.js"></script>
+    <script>
+        let products = [];
+        let currentBrand = '';
+
+        function loadProducts() {
+            try {
+                const saved = localStorage.getItem('shopnext_products');
+                if (saved) products = JSON.parse(saved);
+            } catch (e) {}
+        }
+
+        function getUrlParam(param) {
+            return new URLSearchParams(window.location.search).get(param);
+        }
+
+        function performSearch() {
+            const q = document.getElementById('search-input').value.trim();
+            if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('products-grid');
+            const brandProducts = products.filter(p => 
+                p.status === 'active' && p.brand && p.brand.toLowerCase() === currentBrand.toLowerCase()
+            );
+
+            document.getElementById('brand-count').textContent = `${brandProducts.length} product${brandProducts.length !== 1 ? 's' : ''}`;
+
+            if (brandProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-box-open"></i>
+                        <h3>No products found</h3>
+                        <p>No products from this brand yet.</p>
+                        <a href="index.html" style="display:inline-block;margin-top:20px;padding:12px 30px;background:#e74c3c;color:#fff;border-radius:8px;">Browse All Products</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = brandProducts.map(p => `
+                <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
+                    <div class="product-image">
+                        <img src="${p.images ? p.images[0] : (p.image || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22 fill=%22%23e9ecef%22%3E%3Crect width=%22400%22 height=%22400%22/%3E%3Ctext x=%22200%22 y=%22210%22 font-size=%2222%22 fill=%22%23adb5bd%22 text-anchor=%22middle%22%3ENo Image%3C/text%3E%3C/svg%3E')}" 
+                        alt="${p.name}" 
+                        onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22 fill=%22%23e9ecef%22%3E%3Crect width=%22400%22 height=%22400%22/%3E%3Ctext x=%22200%22 y=%22210%22 font-size=%2222%22 fill=%22%23adb5bd%22 text-anchor=%22middle%22%3ENo Image%3C/text%3E%3C/svg%3E'"
+                        loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">$${p.price.toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            currentBrand = getUrlParam('brand') || '';
+            document.title = `${currentBrand} - ShopNext`;
+            document.getElementById('brand-title').textContent = currentBrand;
+            renderProducts();
+        });
+    </script>
+</body>
+</html>

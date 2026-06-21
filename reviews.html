@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            color: #333;
+            padding: 0;
+        }
+
+        .reviews-container { padding: 0; }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .reviews-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .write-review-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .write-review-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .reviews-summary {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+            padding: 24px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .summary-score {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .summary-score .big-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1;
+        }
+
+        .summary-score .stars-display {
+            color: #f39c12;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .summary-score .total-text {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .summary-bars { flex: 1; min-width: 200px; }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .bar-row .label {
+            width: 50px;
+            text-align: right;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .bar-row .count {
+            width: 30px;
+            text-align: left;
+            color: #999;
+        }
+
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .sort-bar select {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .review-card {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .review-card:last-child { border-bottom: none; }
+
+        .review-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1a1a2e;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .review-stars {
+            color: #f39c12;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .review-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #1a1a2e;
+        }
+
+        .review-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .review-images img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #eee;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .review-images img:hover {
+            border-color: #e74c3c;
+            transform: scale(1.05);
+        }
+
+        .review-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .review-actions button {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .review-actions button:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .review-actions button.liked {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #27ae60;
+            font-weight: 600;
+            background: #e8f8f0;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .review-modal {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .review-modal h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        .star-picker {
+            display: flex;
+            gap: 6px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .star-picker i { color: #ddd; transition: color 0.15s; }
+        .star-picker i.active { color: #f39c12; }
+        .star-picker i:hover { color: #f39c12; }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+        }
+
+        .no-reviews {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .no-reviews i { font-size: 40px; margin-bottom: 12px; display: block; color: #ddd; }
+
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 6px 14px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            background: #fff;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active,
+        .filter-chip:hover {
+            background: #e74c3c;
+            color: #fff;
+            border-color: #e74c3c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .review-card { animation: fadeIn 0.3s ease; }
+
+        #image-lightbox {
+            background: rgba(0,0,0,0.85);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="reviews-container">
+        <div class="reviews-header">
+            <h2>Customer Reviews</h2>
+            <button class="write-review-btn" onclick="openReviewModal()">
+                <i class="fas fa-pen"></i> Write a Review
+            </button>
+        </div>
+
+        <div class="reviews-summary" id="reviews-summary">
+            <div class="summary-score">
+                <div class="big-number" id="avg-rating">0</div>
+                <div class="stars-display" id="avg-stars"></div>
+                <div class="total-text"><span id="total-reviews">0</span> reviews</div>
+            </div>
+            <div class="summary-bars" id="rating-bars"></div>
+        </div>
+
+        <div class="filter-chips">
+            <span class="filter-chip active" onclick="filterReviews('all', this)">All</span>
+            <span class="filter-chip" onclick="filterReviews(5, this)">5 Star</span>
+            <span class="filter-chip" onclick="filterReviews(4, this)">4 Star</span>
+            <span class="filter-chip" onclick="filterReviews(3, this)">3 Star</span>
+            <span class="filter-chip" onclick="filterReviews(2, this)">2 Star</span>
+            <span class="filter-chip" onclick="filterReviews(1, this)">1 Star</span>
+            <span class="filter-chip" onclick="filterReviews('images', this)">With Images</span>
+        </div>
+
+        <div class="sort-bar">
+            <span>Sort by:</span>
+            <select id="sort-select" onchange="renderReviews()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="highest">Highest Rating</option>
+                <option value="lowest">Lowest Rating</option>
+                <option value="helpful">Most Helpful</option>
+            </select>
+        </div>
+
+        <div id="reviews-list"></div>
+    </div>
+
+    <div class="modal-overlay" id="image-lightbox" onclick="this.classList.remove('active')">
+        <img id="lightbox-img" src="" alt="Review image" style="max-width:90%;max-height:90vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.4);cursor:pointer;">
+    </div>
+
+    <div class="modal-overlay" id="review-modal">
+        <div class="review-modal">
+            <h3>Write Your Review</h3>
+            <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" id="review-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Rating *</label>
+                <div class="star-picker" id="star-picker">
+                    <i class="fas fa-star" data-value="1"></i>
+                    <i class="fas fa-star" data-value="2"></i>
+                    <i class="fas fa-star" data-value="3"></i>
+                    <i class="fas fa-star" data-value="4"></i>
+                    <i class="fas fa-star" data-value="5"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Review Title</label>
+                <input type="text" id="review-title" placeholder="Summarize your experience">
+            </div>
+            <div class="form-group">
+                <label>Your Review *</label>
+                <textarea id="review-body" placeholder="Tell others about your experience with this product..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL (optional)</label>
+                <input type="text" id="review-image" placeholder="https://...">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+                <button class="btn-submit" onclick="submitReview()">Submit Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'shopnext_reviews';
+        function getProductId() { const p = new URLSearchParams(window.location.search); return p.get('productId') || ''; }
+        function getAllReviews() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; } }
+        function getReviewsForProduct(pid) { const all = getAllReviews(); return all[String(pid)] || []; }
+        function getAverageRating(pid) { const r = getReviewsForProduct(pid); if (!r.length) return '0.0'; return (r.reduce((s,x) => s + (x.rating||0), 0) / r.length).toFixed(1); }
+        function getRatingCounts(pid) { const r = getReviewsForProduct(pid); const c = {1:0,2:0,3:0,4:0,5:0}; r.forEach(x => { const s = Math.round(x.rating); if(s>=1&&s<=5) c[s]++; }); return c; }
+        function addReview(pid, data) { const all = getAllReviews(); const k = String(pid); if(!all[k]) all[k]=[]; all[k].push({id:Date.now(),rating:data.rating,title:data.title||'',author:data.name||'Anonymous',text:data.body||'',image:data.imageUrl||'',date:new Date().toISOString(),helpful:0}); localStorage.setItem(STORAGE_KEY,JSON.stringify(all)); }
+        function toggleHelpful(pid, rid) { const all = getAllReviews(); const k = String(pid); if(!all[k]) return; const r = all[k].find(x=>x.id===rid); if(r){r.helpful=(r.helpful||0)+1; localStorage.setItem(STORAGE_KEY,JSON.stringify(all));} }
+        function formatDate(d) { if(!d)return''; const dt=new Date(d); return dt.getFullYear()+'/'+String(dt.getMonth()+1).padStart(2,'0')+'/'+String(dt.getDate()).padStart(2,'0'); }
+
+        let productId = getProductId();
+        let selectedRating = 0;
+        let currentFilter = 'all';
+
+        function renderSummary() {
+            const avg = getAverageRating(productId);
+            const counts = getRatingCounts(productId);
+            const total = getReviewsForProduct(productId).length;
+
+            document.getElementById('avg-rating').textContent = avg;
+            document.getElementById('total-reviews').textContent = total;
+
+            const avgStarsEl = document.getElementById('avg-stars');
+            avgStarsEl.innerHTML = renderStars(parseFloat(avg));
+
+            const barsEl = document.getElementById('rating-bars');
+            barsEl.innerHTML = [5,4,3,2,1].map(star => {
+                const count = counts[star] || 0;
+                const pct = total > 0 ? (count / total * 100) : 0;
+                return `
+                    <div class="bar-row">
+                        <span class="label">${star} star</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+                        <span class="count">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStars(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    html += '<i class="fas fa-star"></i>';
+                } else if (i - rating < 1 && i - rating > 0) {
+                    html += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    html += '<i class="far fa-star"></i>';
+                }
+            }
+            return html;
+        }
+
+        function renderReviews() {
+            let reviews = getReviewsForProduct(productId);
+            const sort = document.getElementById('sort-select').value;
+
+            if (currentFilter === 'images') {
+                reviews = reviews.filter(r => r.imageUrl || r.image);
+            } else if (currentFilter !== 'all') {
+                reviews = reviews.filter(r => r.rating === parseInt(currentFilter));
+            }
+
+            switch (sort) {
+                case 'newest': reviews.sort((a,b) => new Date(b.date) - new Date(a.date)); break;
+                case 'oldest': reviews.sort((a,b) => new Date(a.date) - new Date(b.date)); break;
+                case 'highest': reviews.sort((a,b) => b.rating - a.rating); break;
+                case 'lowest': reviews.sort((a,b) => a.rating - b.rating); break;
+                case 'helpful': reviews.sort((a,b) => (b.helpful||0) - (a.helpful||0)); break;
+            }
+
+            const container = document.getElementById('reviews-list');
+            if (reviews.length === 0) {
+                container.innerHTML = `
+                    <div class="no-reviews">
+                        <i class="far fa-comments"></i>
+                        <p>No reviews yet. Be the first to share your experience!</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = reviews.map(r => {
+                const reviewerName = r.name || r.author || 'Anonymous';
+                const reviewBody = r.body || r.text || '';
+                const reviewImage = r.imageUrl || r.image || '';
+                const initials = reviewerName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+                const imgHtml = reviewImage ? `<div class="review-images"><img src="${reviewImage}" alt="Review image" onclick="openLightbox('${reviewImage}')" style="cursor:pointer;"></div>` : '';
+                return `
+                    <div class="review-card">
+                        <div class="review-top">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">${initials}</div>
+                                <div>
+                                    <div class="reviewer-name">${escapeHtml(reviewerName)} <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+                                    <div class="review-date">${formatDate(r.date)}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-stars">${renderStars(r.rating)}</div>
+                        ${r.title ? `<div class="review-title">${escapeHtml(r.title)}</div>` : ''}
+                        <div class="review-body">${escapeHtml(reviewBody)}</div>
+                        ${imgHtml}
+                        <div class="review-actions">
+                            <button onclick="markHelpful(${r.id})" id="helpful-${r.id}">
+                                <i class="far fa-thumbs-up"></i> Helpful (${r.helpful || 0})
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('image-lightbox').classList.add('active');
+        }
+
+        function filterReviews(filter, el) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            renderReviews();
+        }
+
+        function markHelpful(reviewId) {
+            toggleHelpful(productId, reviewId);
+            const btn = document.getElementById('helpful-' + reviewId);
+            if (btn) {
+                btn.classList.add('liked');
+                const review = getReviewsForProduct(productId).find(r => r.id === reviewId);
+                if (review) {
+                    btn.innerHTML = `<i class="fas fa-thumbs-up"></i> Helpful (${review.helpful || 0})`;
+                }
+            }
+        }
+
+        function openReviewModal() {
+            selectedRating = 0;
+            document.getElementById('review-name').value = '';
+            document.getElementById('review-title').value = '';
+            document.getElementById('review-body').value = '';
+            document.getElementById('review-image').value = '';
+            document.querySelectorAll('#star-picker i').forEach(s => s.classList.remove('active'));
+            document.getElementById('review-modal').classList.add('active');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.remove('active');
+        }
+
+        function submitReview() {
+            const name = document.getElementById('review-name').value.trim();
+            const title = document.getElementById('review-title').value.trim();
+            const body = document.getElementById('review-body').value.trim();
+            const imageUrl = document.getElementById('review-image').value.trim();
+
+            if (!name || !selectedRating || !body) {
+                alert('Please fill in your name, rating, and review.');
+                return;
+            }
+
+            addReview(productId, { name, title, body, rating: selectedRating, imageUrl });
+            closeReviewModal();
+            renderSummary();
+            renderReviews();
+        }
+
+        document.querySelectorAll('#star-picker i').forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.dataset.value);
+                document.querySelectorAll('#star-picker i').forEach((s, i) => {
+                    s.classList.toggle('active', i < selectedRating);
+                });
+            });
+
+            star.addEventListener('mouseenter', function() {
+                const val = parseInt(this.dataset.value);
+                document.querySelectorAll('#star-picker i').forEach((s, i) => {
+                    s.style.color = i < val ? '#f39c12' : '#ddd';
+                });
+            });
+
+            star.addEventListener('mouseleave', function() {
+                document.querySelectorAll('#star-picker i').forEach((s, i) => {
+                    s.style.color = i < selectedRating ? '#f39c12' : '#ddd';
+                });
+            });
+        });
+
+        document.getElementById('review-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeReviewModal();
+        });
+
+        window.addEventListener('storage', function(e) {
+            if (e.key === STORAGE_KEY) {
+                renderSummary();
+                renderReviews();
+            }
+        });
+
+        renderSummary();
+        renderReviews();
+    </script>
+</body>
+</html>

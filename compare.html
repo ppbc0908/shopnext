@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Products - ShopNext</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="user.css">
+    <style>
+        .compare-page { padding: 40px 0; }
+        .compare-empty { text-align: center; padding: 80px 20px; }
+        .compare-empty i { font-size: 60px; color: #ddd; margin-bottom: 20px; }
+        .compare-empty h2 { color: #333; margin-bottom: 10px; }
+        .compare-empty p { color: #888; margin-bottom: 20px; }
+        .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .compare-card { background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); position: relative; }
+        .compare-card img { width: 150px; height: 150px; object-fit: contain; margin-bottom: 15px; border-radius: 8px; }
+        .compare-card h3 { font-size: 16px; margin-bottom: 8px; }
+        .compare-card .price { font-size: 20px; font-weight: 700; color: #667eea; }
+        .compare-card .remove-btn { position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; border: none; background: #fee2e2; color: #ef4444; cursor: pointer; }
+        .compare-card .btn-primary { margin-top: 12px; width: 100%; }
+        .compare-specs { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .compare-specs table { width: 100%; border-collapse: collapse; }
+        .compare-specs th, .compare-specs td { padding: 14px 20px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+        .compare-specs th { background: #f8f9fa; font-weight: 600; color: #555; width: 160px; }
+        .compare-specs td { color: #333; }
+        .compare-specs tr:last-child th, .compare-specs tr:last-child td { border-bottom: none; }
+        .add-more-card { border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; min-height: 200px; cursor: pointer; border-radius: 12px; transition: border-color 0.3s; }
+        .add-more-card:hover { border-color: #667eea; }
+        .add-more-card i { font-size: 40px; color: #ccc; }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    <main class="compare-page">
+        <div class="container">
+            <h1 style="margin-bottom:30px;">Product Comparison</h1>
+            <div id="compare-content"></div>
+        </div>
+    </main>
+    <div id="footer-container"></div>
+    <script src="header-loader.js?v=2"></script>
+    <script src="footer-loader.js"></script>
+    <script src="user.js?v=2"></script>
+    <script>
+        const allProducts = JSON.parse(localStorage.getItem('shopnext_products') || '[]');
+
+        function renderComparePage() {
+            const compareIds = JSON.parse(localStorage.getItem('shopnext_compare_list') || '[]');
+            const products = compareIds.map(id => allProducts.find(p => p.id === id)).filter(Boolean);
+            const container = document.getElementById('compare-content');
+            if (products.length === 0) {
+                container.innerHTML = `<div class="compare-empty"><i class="fas fa-columns"></i><h2>No products to compare</h2><p>Add products from their detail pages to compare them side by side</p><a href="index.html" class="btn-primary" style="display:inline-block;padding:12px 30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:10px;text-decoration:none;font-weight:600;">Browse Products</a></div>`;
+                return;
+            }
+            let html = '<div class="compare-grid">';
+            products.forEach(p => {
+                html += `<div class="compare-card"><button class="remove-btn" onclick="removeCompare(${p.id})"><i class="fas fa-times"></i></button><img src="${p.images ? p.images[0] : p.image}" alt="${p.name}"><h3>${p.name}</h3><div class="price">$${p.price.toFixed(2)}</div><a href="product.html?id=${p.id}" class="btn-primary" style="display:block;margin-top:12px;padding:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:8px;text-decoration:none;font-weight:600;">View Details</a></div>`;
+            });
+            if (products.length < 5) {
+                html += '<div class="add-more-card" onclick="window.location.href=\'index.html\'"><i class="fas fa-plus"></i></div>';
+            }
+            html += '</div>';
+            const allSpecs = [...new Set(products.flatMap(p => Object.keys(p.specs || {})))];
+            if (allSpecs.length > 0 || products.length > 1) {
+                html += '<div class="compare-specs"><table><thead><tr><th>Specification</th>' + products.map(p => `<th>${p.name.substring(0, 30)}</th>`).join('') + '</tr></thead><tbody>';
+                html += `<tr><td>Category</td>${products.map(p => `<td>${p.category || '-'}</td>`).join('')}</tr>`;
+                html += `<tr><td>Price</td>${products.map(p => `<td>$${p.price.toFixed(2)}</td>`).join('')}</tr>`;
+                html += `<tr><td>Rating</td>${products.map(p => `<td>${'★'.repeat(Math.round(p.rating||0))}${'★'.repeat(5-Math.round(p.rating||0))} (${p.reviews||0})</td>`).join('')}</tr>`;
+                html += `<tr><td>Stock</td>${products.map(p => `<td>${p.stock !== undefined ? (p.stock > 0 ? 'In Stock ('+p.stock+')' : 'Out of Stock') : '-'}</td>`).join('')}</tr>`;
+                allSpecs.forEach(s => {
+                    html += `<tr><td>${s}</td>${products.map(p => `<td>${(p.specs||{})[s] || '-'}</td>`).join('')}</tr>`;
+                });
+                html += '</tbody></table></div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function removeCompare(id) {
+            let list = JSON.parse(localStorage.getItem('shopnext_compare_list') || '[]');
+            list = list.filter(i => i !== id);
+            localStorage.setItem('shopnext_compare_list', JSON.stringify(list));
+            renderComparePage();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderComparePage);
+    </script>
+</body>
+</html>

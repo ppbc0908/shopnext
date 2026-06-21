@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register - ShopNext</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-page { min-height: 100vh; display: flex; background: #f8f9fa; }
+        .login-left { flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 40px; color: #fff; }
+        .login-left-content { max-width: 400px; }
+        .login-left-content h1 { font-size: 36px; margin-bottom: 20px; line-height: 1.3; }
+        .login-left-content p { font-size: 16px; opacity: 0.9; line-height: 1.8; }
+        .login-left-features { margin-top: 30px; }
+        .login-left-features .feature-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 15px; }
+        .login-left-features .feature-item i { font-size: 20px; width: 30px; text-align: center; }
+        .login-right { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        .login-form-container { width: 100%; max-width: 400px; }
+        .login-form-container .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; font-size: 24px; font-weight: 700; }
+        .login-form-container .logo span { color: #667eea; }
+        .login-tabs { display: flex; gap: 0; margin-bottom: 30px; background: #e9ecef; border-radius: 12px; padding: 4px; }
+        .login-tab { flex: 1; padding: 12px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; border: none; background: transparent; font-size: 15px; }
+        .login-tab.active { background: #fff; color: #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 14px; }
+        .form-group .input-wrapper { position: relative; }
+        .form-group .input-wrapper i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; font-size: 16px; }
+        .form-group input { width: 100%; padding: 14px 14px 14px 42px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 15px; transition: border-color 0.3s; box-sizing: border-box; }
+        .form-group input:focus { outline: none; border-color: #667eea; background: #f8f9ff; }
+        .form-row { display: flex; gap: 16px; }
+        .form-row .form-group { flex: 1; }
+        .btn-full { width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .btn-full:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+        .btn-full:active { transform: translateY(0); }
+        .social-login { margin-top: 30px; text-align: center; }
+        .social-login p { color: #999; margin-bottom: 16px; position: relative; }
+        .social-login p::before, .social-login p::after { content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: #e9ecef; }
+        .social-login p::before { left: 0; }
+        .social-login p::after { right: 0; }
+        .social-buttons { display: flex; gap: 12px; justify-content: center; }
+        .social-btn { flex: 1; padding: 12px; border: 2px solid #e9ecef; border-radius: 10px; background: #fff; cursor: pointer; font-size: 20px; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .social-btn span { font-size: 14px; font-weight: 500; }
+        .social-btn:hover { border-color: #667eea; background: #f8f9ff; }
+        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 14px; }
+        .form-options label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #666; }
+        .form-options a { color: #667eea; text-decoration: none; }
+        .form-footer { text-align: center; margin-top: 24px; color: #666; }
+        .form-footer a { color: #667eea; text-decoration: none; font-weight: 600; }
+        .back-home { position: absolute; top: 20px; left: 20px; color: #fff; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+        @media (max-width: 768px) {
+            .login-page { flex-direction: column; }
+            .login-left { min-height: 200px; padding: 30px; }
+            .login-left-content h1 { font-size: 24px; }
+            .login-left-features { display: none; }
+            .login-right { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-left">
+            <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+            <div class="login-left-content">
+                <h1>Welcome to ShopNext</h1>
+                <p>Join millions of shoppers and discover amazing deals on thousands of products.</p>
+                <div class="login-left-features">
+                    <div class="feature-item"><i class="fas fa-truck"></i><span>Free shipping on orders over $50</span></div>
+                    <div class="feature-item"><i class="fas fa-shield-alt"></i><span>Secure checkout & buyer protection</span></div>
+                    <div class="feature-item"><i class="fas fa-undo"></i><span>Easy 30-day returns</span></div>
+                    <div class="feature-item"><i class="fas fa-headset"></i><span>24/7 customer support</span></div>
+                    <div class="feature-item"><i class="fas fa-percentage"></i><span>Exclusive member discounts</span></div>
+                    <div class="feature-item"><i class="fas fa-link"></i><span>Earn rewards with our affiliate program</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-form-container">
+                <div class="logo"><div style="width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;"><i class="fas fa-bolt"></i></div>Shop<span>Next</span></div>
+                <div class="login-tabs">
+                    <button class="login-tab active" onclick="switchTab('login')">Sign In</button>
+                    <button class="login-tab" onclick="switchTab('register')">Create Account</button>
+                </div>
+                <div id="login-section" class="form-section active">
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="input-wrapper"><i class="fas fa-envelope"></i><input type="email" id="login-email" required placeholder="your@email.com"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-wrapper"><i class="fas fa-lock"></i><input type="password" id="login-password" required placeholder="Enter your password"></div>
+                        </div>
+                        <div class="form-options">
+                            <label><input type="checkbox" id="remember-me"> Remember me</label>
+                            <a href="#" onclick="alert('Password reset link sent!')">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn-full"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                    </form>
+                    <div class="social-login">
+                        <p>Or continue with</p>
+                        <div class="social-buttons">
+                            <button class="social-btn" onclick="alert('Google login coming soon!')"><i class="fab fa-google" style="color:#db4437;"></i><span>Google</span></button>
+                            <button class="social-btn" onclick="alert('Facebook login coming soon!')"><i class="fab fa-facebook" style="color:#4267B2;"></i><span>Facebook</span></button>
+                            <button class="social-btn" onclick="alert('Apple login coming soon!')"><i class="fab fa-apple" style="color:#333;"></i><span>Apple</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="register-section" class="form-section">
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <div class="input-wrapper"><i class="fas fa-user"></i><input type="text" id="reg-first" required placeholder="First name"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <div class="input-wrapper"><i class="fas fa-user"></i><input type="text" id="reg-last" required placeholder="Last name"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="input-wrapper"><i class="fas fa-envelope"></i><input type="email" id="reg-email" required placeholder="your@email.com"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone (optional)</label>
+                            <div class="input-wrapper"><i class="fas fa-phone"></i><input type="tel" id="reg-phone" placeholder="+1 (555) 000-0000"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-wrapper"><i class="fas fa-lock"></i><input type="password" id="reg-password" required minlength="6" placeholder="Min 6 characters"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <div class="input-wrapper"><i class="fas fa-lock"></i><input type="password" id="reg-confirm" required placeholder="Confirm password"></div>
+                        </div>
+                        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;color:#666;margin-bottom:20px;">
+                            <input type="checkbox" id="reg-newsletter" checked style="margin-top:3px;">
+                            <span>Send me exclusive deals, new products and promotions</span>
+                        </label>
+                        <button type="submit" class="btn-full"><i class="fas fa-user-plus"></i> Create Account</button>
+                    </form>
+                </div>
+                <div class="form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('mode') === 'register') switchTab('register');
+
+        function switchTab(tab) {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            if (tab === 'login') {
+                document.querySelectorAll('.login-tab')[0].classList.add('active');
+                document.getElementById('login-section').classList.add('active');
+            } else {
+                document.querySelectorAll('.login-tab')[1].classList.add('active');
+                document.getElementById('register-section').classList.add('active');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const users = JSON.parse(localStorage.getItem('shopnext_users') || '[]');
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const user = users.find(u => u.email === email && atob(u.password) === password);
+            if (user) {
+                const session = { ...user, password: undefined };
+                localStorage.setItem('shopnext_current_user', JSON.stringify(session));
+                showNotification('Login successful!', 'success');
+                setTimeout(() => window.location.href = 'index.html', 1000);
+            } else {
+                showNotification('Invalid email or password', 'error');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            if (password !== confirm) { showNotification('Passwords do not match', 'error'); return; }
+            const users = JSON.parse(localStorage.getItem('shopnext_users') || '[]');
+            const email = document.getElementById('reg-email').value;
+            if (users.find(u => u.email === email)) { showNotification('Email already registered', 'error'); return; }
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let promoCode = 'SHOP';
+            for (let i = 0; i < 6; i++) {
+                promoCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            const user = {
+                id: Date.now(),
+                firstName: document.getElementById('reg-first').value,
+                lastName: document.getElementById('reg-last').value,
+                email: email,
+                phone: document.getElementById('reg-phone').value,
+                password: btoa(password),
+                avatar: '',
+                createdAt: new Date().toISOString(),
+                role: 'customer',
+                newsletter: document.getElementById('reg-newsletter').checked,
+                promoCode: promoCode,
+                promoUsed: false
+            };
+            users.push(user);
+            localStorage.setItem('shopnext_users', JSON.stringify(users));
+            const session = { ...user, password: undefined };
+            localStorage.setItem('shopnext_current_user', JSON.stringify(session));
+            if (typeof EmailService !== 'undefined') {
+                EmailService.sendWelcomeEmail(user).catch(e => console.log('Welcome email error:', e));
+            }
+            if (typeof EmailNotifications !== 'undefined') {
+                EmailNotifications.sendWelcome(user.firstName);
+            }
+            showPromoCode(user);
+        }
+
+        function showPromoCode(user) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;';
+            overlay.innerHTML = `
+                <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;animation:slideIn 0.3s ease;">
+                    <div style="width:60px;height:60px;background:linear-gradient(135deg,#27ae60,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                        <i class="fas fa-gift" style="color:#fff;font-size:24px;"></i>
+                    </div>
+                    <h2 style="margin-bottom:8px;">Welcome, ${user.firstName}!</h2>
+                    <p style="color:#666;margin-bottom:20px;">Here's your exclusive welcome gift:</p>
+                    <div style="background:#f8f9ff;border:2px dashed #667eea;border-radius:12px;padding:20px;margin:20px 0;">
+                        <div style="font-size:13px;color:#666;margin-bottom:8px;">Your Promo Code</div>
+                        <div style="font-size:32px;font-weight:800;color:#667eea;letter-spacing:4px;">${user.promoCode}</div>
+                        <div style="font-size:14px;color:#27ae60;font-weight:600;margin-top:8px;">10% OFF</div>
+                    </div>
+                    <p style="font-size:13px;color:#888;margin-bottom:20px;">Use this code at checkout to get 10% off your first order!</p>
+                    <button onclick="navigator.clipboard.writeText('${user.promoCode}');this.innerHTML='<i class=\'fas fa-check\'></i> Copied!';this.style.background='#27ae60';" style="width:100%;padding:14px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;">
+                        <i class="fas fa-copy"></i> Copy Code
+                    </button>
+                    <button onclick="window.location.href='index.html'" style="width:100%;padding:12px;background:transparent;color:#667eea;border:2px solid #667eea;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;">
+                        Continue Shopping
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function showNotification(message, type) {
+            const n = document.createElement('div');
+            n.style.cssText = `position:fixed;top:20px;right:20px;z-index:10001;background:${type==='success'?'#27ae60':'#e74c3c'};color:#fff;padding:15px 25px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.15);font-weight:500;animation:slideIn 0.3s ease;display:flex;align-items:center;gap:10px;`;
+            n.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${message}`;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="emailjs-config.js"></script>
+    <script src="email-service.js"></script>
+    <script src="email-notifications.js"></script>
+</body>
+</html>
