@@ -237,9 +237,6 @@ function saveProducts() {
         }).catch(e => console.warn('GitHub deploy failed:', e));
     }
 }
-        }
-    }).catch(e => console.warn('Firebase orders sync failed:', e));
-}
 
 function syncCustomersFromFirebase() {
     if (!FirebaseService.isReady()) return;
@@ -337,7 +334,7 @@ function updateOrderStatus(orderId, status) {
 }
 
 function showSection(section) {
-    const sections = ['dashboard-section', 'products-section', 'orders-section', 'reviews-section', 'import-section', 'customers-section'];
+    const sections = ['dashboard-section', 'products-section', 'orders-section', 'reviews-section', 'import-section', 'customers-section', 'sync-section'];
     sections.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
@@ -346,7 +343,7 @@ function showSection(section) {
     if (target) target.style.display = 'block';
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
-    const sectionMap = { dashboard: 0, products: 1, orders: 2, reviews: 3, import: 4, customers: 5 };
+    const sectionMap = { dashboard: 0, products: 1, orders: 2, reviews: 3, import: 4, customers: 5, sync: 6 };
     if (sectionMap[section] !== undefined && navItems[sectionMap[section]]) {
         navItems[sectionMap[section]].classList.add('active');
     }
