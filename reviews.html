@@ -498,6 +498,7 @@
         </div>
     </div>
 
+    <script src="github-sync.js?v=10"></script>
     <script>
         const STORAGE_KEY = 'shopnext_reviews';
         function getProductId() { const p = new URLSearchParams(window.location.search); return p.get('productId') || ''; }
@@ -505,8 +506,8 @@
         function getReviewsForProduct(pid) { const all = getAllReviews(); return all[String(pid)] || []; }
         function getAverageRating(pid) { const r = getReviewsForProduct(pid); if (!r.length) return '0.0'; return (r.reduce((s,x) => s + (x.rating||0), 0) / r.length).toFixed(1); }
         function getRatingCounts(pid) { const r = getReviewsForProduct(pid); const c = {1:0,2:0,3:0,4:0,5:0}; r.forEach(x => { const s = Math.round(x.rating); if(s>=1&&s<=5) c[s]++; }); return c; }
-        function addReview(pid, data) { const all = getAllReviews(); const k = String(pid); if(!all[k]) all[k]=[]; all[k].push({id:Date.now(),rating:data.rating,title:data.title||'',author:data.name||'Anonymous',text:data.body||'',image:data.imageUrl||'',date:new Date().toISOString(),helpful:0}); localStorage.setItem(STORAGE_KEY,JSON.stringify(all)); }
-        function toggleHelpful(pid, rid) { const all = getAllReviews(); const k = String(pid); if(!all[k]) return; const r = all[k].find(x=>x.id===rid); if(r){r.helpful=(r.helpful||0)+1; localStorage.setItem(STORAGE_KEY,JSON.stringify(all));} }
+        function addReview(pid, data) { const all = getAllReviews(); const k = String(pid); if(!all[k]) all[k]=[]; all[k].push({id:Date.now(),rating:data.rating,title:data.title||'',author:data.name||'Anonymous',text:data.body||'',image:data.imageUrl||'',date:new Date().toISOString(),helpful:0}); localStorage.setItem(STORAGE_KEY,JSON.stringify(all)); if(typeof GitHubSync!=='undefined'&&GitHubSync.isConfigured()){GitHubSync.deployData({products:JSON.parse(localStorage.getItem('shopnext_products')||'[]'),orders:JSON.parse(localStorage.getItem('shopnext_orders')||'[]'),reviews:JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'),customers:JSON.parse(localStorage.getItem('shopnext_customers')||'[]'),users:JSON.parse(localStorage.getItem('shopnext_users')||'[]'),settings:JSON.parse(localStorage.getItem('shopnext_settings')||'{}'),header:JSON.parse(localStorage.getItem('shopnext_header_v1')||'null'),footer:JSON.parse(localStorage.getItem('shopnext_footer_v2')||'null'),promotions:JSON.parse(localStorage.getItem('shopnext_promotions')||'null')},'Add review').catch(()=>{});} }
+        function toggleHelpful(pid, rid) { const all = getAllReviews(); const k = String(pid); if(!all[k]) return; const r = all[k].find(x=>x.id===rid); if(r){r.helpful=(r.helpful||0)+1; localStorage.setItem(STORAGE_KEY,JSON.stringify(all)); if(typeof GitHubSync!=='undefined'&&GitHubSync.isConfigured()){GitHubSync.deployData({products:JSON.parse(localStorage.getItem('shopnext_products')||'[]'),orders:JSON.parse(localStorage.getItem('shopnext_orders')||'[]'),reviews:JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'),customers:JSON.parse(localStorage.getItem('shopnext_customers')||'[]'),users:JSON.parse(localStorage.getItem('shopnext_users')||'[]'),settings:JSON.parse(localStorage.getItem('shopnext_settings')||'{}'),header:JSON.parse(localStorage.getItem('shopnext_header_v1')||'null'),footer:JSON.parse(localStorage.getItem('shopnext_footer_v2')||'null'),promotions:JSON.parse(localStorage.getItem('shopnext_promotions')||'null')},'Update review helpful').catch(()=>{});} }
         function formatDate(d) { if(!d)return''; const dt=new Date(d); return dt.getFullYear()+'/'+String(dt.getMonth()+1).padStart(2,'0')+'/'+String(dt.getDate()).padStart(2,'0'); }
 
         let productId = getProductId();
