@@ -323,6 +323,21 @@ function loadProducts() {
     }
 }
 
+function syncProductsFromFirebase() {
+    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
+    FirebaseService.getProducts().then(fbProducts => {
+        if (fbProducts && fbProducts.length > 0) {
+            products = fbProducts;
+            localStorage.setItem('shopnext_products', JSON.stringify(products));
+            const pid = new URLSearchParams(window.location.search).get('id');
+            if (pid) {
+                currentProduct = products.find(p => String(p.id) === String(pid));
+                if (currentProduct) renderProductDetail(currentProduct);
+            }
+        }
+    }).catch(e => console.warn('Firebase sync failed:', e));
+}
+
 function saveCart() {
     localStorage.setItem('shopnext_cart', JSON.stringify(cart));
     updateCartCount();
@@ -850,6 +865,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('share-modal').addEventListener('click', (e) => {
         if (e.target === e.currentTarget) closeShareModal();
     });
+
+    syncProductsFromFirebase();
 
     const style = document.createElement('style');
     style.textContent = `

@@ -419,6 +419,10 @@
 
     <script src="header-loader.js?v=2"></script>
     <script src="footer-loader.js?v=2"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="firebase-service.js"></script>
     <script>
         let allProducts = [];
         let currentSubcategory = 'all';
@@ -442,6 +446,17 @@
                     } catch(e) {}
                 }
             });
+
+            if (typeof FirebaseService !== 'undefined' && FirebaseService.init()) {
+                FirebaseService.getProducts().then(fbProducts => {
+                    if (fbProducts && fbProducts.length > 0) {
+                        localStorage.setItem('shopnext_products', JSON.stringify(fbProducts));
+                        allProducts = fbProducts.filter(p => p.category === 'Electronics');
+                        renderProducts(allProducts);
+                        document.getElementById('stat-products').textContent = allProducts.length;
+                    }
+                }).catch(() => {});
+            }
         }
 
         function createParticles() {

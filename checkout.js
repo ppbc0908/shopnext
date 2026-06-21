@@ -351,6 +351,9 @@ async function placeOrder() {
     } catch (e) { orders = []; }
     orders.unshift(orderData);
     localStorage.setItem('shopnext_orders', JSON.stringify(orders));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.init()) {
+        FirebaseService.saveOrder(orderData).catch(() => {});
+    }
     
     let customers = [];
     try {
@@ -374,6 +377,12 @@ async function placeOrder() {
         });
     }
     localStorage.setItem('shopnext_customers', JSON.stringify(customers));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        const latestCustomer = customers[customers.length - 1];
+        if (latestCustomer) {
+            FirebaseService.saveCustomer(latestCustomer).catch(() => {});
+        }
+    }
     
     cart = [];
     localStorage.setItem('shopnext_cart', JSON.stringify(cart));

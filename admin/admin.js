@@ -169,6 +169,15 @@ let orders = [];
 let customers = [];
 let importedProductData = null;
 
+function saveReviewsToStorage(allReviews) {
+    localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        Object.entries(allReviews).forEach(([pid, reviews]) => {
+            FirebaseService.saveReviewsForProduct(pid, reviews).catch(() => {});
+        });
+    }
+}
+
 function getImages(product) {
     if (product.images && product.images.length > 0) return product.images;
     if (product.image) return [product.image];
@@ -192,10 +201,72 @@ function loadProducts() {
         products = JSON.parse(JSON.stringify(defaultProducts));
         saveProducts();
     }
+    syncProductsFromFirebase();
+}
+
+function syncProductsFromFirebase() {
+    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
+    FirebaseService.getProducts().then(fbProducts => {
+        if (fbProducts && fbProducts.length > 0) {
+            products = fbProducts;
+            localStorage.setItem('shopnext_products', JSON.stringify(products));
+            renderProductsTable();
+            updateDashboard();
+        } else if (products.length > 0) {
+            FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase seed failed:', e));
+        }
+    }).catch(e => console.warn('Firebase sync failed:', e));
+    syncOrdersFromFirebase();
+    syncCustomersFromFirebase();
+    syncReviewsFromFirebase();
+}
+
+function syncOrdersFromFirebase() {
+    if (!FirebaseService.isReady()) return;
+    FirebaseService.getOrders().then(fbOrders => {
+        if (fbOrders && fbOrders.length > 0) {
+            orders = fbOrders;
+            localStorage.setItem('shopnext_orders', JSON.stringify(orders));
+            renderOrdersTable();
+            updateDashboard();
+        } else if (orders.length > 0) {
+            orders.forEach(o => FirebaseService.saveOrder(o).catch(() => {}));
+        }
+    }).catch(e => console.warn('Firebase orders sync failed:', e));
+}
+
+function syncCustomersFromFirebase() {
+    if (!FirebaseService.isReady()) return;
+    FirebaseService.getCustomers().then(fbCustomers => {
+        if (fbCustomers && fbCustomers.length > 0) {
+            customers = fbCustomers;
+            localStorage.setItem('shopnext_customers', JSON.stringify(customers));
+            renderCustomers();
+        } else if (customers.length > 0) {
+            customers.forEach(c => FirebaseService.saveCustomer(c).catch(() => {}));
+        }
+    }).catch(e => console.warn('Firebase customers sync failed:', e));
+}
+
+function syncReviewsFromFirebase() {
+    if (!FirebaseService.isReady()) return;
+    FirebaseService.getReviews().then(fbReviews => {
+        if (fbReviews && fbReviews.length > 0) {
+            const allReviews = {};
+            fbReviews.forEach(doc => {
+                if (doc.reviews) allReviews[doc.productId] = doc.reviews;
+            });
+            localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+            renderReviewsAdmin();
+        }
+    }).catch(e => console.warn('Firebase reviews sync failed:', e));
 }
 
 function saveProducts() {
     localStorage.setItem('shopnext_products', JSON.stringify(products));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase save products failed:', e));
+    }
 }
 
 function loadOrders() {
@@ -209,6 +280,12 @@ function loadOrders() {
 
 function saveOrders() {
     localStorage.setItem('shopnext_orders', JSON.stringify(orders));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        const latestOrder = orders[0];
+        if (latestOrder) {
+            FirebaseService.saveOrder(latestOrder).catch(e => console.warn('Firebase save order failed:', e));
+        }
+    }
 }
 
 function loadCustomers() {
@@ -222,6 +299,12 @@ function loadCustomers() {
 
 function saveCustomers() {
     localStorage.setItem('shopnext_customers', JSON.stringify(customers));
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        const latest = customers[customers.length - 1];
+        if (latest) {
+            FirebaseService.saveCustomer(latest).catch(e => console.warn('Firebase save customer failed:', e));
+        }
+    }
 }
 
 function addOrder(orderData) {
@@ -806,7 +889,7 @@ function executeBulkReview() {
             totalGenerated++;
         }
     });
-    localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+    saveReviewsToStorage(allReviews);
     closeBulkReviewModal();
     renderReviewsAdmin();
     showNotification(`已为 ${targetProducts.length} 个商品生成 ${totalGenerated} 条评论！${replaceMode ? '（已替换旧评论）' : ''}`);
@@ -1095,10 +1178,10 @@ function renderReviewsAdmin() {
 function deleteSingleReview(productId, index) {
     const pid = String(productId);
     let allReviews = JSON.parse(localStorage.getItem('shopnext_reviews') || '{}');
-    if (allReviews[pid]) {
+        if (allReviews[pid]) {
         allReviews[pid].splice(index, 1);
         if (allReviews[pid].length === 0) delete allReviews[pid];
-        localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+        saveReviewsToStorage(allReviews);
     }
     renderReviewsAdmin();
     showNotification('评论已删除！');
@@ -1109,7 +1192,10 @@ function deleteAllReviewsForProduct(productId) {
     const pid = String(productId);
     let allReviews = JSON.parse(localStorage.getItem('shopnext_reviews') || '{}');
     delete allReviews[pid];
-    localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+    saveReviewsToStorage(allReviews);
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        FirebaseService.deleteReviewsForProduct(pid).catch(() => {});
+    }
     renderReviewsAdmin();
     showNotification('该商品的所有评论已删除！');
 }
@@ -1117,6 +1203,13 @@ function deleteAllReviewsForProduct(productId) {
 function deleteAllReviews() {
     if (!confirm('确定删除所有商品的所有评论吗？此操作不可撤销。')) return;
     localStorage.removeItem('shopnext_reviews');
+    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
+        FirebaseService.getReviews().then(fbReviews => {
+            fbReviews.forEach(doc => {
+                FirebaseService.deleteReviewsForProduct(doc.productId).catch(() => {});
+            });
+        }).catch(() => {});
+    }
     renderReviewsAdmin();
     showNotification('所有评论已删除！');
 }
@@ -1157,7 +1250,7 @@ function submitImageReview() {
     const pid = String(productId);
     if (!allReviews[pid]) allReviews[pid] = [];
     allReviews[pid].push({ rating, title, text, image: imageUrl, date: new Date().toISOString(), author: 'Admin', id: Date.now(), helpful: 0 });
-    localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+    saveReviewsToStorage(allReviews);
     closeImageReviewModal();
     showNotification('图片评论已添加！');
 }
@@ -1183,7 +1276,7 @@ function generateReviewForProduct(productId) {
         id: Date.now(),
         helpful: 0
     });
-    localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+    saveReviewsToStorage(allReviews);
     showNotification('已为 ' + product.name + ' 生成评论');
 }
 

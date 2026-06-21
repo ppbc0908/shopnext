@@ -19,6 +19,31 @@ function loadProducts() {
     }
 }
 
+function syncProductsFromFirebase() {
+    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
+    FirebaseService.getProducts().then(fbProducts => {
+        if (fbProducts && fbProducts.length > 0) {
+            products = fbProducts;
+            localStorage.setItem('shopnext_products', JSON.stringify(products));
+            renderProducts(products);
+            renderRecentlyViewedHome();
+        }
+    }).catch(e => console.warn('Firebase sync failed:', e));
+}
+
+function syncReviewsFromFirebase() {
+    if (typeof FirebaseService === 'undefined' || !FirebaseService.isReady()) return;
+    FirebaseService.getReviews().then(fbReviews => {
+        if (fbReviews && fbReviews.length > 0) {
+            const allReviews = {};
+            fbReviews.forEach(doc => {
+                if (doc.reviews) allReviews[doc.productId] = doc.reviews;
+            });
+            localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
+        }
+    }).catch(e => console.warn('Firebase reviews sync failed:', e));
+}
+
 function getActiveProducts() {
     return products.filter(p => p.status === 'active');
 }
@@ -225,4 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startHeroSlider();
     initAnimations();
     renderRecentlyViewedHome();
+    syncProductsFromFirebase();
+    syncReviewsFromFirebase();
 });

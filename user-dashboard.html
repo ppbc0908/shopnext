@@ -44,9 +44,13 @@
     <div id="footer-container"></div>
     <script src="header-loader.js?v=2"></script>
     <script src="footer-loader.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="firebase-service.js"></script>
     <script src="user.js?v=2"></script>
     <script>
-        const allProducts = JSON.parse(localStorage.getItem('shopnext_products') || '[]');
+        let allProducts = JSON.parse(localStorage.getItem('shopnext_products') || '[]');
 
         function requireLogin() {
             const user = UserSystem.getCurrentUser();
@@ -341,6 +345,14 @@
             initDashboard();
             const hash = window.location.hash.replace('#', '');
             if (hash) showDashSection(hash);
+            if (typeof FirebaseService !== 'undefined' && FirebaseService.init()) {
+                FirebaseService.getProducts().then(fbProducts => {
+                    if (fbProducts && fbProducts.length > 0) {
+                        allProducts = fbProducts;
+                        localStorage.setItem('shopnext_products', JSON.stringify(allProducts));
+                    }
+                }).catch(() => {});
+            }
         });
     </script>
 </body>

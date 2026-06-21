@@ -23,6 +23,12 @@ const UserSystem = {
 
     saveUsers(users) {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.init()) {
+            const latest = users[users.length - 1];
+            if (latest) {
+                FirebaseService.saveUser(latest).catch(() => {});
+            }
+        }
     },
 
     getCurrentUser() {

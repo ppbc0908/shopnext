@@ -223,6 +223,10 @@
     </footer>
 
     <script src="footer-loader.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="firebase-service.js"></script>
     <script>
         let allProducts = [];
         let searchResults = [];
@@ -368,6 +372,15 @@
             loadProducts();
             renderResults();
             document.getElementById('cart-count').textContent = cart.reduce((s, i) => s + i.quantity, 0);
+            if (typeof FirebaseService !== 'undefined' && FirebaseService.init()) {
+                FirebaseService.getProducts().then(fbProducts => {
+                    if (fbProducts && fbProducts.length > 0) {
+                        allProducts = fbProducts;
+                        localStorage.setItem('shopnext_products', JSON.stringify(allProducts));
+                        renderResults();
+                    }
+                }).catch(() => {});
+            }
         });
     </script>
 </body>
