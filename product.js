@@ -338,6 +338,21 @@ function syncProductsFromFirebase() {
     }).catch(e => console.warn('Firebase sync failed:', e));
 }
 
+function syncFromGitHubData() {
+    if (typeof GitHubSync === 'undefined') return;
+    GitHubSync.fetchData().then(data => {
+        if (data && data.products && data.products.length > 0) {
+            products = data.products;
+            localStorage.setItem('shopnext_products', JSON.stringify(products));
+            const pid = new URLSearchParams(window.location.search).get('id');
+            if (pid) {
+                currentProduct = products.find(p => String(p.id) === String(pid));
+                if (currentProduct) renderProductDetail(currentProduct);
+            }
+        }
+    }).catch(e => console.warn('GitHub sync failed:', e));
+}
+
 function saveCart() {
     localStorage.setItem('shopnext_cart', JSON.stringify(cart));
     updateCartCount();
@@ -816,8 +831,8 @@ function buyNow() {
 window.addEventListener('storage', function(e) {
     if (e.key === 'shopnext_products') {
         loadProducts();
-        const productId = parseInt(getUrlParam('id'));
-        currentProduct = products.find(p => p.id === productId);
+        const productId = getUrlParam('id');
+        currentProduct = products.find(p => String(p.id) === String(productId));
         if (currentProduct) {
             renderProductDetail(currentProduct);
         }
@@ -827,8 +842,8 @@ window.addEventListener('storage', function(e) {
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     
-    const productId = parseInt(getUrlParam('id'));
-    currentProduct = products.find(p => p.id === productId);
+    const productId = getUrlParam('id');
+    currentProduct = products.find(p => String(p.id) === String(productId));
     
     if (currentProduct) {
         renderProductDetail(currentProduct);
@@ -866,6 +881,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === e.currentTarget) closeShareModal();
     });
 
+    syncFromGitHubData();
     syncProductsFromFirebase();
 
     const style = document.createElement('style');
