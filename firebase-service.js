@@ -3,13 +3,8 @@ const FirebaseService = {
     API_KEY: 'AIzaSyC8L0J5iJLllbGUE8edZwJ9SpktSeZ3m18',
     BASE_URL: 'https://firestore.googleapis.com/v1/projects/shopnext-9b984/databases/(default)/documents',
 
-    init() {
-        return true;
-    },
-
-    isReady() {
-        return true;
-    },
+    init() { return true; },
+    isReady() { return true; },
 
     _parseFirestoreValue(field) {
         if (!field) return null;
@@ -21,9 +16,7 @@ const FirebaseService = {
         if ('mapValue' in field) {
             const obj = {};
             const fields = field.mapValue.fields || {};
-            for (const [k, v] of Object.entries(fields)) {
-                obj[k] = this._parseFirestoreValue(v);
-            }
+            for (const [k, v] of Object.entries(fields)) obj[k] = this._parseFirestoreValue(v);
             return obj;
         }
         if ('nullValue' in field) return null;
@@ -33,9 +26,7 @@ const FirebaseService = {
     _parseDoc(doc) {
         if (!doc || !doc.fields) return null;
         const data = {};
-        for (const [k, v] of Object.entries(doc.fields)) {
-            data[k] = this._parseFirestoreValue(v);
-        }
+        for (const [k, v] of Object.entries(doc.fields)) data[k] = this._parseFirestoreValue(v);
         const nameParts = (doc.name || '').split('/');
         data.id = nameParts[nameParts.length - 1];
         return data;
@@ -44,25 +35,33 @@ const FirebaseService = {
     _toFirestoreValue(value) {
         if (value === null || value === undefined) return { nullValue: null };
         if (typeof value === 'string') return { stringValue: value };
-        if (typeof value === 'number') {
-            return Number.isInteger(value) ? { integerValue: value } : { doubleValue: value };
-        }
+        if (typeof value === 'number') return Number.isInteger(value) ? { integerValue: value } : { doubleValue: value };
         if (typeof value === 'boolean') return { booleanValue: value };
         if (Array.isArray(value)) return { arrayValue: { values: value.map(v => this._toFirestoreValue(v)) } };
         if (typeof value === 'object') {
             const fields = {};
-            for (const [k, v] of Object.entries(value)) {
-                fields[k] = this._toFirestoreValue(v);
-            }
+            for (const [k, v] of Object.entries(value)) fields[k] = this._toFirestoreValue(v);
             return { mapValue: { fields } };
         }
         return { stringValue: String(value) };
     },
 
+    async _fetchWithRetry(url, options, retries = 2) {
+        for (let i = 0; i <= retries; i++) {
+            try {
+                const res = await fetch(url, options);
+                return res;
+            } catch (e) {
+                if (i === retries) throw e;
+                await new Promise(r => setTimeout(r, 500));
+            }
+        }
+    },
+
     async getCollection(name) {
         try {
             const url = `${this.BASE_URL}/${name}?key=${this.API_KEY}`;
-            const res = await fetch(url);
+            const res = await this._fetchWithRetry(url, {});
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             return (data.documents || []).map(doc => this._parseDoc(doc)).filter(Boolean);
@@ -79,7 +78,7 @@ const FirebaseService = {
                 if (v !== undefined) fields[k] = this._toFirestoreValue(v);
             }
             const url = `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
-            const res = await fetch(url, {
+            const res = await this._fetchWithRetry(url, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ fields })
@@ -94,7 +93,7 @@ const FirebaseService = {
     async deleteDoc(collection, id) {
         try {
             const url = `${this.BASE_URL}/${collection}/${id}?key=${this.API_KEY}`;
-            const res = await fetch(url, { method: 'DELETE' });
+            const res = await this._fetchWithRetry(url, { method: 'DELETE' });
             return res.ok;
         } catch (e) {
             console.error('Firebase REST deleteDoc error:', e);
@@ -105,8 +104,13 @@ const FirebaseService = {
     async getProducts() { return this.getCollection('products'); },
     async saveProduct(product) { return this.setDoc('products', product.id, product); },
     async saveAllProducts(productsArray) {
-        const results = await Promise.all(productsArray.map(p => this.saveProduct(p)));
-        return results.every(Boolean);
+        let success = true;
+        for (const p of productsArray) {
+            const ok = await this.saveProduct(p);
+            if (!ok) success = false;
+            await new Promise(r => setTimeout(r, 200));
+        }
+        return success;
     },
     async deleteProduct(id) { return this.deleteDoc('products', id); },
     async getOrders() { return this.getCollection('orders'); },
