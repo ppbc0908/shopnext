@@ -9,23 +9,6 @@
   "footer": {
     "columns": [
       {
-        "title": "Customer Service",
-        "links": [
-          {
-            "text": "Track Order",
-            "url": "#"
-          },
-          {
-            "text": "Returns & Exchanges",
-            "url": "#"
-          },
-          {
-            "text": "Shipping Info",
-            "url": "#"
-          }
-        ]
-      },
-      {
         "title": "Connect With Us",
         "links": [
           {
