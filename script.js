@@ -157,20 +157,6 @@ function loadProducts() {
     }
 }
 
-function syncProductsFromFirebase() {
-    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
-    FirebaseService.getProducts().then(fbProducts => {
-        if (fbProducts && fbProducts.length > 0) {
-            products = fbProducts;
-            localStorage.setItem('shopnext_products', JSON.stringify(products));
-            renderProducts(products);
-            renderRecentlyViewedHome();
-        } else if (products.length > 0) {
-            FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase seed failed:', e));
-        }
-    }).catch(e => console.warn('Firebase sync failed:', e));
-}
-
 function syncFromGitHubData() {
     if (typeof GitHubSync === 'undefined') return Promise.resolve(null);
     return GitHubSync.fetchData().then(data => {
@@ -184,19 +170,6 @@ function syncFromGitHubData() {
         }
         return null;
     }).catch(e => { console.warn('GitHub sync failed:', e); return null; });
-}
-
-function syncReviewsFromFirebase() {
-    if (typeof FirebaseService === 'undefined' || !FirebaseService.isReady()) return;
-    FirebaseService.getReviews().then(fbReviews => {
-        if (fbReviews && fbReviews.length > 0) {
-            const allReviews = {};
-            fbReviews.forEach(doc => {
-                if (doc.reviews) allReviews[doc.productId] = doc.reviews;
-            });
-            localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
-        }
-    }).catch(e => console.warn('Firebase reviews sync failed:', e));
 }
 
 function getActiveProducts() {
@@ -405,8 +378,5 @@ document.addEventListener('DOMContentLoaded', () => {
     startHeroSlider();
     initAnimations();
     renderRecentlyViewedHome();
-    syncFromGitHubData().then(gitHubData => {
-        if (!gitHubData) syncProductsFromFirebase();
-    });
-    syncReviewsFromFirebase();
+    syncFromGitHubData();
 });
