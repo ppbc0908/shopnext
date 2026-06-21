@@ -395,60 +395,6 @@
       "seller": "Edifier Online Store",
       "reviews": 0,
       "name": "2"
-    },
-    {
-      "price": 39.99,
-      "reviews": 328,
-      "seller": "YogaLife Store",
-      "name": "Professional Yoga Mat with Carrying Strap",
-      "stock": 89,
-      "specs": {
-        "Thickness": "6mm",
-        "Brand": "YogaLife",
-        "Material": "TPE"
-      },
-      "images": [
-        "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop"
-      ],
-      "id": 5,
-      "status": "active",
-      "badge": "Best Value",
-      "about": [
-        "6mm thick cushioning",
-        "Non-slip surface",
-        "Eco-friendly TPE material"
-      ],
-      "originalPrice": 59.99,
-      "category": "Health & Fitness",
-      "description": "Non-slip, eco-friendly yoga mat perfect for all types of exercises.",
-      "rating": 4.7
-    },
-    {
-      "price": 199.99,
-      "name": "Adjustable Dumbbell Set 50 lbs",
-      "reviews": 203,
-      "seller": "FitGear Pro",
-      "images": [
-        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"
-      ],
-      "specs": {
-        "Weight Range": "5-50 lbs",
-        "Brand": "FitGear",
-        "Material": "Steel plates"
-      },
-      "stock": 23,
-      "badge": "Popular",
-      "id": 6,
-      "status": "active",
-      "about": [
-        "Adjustable 5-50 lbs",
-        "Quick-change weight",
-        "Replaces 15 sets"
-      ],
-      "rating": 4.8,
-      "category": "Health & Fitness",
-      "originalPrice": 299.99,
-      "description": "Space-saving adjustable dumbbells for your home gym workouts."
     }
   ],
   "orders": [
