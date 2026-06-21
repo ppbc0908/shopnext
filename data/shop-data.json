@@ -397,60 +397,6 @@
       "name": "2"
     },
     {
-      "name": "4K Ultra HD Smart TV 55 inch",
-      "seller": "VisionPlus Store",
-      "reviews": 189,
-      "price": 499.99,
-      "images": [
-        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop"
-      ],
-      "stock": 12,
-      "specs": {
-        "Brand": "VisionPlus",
-        "Screen Size": "55 inches",
-        "Resolution": "3840 x 2160"
-      },
-      "badge": "Sale",
-      "id": 2,
-      "status": "active",
-      "rating": 4.6,
-      "category": "Electronics",
-      "originalPrice": 699.99,
-      "description": "Stunning 4K picture quality with smart TV features and voice control.",
-      "about": [
-        "True 4K UHD resolution",
-        "HDR10+ support",
-        "Built-in voice assistant"
-      ]
-    },
-    {
-      "about": [
-        "1000 pieces in 20+ colors",
-        "Compatible with all major brands",
-        "BPA-free ABS plastic"
-      ],
-      "originalPrice": 69.99,
-      "category": "Toys & Hobbies",
-      "description": "Unleash creativity with 1000 colorful building blocks for endless fun.",
-      "rating": 4.9,
-      "id": 3,
-      "status": "active",
-      "badge": "Top Rated",
-      "stock": 128,
-      "specs": {
-        "Brand": "BlockMaster",
-        "Material": "ABS Plastic",
-        "Piece Count": "1000"
-      },
-      "images": [
-        "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"
-      ],
-      "price": 49.99,
-      "reviews": 412,
-      "seller": "PlayTime Toys",
-      "name": "Building Blocks Creative Set 1000 Pieces"
-    },
-    {
       "price": 79.99,
       "reviews": 156,
       "seller": "SpeedZone RC",
