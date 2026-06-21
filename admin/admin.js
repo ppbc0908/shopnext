@@ -171,11 +171,7 @@ let importedProductData = null;
 
 function saveReviewsToStorage(allReviews) {
     localStorage.setItem('shopnext_reviews', JSON.stringify(allReviews));
-    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
-        Object.entries(allReviews).forEach(([pid, reviews]) => {
-            FirebaseService.saveReviewsForProduct(pid, reviews).catch(() => {});
-        });
-    }
+    saveProducts();
 }
 
 function getImages(product) {
@@ -188,6 +184,8 @@ function getFirstImage(product) {
     return getImages(product)[0];
 }
 
+let _syncReady = false;
+
 function loadProducts() {
     try {
         const saved = localStorage.getItem('shopnext_products');
@@ -195,42 +193,50 @@ function loadProducts() {
             products = JSON.parse(saved);
         } else {
             products = JSON.parse(JSON.stringify(defaultProducts));
-            saveProducts();
         }
     } catch (e) {
         products = JSON.parse(JSON.stringify(defaultProducts));
-        saveProducts();
     }
-    syncProductsFromFirebase();
 }
 
-function syncProductsFromFirebase() {
-    if (typeof FirebaseService === 'undefined' || !FirebaseService.init()) return;
-    FirebaseService.getProducts().then(fbProducts => {
-        if (fbProducts && fbProducts.length > 0) {
-            products = fbProducts;
-            localStorage.setItem('shopnext_products', JSON.stringify(products));
+function initAdminData() {
+    loadProducts();
+    renderProductsTable();
+    updateDashboard();
+    if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
+        GitHubSync.fetchData().then(data => {
+            if (data && data.products && data.products.length > 0) {
+                products = data.products;
+                localStorage.setItem('shopnext_products', JSON.stringify(products));
+            }
+            if (data && data.orders) { orders = data.orders; localStorage.setItem('shopnext_orders', JSON.stringify(orders)); }
+            if (data && data.reviews) { localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews)); }
+            if (data && data.customers) { customers = data.customers; localStorage.setItem('shopnext_customers', JSON.stringify(customers)); }
+            _syncReady = true;
             renderProductsTable();
             updateDashboard();
-        } else if (products.length > 0) {
-            FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase seed failed:', e));
-        }
-    }).catch(e => console.warn('Firebase sync failed:', e));
-    syncOrdersFromFirebase();
-    syncCustomersFromFirebase();
-    syncReviewsFromFirebase();
+        }).catch(e => { console.warn('GitHub sync failed:', e); _syncReady = true; });
+    } else {
+        _syncReady = true;
+    }
 }
 
-function syncOrdersFromFirebase() {
-    if (!FirebaseService.isReady()) return;
-    FirebaseService.getOrders().then(fbOrders => {
-        if (fbOrders && fbOrders.length > 0) {
-            orders = fbOrders;
-            localStorage.setItem('shopnext_orders', JSON.stringify(orders));
-            renderOrdersTable();
-            updateDashboard();
-        } else if (orders.length > 0) {
-            orders.forEach(o => FirebaseService.saveOrder(o).catch(() => {}));
+function saveProducts() {
+    localStorage.setItem('shopnext_products', JSON.stringify(products));
+    if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
+        const allData = {
+            products: products,
+            orders: orders,
+            reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+            customers: customers,
+            users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+            settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}')
+        };
+        GitHubSync.deployData(allData, 'Update shop data from admin').then(url => {
+            if (url) console.log('GitHub deploy OK');
+        }).catch(e => console.warn('GitHub deploy failed:', e));
+    }
+}
         }
     }).catch(e => console.warn('Firebase orders sync failed:', e));
 }
@@ -262,13 +268,6 @@ function syncReviewsFromFirebase() {
     }).catch(e => console.warn('Firebase reviews sync failed:', e));
 }
 
-function saveProducts() {
-    localStorage.setItem('shopnext_products', JSON.stringify(products));
-    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
-        FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase save products failed:', e));
-    }
-}
-
 function loadOrders() {
     try {
         const saved = localStorage.getItem('shopnext_orders');
@@ -280,12 +279,7 @@ function loadOrders() {
 
 function saveOrders() {
     localStorage.setItem('shopnext_orders', JSON.stringify(orders));
-    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
-        const latestOrder = orders[0];
-        if (latestOrder) {
-            FirebaseService.saveOrder(latestOrder).catch(e => console.warn('Firebase save order failed:', e));
-        }
-    }
+    saveProducts();
 }
 
 function loadCustomers() {
@@ -299,12 +293,7 @@ function loadCustomers() {
 
 function saveCustomers() {
     localStorage.setItem('shopnext_customers', JSON.stringify(customers));
-    if (typeof FirebaseService !== 'undefined' && FirebaseService.isReady()) {
-        const latest = customers[customers.length - 1];
-        if (latest) {
-            FirebaseService.saveCustomer(latest).catch(e => console.warn('Firebase save customer failed:', e));
-        }
-    }
+    saveProducts();
 }
 
 function addOrder(orderData) {
@@ -1829,11 +1818,10 @@ function removeSpecItem(index) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
     loadOrders();
     loadCustomers();
-    updateDashboard();
-    renderProductsTable();
+    loadGitHubConfig();
+    initAdminData();
     
     // Add reset data button
     const header = document.querySelector('.header-right');
@@ -1894,4 +1882,52 @@ function clearPromotion() {
     status.textContent = 'Cleared!';
     status.style.color = '#ef4444';
     setTimeout(() => { status.textContent = ''; status.style.color = '#27ae60'; }, 2000);
+}
+
+function saveGitHubConfig() {
+    if (typeof GitHubSync === 'undefined') { alert('github-sync.js 未加载'); return; }
+    const token = document.getElementById('github-token').value.trim();
+    const repo = document.getElementById('github-repo').value.trim();
+    const branch = document.getElementById('github-branch').value.trim();
+    if (token) GitHubSync.setConfig(token, null, null);
+    if (repo) GitHubSync.setConfig(null, repo, null);
+    if (branch) GitHubSync.setConfig(null, null, branch);
+    const st = document.getElementById('github-status');
+    st.textContent = '✓ 配置已保存';
+    st.style.color = '#16a34a';
+    setTimeout(() => { st.textContent = ''; }, 3000);
+}
+
+function loadGitHubConfig() {
+    if (typeof GitHubSync === 'undefined') return;
+    const c = GitHubSync.getConfig();
+    const tokenEl = document.getElementById('github-token');
+    const repoEl = document.getElementById('github-repo');
+    const branchEl = document.getElementById('github-branch');
+    if (tokenEl) tokenEl.value = c.token;
+    if (repoEl) repoEl.value = c.repo;
+    if (branchEl) branchEl.value = c.branch;
+}
+
+function testGitHubDeploy() {
+    if (typeof GitHubSync === 'undefined') { alert('github-sync.js 未加载'); return; }
+    if (!GitHubSync.isConfigured()) { alert('请先填写 GitHub Token 和仓库地址'); return; }
+    const st = document.getElementById('github-status');
+    st.textContent = '部署中...';
+    st.style.color = '#0369a1';
+    GitHubSync.deployData({
+        products: products,
+        orders: orders,
+        reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+        customers: customers,
+        users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+        settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}')
+    }, 'Test deploy from admin panel').then(url => {
+        st.textContent = '✓ 部署成功！';
+        st.style.color = '#16a34a';
+        setTimeout(() => { st.textContent = ''; }, 5000);
+    }).catch(e => {
+        st.textContent = '✗ 部署失败: ' + e.message;
+        st.style.color = '#ef4444';
+    });
 }
