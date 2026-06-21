@@ -326,7 +326,7 @@ function loadProducts() {
 function syncFromGitHubData() {
     if (typeof GitHubSync === 'undefined') return Promise.resolve(null);
     return GitHubSync.fetchData().then(data => {
-        if (data && data.products && data.products.length > 0) {
+        if (data && data.products) {
             products = data.products;
             localStorage.setItem('shopnext_products', JSON.stringify(products));
             const pid = new URLSearchParams(window.location.search).get('id');
