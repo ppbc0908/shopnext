@@ -965,6 +965,7 @@
         function saveHeaderData() {
             headerData.searchPlaceholder = document.getElementById('search-placeholder').value;
             localStorage.setItem('shopnext_header_v1', JSON.stringify(headerData));
+            syncFooterAdminToGitHub('Update header');
             showNotification('Header changes saved successfully!');
         }
 
@@ -1171,6 +1172,7 @@
             footerData.copyright = document.getElementById('copyright-input').value;
             
             localStorage.setItem('shopnext_footer_v2', JSON.stringify(footerData));
+            syncFooterAdminToGitHub('Update footer');
             showNotification('Changes saved successfully! Refresh other pages to see updates.');
         }
 
@@ -1208,6 +1210,26 @@
         document.getElementById('business-email').addEventListener('input', updatePreview);
         document.getElementById('business-hours').addEventListener('input', updatePreview);
         document.getElementById('search-placeholder').addEventListener('input', updateHeaderPreview);
+    </script>
+    <script src="github-sync.js?v=10"></script>
+    <script>
+    function syncFooterAdminToGitHub(message) {
+        if (typeof GitHubSync === 'undefined' || !GitHubSync.isConfigured()) return;
+        const allData = {
+            products: JSON.parse(localStorage.getItem('shopnext_products') || '[]'),
+            orders: JSON.parse(localStorage.getItem('shopnext_orders') || '[]'),
+            reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+            customers: JSON.parse(localStorage.getItem('shopnext_customers') || '[]'),
+            users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+            settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+            header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+            footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+            promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+        };
+        GitHubSync.deployData(allData, message || 'Update site data').then(url => {
+            if (url) console.log('GitHub deploy OK');
+        }).catch(e => console.warn('GitHub deploy failed:', e));
+    }
     </script>
 </body>
 </html>
