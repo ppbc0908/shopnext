@@ -1,4 +1,142 @@
-﻿const defaultProducts = [];
+﻿const defaultProducts = [
+    {
+        id: 1,
+        name: "Premium Wireless Noise-Cancelling Headphones",
+        category: "Electronics",
+        price: 299.99,
+        originalPrice: 399.99,
+        images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop"],
+        rating: 4.8,
+        reviews: 256,
+        badge: "Best Seller",
+        description: "Experience crystal-clear audio with active noise cancellation and 30-hour battery life.",
+        status: "active",
+        stock: 45,
+        seller: "AudioTech Official",
+        brand: "AudioTech",
+        about: ["Active Noise Cancellation", "30-hour battery life", "Premium 40mm drivers"],
+        specs: {"Brand": "AudioTech", "Connectivity": "Bluetooth 5.0", "Battery Life": "30 hours"}
+    },
+    {
+        id: 2,
+        name: "4K Ultra HD Smart TV 55 inch",
+        category: "Electronics",
+        price: 499.99,
+        originalPrice: 699.99,
+        images: ["https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop"],
+        rating: 4.6,
+        reviews: 189,
+        badge: "Sale",
+        description: "Stunning 4K picture quality with smart TV features and voice control.",
+        status: "active",
+        stock: 12,
+        seller: "VisionPlus Store",
+        about: ["True 4K UHD resolution", "HDR10+ support", "Built-in voice assistant"],
+        specs: {"Brand": "VisionPlus", "Resolution": "3840 x 2160", "Screen Size": "55 inches"}
+    },
+    {
+        id: 3,
+        name: "Building Blocks Creative Set 1000 Pieces",
+        category: "Toys & Hobbies",
+        price: 49.99,
+        originalPrice: 69.99,
+        images: ["https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"],
+        rating: 4.9,
+        reviews: 412,
+        badge: "Top Rated",
+        description: "Unleash creativity with 1000 colorful building blocks for endless fun.",
+        status: "active",
+        stock: 128,
+        seller: "PlayTime Toys",
+        about: ["1000 pieces in 20+ colors", "Compatible with all major brands", "BPA-free ABS plastic"],
+        specs: {"Brand": "BlockMaster", "Piece Count": "1000", "Material": "ABS Plastic"}
+    },
+    {
+        id: 4,
+        name: "Remote Control Racing Car",
+        category: "Toys & Hobbies",
+        price: 79.99,
+        originalPrice: 99.99,
+        images: ["https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=600&h=600&fit=crop"],
+        rating: 4.5,
+        reviews: 156,
+        badge: "New",
+        description: "High-speed RC car with realistic controls and durable design.",
+        status: "active",
+        stock: 34,
+        seller: "SpeedZone RC",
+        about: ["Speeds up to 30 mph", "2.4GHz frequency", "All-terrain tires"],
+        specs: {"Brand": "SpeedZone", "Scale": "1:16", "Speed": "30 mph"}
+    },
+    {
+        id: 5,
+        name: "Professional Yoga Mat with Carrying Strap",
+        category: "Health & Fitness",
+        price: 39.99,
+        originalPrice: 59.99,
+        images: ["https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop"],
+        rating: 4.7,
+        reviews: 328,
+        badge: "Best Value",
+        description: "Non-slip, eco-friendly yoga mat perfect for all types of exercises.",
+        status: "active",
+        stock: 89,
+        seller: "YogaLife Store",
+        about: ["6mm thick cushioning", "Non-slip surface", "Eco-friendly TPE material"],
+        specs: {"Brand": "YogaLife", "Material": "TPE", "Thickness": "6mm"}
+    },
+    {
+        id: 6,
+        name: "Adjustable Dumbbell Set 50 lbs",
+        category: "Health & Fitness",
+        price: 199.99,
+        originalPrice: 299.99,
+        images: ["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"],
+        rating: 4.8,
+        reviews: 203,
+        badge: "Popular",
+        description: "Space-saving adjustable dumbbells for your home gym workouts.",
+        status: "active",
+        stock: 23,
+        seller: "FitGear Pro",
+        about: ["Adjustable 5-50 lbs", "Quick-change weight", "Replaces 15 sets"],
+        specs: {"Brand": "FitGear", "Weight Range": "5-50 lbs", "Material": "Steel plates"}
+    },
+    {
+        id: 7,
+        name: "Indoor Herb Garden Kit with LED Grow Lights",
+        category: "Home & Garden",
+        price: 59.99,
+        originalPrice: 79.99,
+        images: ["https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop"],
+        rating: 4.6,
+        reviews: 167,
+        badge: "Trending",
+        description: "Grow fresh herbs year-round with this complete indoor garden system.",
+        status: "active",
+        stock: 56,
+        seller: "GreenThumb Co.",
+        about: ["Complete kit included", "Full-spectrum LED lights", "Self-watering system"],
+        specs: {"Brand": "GreenThumb", "Pod Capacity": "6 pods", "Light Type": "LED"}
+    },
+    {
+        id: 8,
+        name: "Smart Home Security Camera System",
+        category: "Home & Garden",
+        price: 149.99,
+        originalPrice: 199.99,
+        images: ["https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop"],
+        rating: 4.7,
+        reviews: 289,
+        badge: "Editor's Choice",
+        description: "Keep your home safe with 24/7 monitoring and mobile alerts.",
+        status: "active",
+        stock: 67,
+        seller: "SecureHome Tech",
+        about: ["1080p Full HD video", "Motion detection alerts", "Two-way audio"],
+        specs: {"Brand": "SecureHome", "Resolution": "1080p", "Connectivity": "Wi-Fi"}
+    }
+];
 const NO_IMG = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22 fill=%22%23e9ecef%22%3E%3Crect width=%22400%22 height=%22400%22/%3E%3Ctext x=%22200%22 y=%22210%22 font-size=%2222%22 fill=%22%23adb5bd%22 text-anchor=%22middle%22%3ENo Image%3C/text%3E%3C/svg%3E";
 
 let products = [];
@@ -27,6 +165,8 @@ function syncProductsFromFirebase() {
             localStorage.setItem('shopnext_products', JSON.stringify(products));
             renderProducts(products);
             renderRecentlyViewedHome();
+        } else if (products.length > 0) {
+            FirebaseService.saveAllProducts(products).catch(e => console.warn('Firebase seed failed:', e));
         }
     }).catch(e => console.warn('Firebase sync failed:', e));
 }
