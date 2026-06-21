@@ -41,6 +41,10 @@
                     <i class="fas fa-users"></i>
                     <span>客户管理</span>
                 </a>
+                <a href="#" class="nav-item" onclick="showSection('sync')">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>同步设置</span>
+                </a>
                 <a href="../footer-admin.html" class="nav-item">
                     <i class="fas fa-edit"></i>
                     <span>底部编辑器</span>
@@ -431,6 +435,45 @@
                     </div>
                 </div>
             </div>
+
+            <div class="sync-section" id="sync-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-cloud-upload-alt"></i> 数据同步设置</h2>
+                </div>
+                <div style="max-width:600px;padding:20px;">
+                    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:20px;margin-bottom:20px;">
+                        <h3 style="margin:0 0 10px;color:#0369a1;"><i class="fas fa-info-circle"></i> 前台数据同步</h3>
+                        <p style="color:#555;margin:0 0 15px;">配置 GitHub Token 后，每次保存商品会自动提交到 GitHub 仓库，前台网站（GitHub Pages）会在1-2分钟内自动更新。</p>
+                        <ol style="color:#555;margin:0;padding-left:20px;line-height:2;">
+                            <li>打开 <a href="https://github.com/settings/tokens" target="_blank" style="color:#0369a1;">GitHub Token 设置</a></li>
+                            <li>点击 <b>Generate new token (classic)</b></li>
+                            <li>勾选 <b>repo</b> 权限</li>
+                            <li>生成后复制 Token，粘贴到下方</li>
+                        </ol>
+                    </div>
+                    <div class="form-group" style="margin-bottom:15px;">
+                        <label style="font-weight:600;">GitHub Token</label>
+                        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:15px;">
+                        <label style="font-weight:600;">仓库</label>
+                        <input type="text" id="github-repo" placeholder="ppbc0908/shopnext" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:15px;">
+                        <label style="font-weight:600;">分支</label>
+                        <input type="text" id="github-branch" placeholder="main" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;">
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;">
+                        <button class="btn-primary" onclick="saveGitHubConfig()" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">
+                            <i class="fas fa-save"></i> 保存配置
+                        </button>
+                        <button class="btn-primary" onclick="testGitHubDeploy()" style="background:linear-gradient(135deg,#16a34a,#22c55e);">
+                            <i class="fas fa-rocket"></i> 测试部署
+                        </button>
+                        <span id="github-status" style="font-size:13px;"></span>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -619,7 +662,8 @@
         </div>
     </div>
 
-    <script src="../firebase-service.js"></script>
-    <script src="admin.js?v=3"></script>
+    <script src="../github-sync.js?v=10"></script>
+    <script src="../firebase-service.js?v=10"></script>
+    <script src="admin.js?v=10"></script>
 </body>
 </html>
