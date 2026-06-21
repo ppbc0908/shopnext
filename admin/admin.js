@@ -205,7 +205,7 @@ function initAdminData() {
     updateDashboard();
     if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
         GitHubSync.fetchData().then(data => {
-            if (data && data.products && data.products.length > 0) {
+            if (data && data.products) {
                 products = data.products;
                 localStorage.setItem('shopnext_products', JSON.stringify(products));
             }
