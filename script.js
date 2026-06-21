@@ -171,6 +171,21 @@ function syncProductsFromFirebase() {
     }).catch(e => console.warn('Firebase sync failed:', e));
 }
 
+function syncFromGitHubData() {
+    if (typeof GitHubSync === 'undefined') return Promise.resolve(null);
+    return GitHubSync.fetchData().then(data => {
+        if (data && data.products && data.products.length > 0) {
+            products = data.products;
+            localStorage.setItem('shopnext_products', JSON.stringify(products));
+            renderProducts(products);
+            renderRecentlyViewedHome();
+            if (data.reviews) localStorage.setItem('shopnext_reviews', JSON.stringify(data.reviews));
+            return data;
+        }
+        return null;
+    }).catch(e => { console.warn('GitHub sync failed:', e); return null; });
+}
+
 function syncReviewsFromFirebase() {
     if (typeof FirebaseService === 'undefined' || !FirebaseService.isReady()) return;
     FirebaseService.getReviews().then(fbReviews => {
@@ -390,6 +405,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startHeroSlider();
     initAnimations();
     renderRecentlyViewedHome();
-    syncProductsFromFirebase();
+    syncFromGitHubData().then(gitHubData => {
+        if (!gitHubData) syncProductsFromFirebase();
+    });
     syncReviewsFromFirebase();
 });
