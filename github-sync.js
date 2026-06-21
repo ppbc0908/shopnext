@@ -8,7 +8,7 @@ const GitHubSync = {
         return {
             token: localStorage.getItem(this.TOKEN_KEY) || '',
             repo: localStorage.getItem(this.REPO_KEY) || 'ppbc0908/shopnext',
-            branch: localStorage.getItem(this.BRANCH_KEY) || 'main'
+            branch: localStorage.getItem(this.BRANCH_KEY) || 'master'
         };
     },
 
