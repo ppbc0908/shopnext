@@ -449,60 +449,6 @@
       "category": "Health & Fitness",
       "originalPrice": 299.99,
       "description": "Space-saving adjustable dumbbells for your home gym workouts."
-    },
-    {
-      "originalPrice": 79.99,
-      "category": "Home & Garden",
-      "description": "Grow fresh herbs year-round with this complete indoor garden system.",
-      "rating": 4.6,
-      "about": [
-        "Complete kit included",
-        "Full-spectrum LED lights",
-        "Self-watering system"
-      ],
-      "id": 7,
-      "status": "active",
-      "badge": "Trending",
-      "specs": {
-        "Brand": "GreenThumb",
-        "Pod Capacity": "6 pods",
-        "Light Type": "LED"
-      },
-      "stock": 56,
-      "images": [
-        "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop"
-      ],
-      "reviews": 167,
-      "seller": "GreenThumb Co.",
-      "name": "Indoor Herb Garden Kit with LED Grow Lights",
-      "price": 59.99
-    },
-    {
-      "badge": "Editor's Choice",
-      "status": "active",
-      "id": 8,
-      "rating": 4.7,
-      "description": "Keep your home safe with 24/7 monitoring and mobile alerts.",
-      "category": "Home & Garden",
-      "originalPrice": 199.99,
-      "about": [
-        "1080p Full HD video",
-        "Motion detection alerts",
-        "Two-way audio"
-      ],
-      "name": "Smart Home Security Camera System",
-      "seller": "SecureHome Tech",
-      "reviews": 289,
-      "price": 149.99,
-      "images": [
-        "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop"
-      ],
-      "stock": 67,
-      "specs": {
-        "Connectivity": "Wi-Fi",
-        "Resolution": "1080p",
-        "Brand": "SecureHome"
-      }
     }
   ],
   "orders": [
