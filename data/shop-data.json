@@ -17,19 +17,9 @@
             "icon": "fab fa-facebook"
           },
           {
-            "text": "Twitter",
-            "url": "#",
-            "icon": "fab fa-twitter"
-          },
-          {
             "text": "Instagram",
             "url": "#",
             "icon": "fab fa-instagram"
-          },
-          {
-            "text": "YouTube",
-            "url": "#",
-            "icon": "fab fa-youtube"
           },
           {
             "text": "Pinterest",
