@@ -383,6 +383,20 @@ async function placeOrder() {
             FirebaseService.saveCustomer(latestCustomer).catch(() => {});
         }
     }
+    if (typeof GitHubSync !== 'undefined' && GitHubSync.isConfigured()) {
+        const allData = {
+            products: JSON.parse(localStorage.getItem('shopnext_products') || '[]'),
+            orders: orders,
+            reviews: JSON.parse(localStorage.getItem('shopnext_reviews') || '{}'),
+            customers: customers,
+            users: JSON.parse(localStorage.getItem('shopnext_users') || '[]'),
+            settings: JSON.parse(localStorage.getItem('shopnext_settings') || '{}'),
+            header: JSON.parse(localStorage.getItem('shopnext_header_v1') || 'null'),
+            footer: JSON.parse(localStorage.getItem('shopnext_footer_v2') || 'null'),
+            promotions: JSON.parse(localStorage.getItem('shopnext_promotions') || 'null')
+        };
+        GitHubSync.deployData(allData, 'New order placed').catch(e => console.warn('GitHub sync failed:', e));
+    }
     
     cart = [];
     localStorage.setItem('shopnext_cart', JSON.stringify(cart));
