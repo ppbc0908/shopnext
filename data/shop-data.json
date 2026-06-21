@@ -6,9 +6,7 @@
       "category": "Electronics",
       "price": 299.99,
       "originalPrice": 399.99,
-      "images": [
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop"],
       "rating": 4.8,
       "reviews": 256,
       "badge": "Best Seller",
@@ -17,16 +15,8 @@
       "stock": 45,
       "seller": "AudioTech Official",
       "brand": "AudioTech",
-      "about": [
-        "Active Noise Cancellation",
-        "30-hour battery life",
-        "Premium 40mm drivers"
-      ],
-      "specs": {
-        "Brand": "AudioTech",
-        "Connectivity": "Bluetooth 5.0",
-        "Battery Life": "30 hours"
-      }
+      "about": ["Active Noise Cancellation", "30-hour battery life", "Premium 40mm drivers"],
+      "specs": {"Brand": "AudioTech", "Connectivity": "Bluetooth 5.0", "Battery Life": "30 hours"}
     },
     {
       "id": 2,
@@ -34,9 +24,7 @@
       "category": "Electronics",
       "price": 499.99,
       "originalPrice": 699.99,
-      "images": [
-        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop"],
       "rating": 4.6,
       "reviews": 189,
       "badge": "Sale",
@@ -44,16 +32,8 @@
       "status": "active",
       "stock": 12,
       "seller": "VisionPlus Store",
-      "about": [
-        "True 4K UHD resolution",
-        "HDR10+ support",
-        "Built-in voice assistant"
-      ],
-      "specs": {
-        "Brand": "VisionPlus",
-        "Resolution": "3840 x 2160",
-        "Screen Size": "55 inches"
-      }
+      "about": ["True 4K UHD resolution", "HDR10+ support", "Built-in voice assistant"],
+      "specs": {"Brand": "VisionPlus", "Resolution": "3840 x 2160", "Screen Size": "55 inches"}
     },
     {
       "id": 3,
@@ -61,9 +41,7 @@
       "category": "Toys & Hobbies",
       "price": 49.99,
       "originalPrice": 69.99,
-      "images": [
-        "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=600&fit=crop"],
       "rating": 4.9,
       "reviews": 412,
       "badge": "Top Rated",
@@ -71,16 +49,8 @@
       "status": "active",
       "stock": 128,
       "seller": "PlayTime Toys",
-      "about": [
-        "1000 pieces in 20+ colors",
-        "Compatible with all major brands",
-        "BPA-free ABS plastic"
-      ],
-      "specs": {
-        "Brand": "BlockMaster",
-        "Piece Count": "1000",
-        "Material": "ABS Plastic"
-      }
+      "about": ["1000 pieces in 20+ colors", "Compatible with all major brands", "BPA-free ABS plastic"],
+      "specs": {"Brand": "BlockMaster", "Piece Count": "1000", "Material": "ABS Plastic"}
     },
     {
       "id": 4,
@@ -88,9 +58,7 @@
       "category": "Toys & Hobbies",
       "price": 79.99,
       "originalPrice": 99.99,
-      "images": [
-        "https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=600&h=600&fit=crop"],
       "rating": 4.5,
       "reviews": 156,
       "badge": "New",
@@ -98,16 +66,8 @@
       "status": "active",
       "stock": 34,
       "seller": "SpeedZone RC",
-      "about": [
-        "Speeds up to 30 mph",
-        "2.4GHz frequency",
-        "All-terrain tires"
-      ],
-      "specs": {
-        "Brand": "SpeedZone",
-        "Scale": "1:16",
-        "Speed": "30 mph"
-      }
+      "about": ["Speeds up to 30 mph", "2.4GHz frequency", "All-terrain tires"],
+      "specs": {"Brand": "SpeedZone", "Scale": "1:16", "Speed": "30 mph"}
     },
     {
       "id": 5,
@@ -115,9 +75,7 @@
       "category": "Health & Fitness",
       "price": 39.99,
       "originalPrice": 59.99,
-      "images": [
-        "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop"],
       "rating": 4.7,
       "reviews": 328,
       "badge": "Best Value",
@@ -125,16 +83,8 @@
       "status": "active",
       "stock": 89,
       "seller": "YogaLife Store",
-      "about": [
-        "6mm thick cushioning",
-        "Non-slip surface",
-        "Eco-friendly TPE material"
-      ],
-      "specs": {
-        "Brand": "YogaLife",
-        "Material": "TPE",
-        "Thickness": "6mm"
-      }
+      "about": ["6mm thick cushioning", "Non-slip surface", "Eco-friendly TPE material"],
+      "specs": {"Brand": "YogaLife", "Material": "TPE", "Thickness": "6mm"}
     },
     {
       "id": 6,
@@ -142,9 +92,7 @@
       "category": "Health & Fitness",
       "price": 199.99,
       "originalPrice": 299.99,
-      "images": [
-        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"],
       "rating": 4.8,
       "reviews": 203,
       "badge": "Popular",
@@ -152,16 +100,8 @@
       "status": "active",
       "stock": 23,
       "seller": "FitGear Pro",
-      "about": [
-        "Adjustable 5-50 lbs",
-        "Quick-change weight",
-        "Replaces 15 sets"
-      ],
-      "specs": {
-        "Brand": "FitGear",
-        "Weight Range": "5-50 lbs",
-        "Material": "Steel plates"
-      }
+      "about": ["Adjustable 5-50 lbs", "Quick-change weight", "Replaces 15 sets"],
+      "specs": {"Brand": "FitGear", "Weight Range": "5-50 lbs", "Material": "Steel plates"}
     },
     {
       "id": 7,
@@ -169,9 +109,7 @@
       "category": "Home & Garden",
       "price": 59.99,
       "originalPrice": 79.99,
-      "images": [
-        "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop"],
       "rating": 4.6,
       "reviews": 167,
       "badge": "Trending",
@@ -179,16 +117,8 @@
       "status": "active",
       "stock": 56,
       "seller": "GreenThumb Co.",
-      "about": [
-        "Complete kit included",
-        "Full-spectrum LED lights",
-        "Self-watering system"
-      ],
-      "specs": {
-        "Brand": "GreenThumb",
-        "Pod Capacity": "6 pods",
-        "Light Type": "LED"
-      }
+      "about": ["Complete kit included", "Full-spectrum LED lights", "Self-watering system"],
+      "specs": {"Brand": "GreenThumb", "Pod Capacity": "6 pods", "Light Type": "LED"}
     },
     {
       "id": 8,
@@ -196,9 +126,7 @@
       "category": "Home & Garden",
       "price": 149.99,
       "originalPrice": 199.99,
-      "images": [
-        "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop"
-      ],
+      "images": ["https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop"],
       "rating": 4.7,
       "reviews": 289,
       "badge": "Editor's Choice",
@@ -206,16 +134,8 @@
       "status": "active",
       "stock": 67,
       "seller": "SecureHome Tech",
-      "about": [
-        "1080p Full HD video",
-        "Motion detection alerts",
-        "Two-way audio"
-      ],
-      "specs": {
-        "Brand": "SecureHome",
-        "Resolution": "1080p",
-        "Connectivity": "Wi-Fi"
-      }
+      "about": ["1080p Full HD video", "Motion detection alerts", "Two-way audio"],
+      "specs": {"Brand": "SecureHome", "Resolution": "1080p", "Connectivity": "Wi-Fi"}
     }
   ],
   "orders": [],
