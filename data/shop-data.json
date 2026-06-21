@@ -397,33 +397,6 @@
       "name": "2"
     },
     {
-      "price": 79.99,
-      "reviews": 156,
-      "seller": "SpeedZone RC",
-      "name": "Remote Control Racing Car",
-      "stock": 34,
-      "specs": {
-        "Scale": "1:16",
-        "Speed": "30 mph",
-        "Brand": "SpeedZone"
-      },
-      "images": [
-        "https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=600&h=600&fit=crop"
-      ],
-      "id": 4,
-      "status": "active",
-      "badge": "New",
-      "about": [
-        "Speeds up to 30 mph",
-        "2.4GHz frequency",
-        "All-terrain tires"
-      ],
-      "originalPrice": 99.99,
-      "category": "Toys & Hobbies",
-      "description": "High-speed RC car with realistic controls and durable design.",
-      "rating": 4.5
-    },
-    {
       "price": 39.99,
       "reviews": 328,
       "seller": "YogaLife Store",
