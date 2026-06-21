@@ -1208,6 +1208,7 @@ function deleteAllReviews() {
             });
         }).catch(() => {});
     }
+    syncToGitHub('Delete all reviews');
     renderReviewsAdmin();
     showNotification('所有评论已删除！');
 }
